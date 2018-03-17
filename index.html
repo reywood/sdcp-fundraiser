@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>San Diego Cooperative Preschool Fundraiser</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Syncopate:700" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- OpenGraph tags -->
+    <meta property="og:site_name" content="San Diego Cooperative Preschool Fundraiser">
+    <meta property="og:description" content="Join us on the evening of May 18 2018 for an evening of wine &amp; whisky benefitting the San Diego Cooperative Preschool. Dinner and dancing for all!">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+</head>
+<body>
+
+<div class="section1">
+    <p class="join-us caps">Join us</p>
+
+    <h1 class="event-date caps">May 18 2018</h1>
+
+    <p class="caps">An evening of wine &amp; whisky</p>
+
+    <p>&nbsp;</p>
+
+    <p class="cursive">Benefitting</p>
+
+    <p class="caps">San Diego Cooperative Preschool</p>
+
+    <p class="cursive">Dinner &amp; dancing for all</p>
+
+    <p>
+        <a id="buy-tickets-button" href="#buy-tickets" class="btn">
+            Buy Tickets
+        </a>
+    </p>
+
+    <div class="bubbles">
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+        <div class="bubble"></div>
+    </div>
+</div>
+
+<div class="section2">
+    <p>
+        Mark your calendars for May 18th! The Gala committee has been hard at work planning an incredible evening for everyone. Can't wait to see you there!
+    </p>
+
+    <h2 id="buy-tickets">Buy Your Tickets</h2>
+
+    <p>
+        Please select the amount you would like to pay per ticket:
+        <form>
+            <input type="radio" name="ticket-amount" value="50" checked> $50<br>
+            <input type="radio" name="ticket-amount" value="75"> $75<br>
+            <input type="radio" name="ticket-amount" value="100"> $100<br>
+            <input type="radio" name="ticket-amount" value="other"> other
+            <input type="text" name="other-amount" placeholder="$"><br>
+
+            <br><br>
+            Quantity:
+            <input type="text" pattern="\d*" name="ticket-quantity" value="1">
+        </form>
+
+        <br>
+        <div id="paypal-button"></div>
+    </p>
+
+    <h3>Unable to make it? You can still make a difference!</h3>
+
+    <p>
+        Contributions will be used to further the education of your teachers.
+    </p>
+
+    <p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_donations">
+            <input type="hidden" name="business" value="sean.dwyer@gmail.com">
+            <input type="hidden" name="lc" value="US">
+            <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
+            <input type="hidden" name="no_note" value="0">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
+            <!-- <input type="image" src="http://i0.wp.com/www.sdcooppreschool.org/wp-content/uploads/2014/11/almost-wink.jpg?zoom=2&resize=400%2C427" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"> -->
+            <button class="btn btn-success">Make a Donation</button>
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+    </p>
+</div>
+
+<footer>
+    <p class="social-links">
+        <a href="https://www.facebook.com/San-Diego-Cooperative-Preschool-UCP-132776756765321/" title="Facebook"><span class="fa fa-facebook-square"><span class="sr-only">Facebook</span></span></a>
+
+        <a href="https://www.yelp.com/biz/san-diego-cooperative-preschool-san-diego" title="Yelp"><span class="fa fa-yelp"><span class="sr-only">Yelp</span></span></a>
+    </p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
