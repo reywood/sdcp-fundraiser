@@ -4,7 +4,7 @@
     left: 0;
     overflow: hidden;
     padding: 1em;
-    perspective: 100cm;
+    perspective: 70cm;
     position: absolute;
     right: 0;
     top: 0;
@@ -72,8 +72,8 @@
 
 @keyframes fade-opacity {
     0% {
-        opacity: .8;
-        transform: rotateY(-20deg);
+        opacity: .7;
+        transform: rotateY(-25deg);
     }
 
     50% {
@@ -82,8 +82,8 @@
     }
 
     100% {
-        opacity: .8;
-        transform: rotateY(20deg);
+        opacity: .7;
+        transform: rotateY(25deg);
     }
 }
 

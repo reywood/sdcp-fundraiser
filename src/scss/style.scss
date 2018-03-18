@@ -1,0 +1,145 @@
+@import 'normalize';
+
+body {
+    &.sdcp {
+        background-color: #555;
+        color: #fff;
+
+        * {
+            font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+        }
+
+        .section1,
+        .section2,
+        footer {
+            padding: 2em;
+        }
+
+        .section1 {
+            @import 'bubbles';
+
+            $text-color: #eed;
+
+            // background-color: #000;
+            color: $text-color;
+            font-size: 1.5em;
+            position: relative;
+            text-align: center;
+
+            .join-us {
+                font-size: 1.2em;
+            }
+
+            .event-date {
+                color: #000;
+                font-family: 'Syncopate', sans-serif;
+                font-weight: 500;
+                margin-bottom: 0;
+                text-shadow: 0 -1px 1px $text-color, 0 1px 1px $text-color, -1px 0 1px $text-color, 1px 0 1px $text-color, -1px -1px 1px $text-color, 1px 1px 1px $text-color, 1px -1px 1px $text-color, -1px 1px 1px $text-color;
+            }
+
+            .time-left {
+                color: #888;
+                font-size: .7em;
+                margin-top: 0;
+                min-height: 1em;
+            }
+
+            .benefitting {
+                margin-top: 2em;
+            }
+
+            .btn {
+                margin-top: .8em;
+            }
+        }
+
+        .section2 {
+            background-color: #fff;
+            color: #555;
+            font-size: 1.3em;
+            text-align: center;
+
+            p {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 50em;
+            }
+
+            .purchase-container {
+                background-color: #f5f5f5;
+                box-shadow: 4px 4px #ddd;
+                margin: 0 auto;
+                max-width: 20em;
+                padding: 1em 2em;
+                text-align: left;
+
+                p {
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+
+                .paypal-button {
+                    margin: 0 auto;
+                    text-align: center;
+                }
+            }
+
+            h2,
+            h3 {
+                margin-top: 3em;
+            }
+        }
+
+        footer {
+            text-align: center;
+
+            .social-links {
+                font-size: 3em;
+                margin: 0;
+                padding: 0;
+
+                a {
+                    color: #fff;
+                    margin: 0 .2em;
+                }
+            }
+        }
+
+        .caps {
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        .cursive {
+            font-family: 'Lobster', cursive;
+        }
+
+        .btn {
+            border-radius: 0;
+            font-size: 1.2em;
+        }
+
+        .btn-dark {
+            background-color: #222;
+            color: #ffd700;
+            font-size: 1.2em;
+        }
+
+        .btn-light {
+            background-color: #ffd700;
+            border-width: 0;
+            color: #000;
+
+            &:hover {
+                background-color: lighten(#ffd700, 10%);
+                color: #000;
+            }
+
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+}

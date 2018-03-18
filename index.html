@@ -2,9 +2,10 @@
 <html>
 <head>
     <title>San Diego Cooperative Preschool Fundraiser</title>
-    <link href="style.css" rel="stylesheet">
+    <link href="lib/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Syncopate:700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,25 +22,25 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 </head>
-<body>
+<body class="sdcp">
 
 <div class="section1">
     <p class="join-us caps">Join us</p>
 
     <h1 class="event-date caps">May 18 2018</h1>
 
+    <p class="time-left"></p>
+
     <p class="caps">An evening of wine &amp; whisky</p>
 
-    <p>&nbsp;</p>
-
-    <p class="cursive">Benefitting</p>
+    <p class="benefitting cursive">Benefitting</p>
 
     <p class="caps">San Diego Cooperative Preschool</p>
 
     <p class="cursive">Dinner &amp; dancing for all</p>
 
     <p>
-        <a id="buy-tickets-button" href="#buy-tickets" class="btn">
+        <a id="buy-tickets-button" href="#buy-tickets" class="btn btn-light">
             Buy Tickets
         </a>
     </p>
@@ -95,23 +96,47 @@
 
     <h2 id="buy-tickets">Buy Your Tickets</h2>
 
-    <p>
-        Please select the amount you would like to pay per ticket:
+    <div class="purchase-container">
+        <p>
+            Please select the amount you would like to donate per ticket:
+        </p>
         <form>
-            <input type="radio" name="ticket-amount" value="50" checked> $50<br>
-            <input type="radio" name="ticket-amount" value="75"> $75<br>
-            <input type="radio" name="ticket-amount" value="100"> $100<br>
-            <input type="radio" name="ticket-amount" value="other"> other
-            <input type="text" name="other-amount" placeholder="$"><br>
-
-            <br><br>
-            Quantity:
-            <input type="text" pattern="\d*" name="ticket-quantity" value="1">
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">Amount</legend>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input id="ticket-amount-50" class="form-check-input" type="radio" name="ticket-amount" value="50" checked>
+                            <label class="form-check-label" for="ticket-amount-50">$50</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="ticket-amount-75" class="form-check-input" type="radio" name="ticket-amount" value="75">
+                            <label class="form-check-label" for="ticket-amount-75">$75</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="ticket-amount-100" class="form-check-input" type="radio" name="ticket-amount" value="100">
+                            <label class="form-check-label" for="ticket-amount-100">$100</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="ticket-amount-other" class="form-check-input" type="radio" name="ticket-amount" value="other">
+                            <label class="form-check-label" for="ticket-amount-other">
+                                <input class="form-control" type="text" name="other-amount" placeholder="Other amount" pattern="\d*">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="form-group row">
+                <label class="col-sm-3" for="ticket-quantity">Quantity</label>
+                <div class="col-sm-9">
+                    <input id="ticket-quantity" class="form-control" type="text" name="ticket-quantity" value="1" pattern="\d*">
+                </div>
+            </div>
         </form>
 
         <br>
-        <div id="paypal-button"></div>
-    </p>
+        <div id="paypal-button" class="paypal-button"></div>
+    </div>
 
     <h3>Unable to make it? You can still make a difference!</h3>
 
@@ -129,7 +154,7 @@
             <input type="hidden" name="currency_code" value="USD">
             <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
             <!-- <input type="image" src="http://i0.wp.com/www.sdcooppreschool.org/wp-content/uploads/2014/11/almost-wink.jpg?zoom=2&resize=400%2C427" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"> -->
-            <button class="btn btn-success">Make a Donation</button>
+            <button class="btn btn-light">Make a Donation</button>
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
     </p>
@@ -143,7 +168,7 @@
     </p>
 </footer>
 
-<script src="script.js"></script>
+<script src="lib/script.js"></script>
 
 </body>
 </html>
