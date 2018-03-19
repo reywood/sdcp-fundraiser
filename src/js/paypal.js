@@ -1,13 +1,18 @@
 function getSelectedPrice() {
     alert('FIX THIS');
-    return 50;
+    let selectedAmount = $('input[name="ticket-amount"]:checked').val();
+    if (selectedAmount === 'other') {
+        selectedAmount = $('input[name="other-amount"]').val();
+    }
+    return selectedAmount;
 }
 
 $(() => {
     paypal.Button.render({
-        env: 'sandbox',
+        env: 'sandbox', // 'sandbox' or 'production'
         client: {
             sandbox: 'AaQRVNv7BECRqF0l5Ew2F4cxn061h8SubfgACiIDe8khVIpmIRG-OKeREjMSXqQwMInoJehvwhk0DhEz',
+            production: 'AYYXWikffgqwzhJ3UPmTWEzgBBAU_LH09_ie90W_aJjvmboivxKHjU4TRoFND576csELUppEN2-w9pXz',
         },
         style: {
             size: 'responsive',
