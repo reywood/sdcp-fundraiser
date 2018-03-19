@@ -3,14 +3,14 @@ BIN_DIR := $(ROOT_DIR)/node_modules/.bin
 NODE_SASS := $(BIN_DIR)/node-sass
 BABEL := $(BIN_DIR)/babel
 
-.PHONY: build build-css watch-css run-server
+.PHONY: build build-css watch-css build-js watch-js run-server
 
 build: build-js build-css
 
-build-js:
+build-js: $(BABEL)
 	$(BABEL) src/js/ --out-file lib/script.js
 
-watch-js:
+watch-js: $(BABEL) build-js
 	$(BABEL) src/js/ --watch --out-file lib/script.js
 
 build-css: $(NODE_SASS)
@@ -21,6 +21,10 @@ watch-css: $(NODE_SASS) build-css
 
 run-server:
 	npm start
+
+upload: build
+	aws s3 cp --profile cli --acl public-read index.html s3://www.sdcpfundraiser.org/
+	aws s3 cp --profile cli --acl public-read --recursive lib s3://www.sdcpfundraiser.org/lib/
 
 $(BABEL):
 	npm install
