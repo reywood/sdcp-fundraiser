@@ -1,10 +1,9 @@
 $(() => {
-    $('#buy-tickets-button').click((e) => {
+    $('#buy-tickets-link, #donate-link').click((e) => {
         e.preventDefault();
 
-        $('html, body').animate({
-            scrollTop: $('#buy-tickets').offset().top,
-        }, 500);
+        const $linkToElement = $($(e.target).attr('href'));
+        $('html, body').animate({scrollTop: $linkToElement.offset().top}, 500);
     });
 
     $('input[name="other-amount"]').on('input', (e) => {

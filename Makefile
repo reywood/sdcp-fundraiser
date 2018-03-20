@@ -23,6 +23,8 @@ run-server:
 	npm start
 
 upload: build
+	@echo 'Making sure production Paypal is enabled'
+	@grep "env: 'production'" src/js/paypal.js > /dev/null
 	aws s3 cp --profile cli --acl public-read index.html s3://www.sdcpfundraiser.org/
 	aws s3 cp --profile cli --acl public-read --recursive lib s3://www.sdcpfundraiser.org/lib/
 

@@ -13,7 +13,7 @@
         gtag('config', 'UA-116051168-1');
     </script>
 
-    <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Syncopate:700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Syncopate:700|Allura" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/style.css" rel="stylesheet">
@@ -42,7 +42,7 @@
 
     <p class="time-left"></p>
 
-    <p class="caps">An evening of wine &amp; whisky</p>
+    <p class="caps">An evening of wine &amp; whiskey</p>
 
     <p class="benefitting cursive">Benefitting</p>
 
@@ -50,9 +50,13 @@
 
     <p class="cursive">Dinner &amp; dancing for all</p>
 
-    <p>
-        <a id="buy-tickets-button" href="#buy-tickets" class="btn btn-light">
+    <p class="internal-page-links">
+        <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light">
             Buy Tickets
+        </a>
+        <span class="cursive">or</span>
+        <a id="donate-link" href="#donate" class="btn btn-light">
+            Donate
         </a>
     </p>
 
@@ -121,11 +125,11 @@
                             <label class="form-check-label" for="ticket-amount-50">$50 <small>admits one</small></label>
                         </div>
                         <div class="form-check">
-                            <input id="ticket-amount-75" class="form-check-input" type="radio" name="ticket-amount" value="75">
+                            <input id="ticket-amount-75" class="form-check-input" type="radio" name="ticket-amount" value="75" data-extras="2 raffle tickets">
                             <label class="form-check-label" for="ticket-amount-75">$75 <small>admits one + 2 raffle tickets ($90 value)</small></label>
                         </div>
                         <div class="form-check">
-                            <input id="ticket-amount-100" class="form-check-input" type="radio" name="ticket-amount" value="100">
+                            <input id="ticket-amount-100" class="form-check-input" type="radio" name="ticket-amount" value="100" data-extras="5 raffle tickets">
                             <label class="form-check-label" for="ticket-amount-100">$100 <small>admits one + 5 raffle tickets ($150 value)</small></label>
                         </div>
                         <!-- <div class="form-check">
@@ -148,15 +152,19 @@
                     <legend class="col-form-label col-sm-3 pt-0">We are a/an</legend>
                     <div class="col-sm-9">
                         <div class="form-check">
-                            <input id="attendee-type-alum" class="form-check-input" type="radio" name="attendee-type" value="alum">
-                            <label class="form-check-label" for="attendee-type-alum">Currently enrolled family / Alum</label>
+                            <input id="attendee-type-current" class="form-check-input" type="radio" name="attendee-type" value="current family">
+                            <label class="form-check-label" for="attendee-type-current">Currently enrolled family</label>
                         </div>
                         <div class="form-check">
-                            <input id="attendee-type-new-family" class="form-check-input" type="radio" name="attendee-type" value="new-family">
+                            <input id="attendee-type-alum" class="form-check-input" type="radio" name="attendee-type" value="alum">
+                            <label class="form-check-label" for="attendee-type-alum">Alum</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="attendee-type-new-family" class="form-check-input" type="radio" name="attendee-type" value="new family">
                             <label class="form-check-label" for="attendee-type-new-family">New family</label>
                         </div>
                         <div class="form-check">
-                            <input id="attendee-type-friend" class="form-check-input" type="radio" name="attendee-type" value="friend">
+                            <input id="attendee-type-friend" class="form-check-input" type="radio" name="attendee-type" value="grandparent / special friend">
                             <label class="form-check-label" for="attendee-type-friend">Grandparent / Special friend</label>
                         </div>
                     </div>
@@ -166,9 +174,18 @@
 
         <br>
         <div id="paypal-button" class="paypal-button"></div>
+
+        <p class="validation-error">
+            Please be sure to fill out all of the above fields
+        </p>
+
+        <p class="purchase-thank-you">
+            Thank you!<br>
+            Your tickets have been reserved
+        </p>
     </div>
 
-    <h3>Unable to make it to the party? You can still make a difference!</h3>
+    <h3 id="donate">Unable to make it to the party? You can still make a difference!</h3>
 
     <p>
         Contributions will be used to further the education of your teachers.
