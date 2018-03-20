@@ -57,6 +57,16 @@ function validate() {
     }
 }
 
+function doAllFieldsPassValidation() {
+    try {
+        validate();
+        return true;
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 class FormValidationError extends Error {
     constructor(message) {
         super(message);
@@ -68,21 +78,27 @@ function onFormInputChange(handler) {
 }
 
 function togglePaypalButton(actions) {
-    try {
-        validate();
+    if (doAllFieldsPassValidation()) {
         actions.enable();
-    } catch (error) {
+    } else {
         actions.disable();
     }
 }
 
 function toggleValidationMessage() {
+    if (doAllFieldsPassValidation()) {
+        $('.validation-error').hide();
+    } else {
+        $('.validation-error').show();
+    }
+}
+
+function logCheckoutButtonClickEvent() {
     try {
         validate();
-        $('.validation-error').hide();
+        gtag && gtag('event', 'Checkout');
     } catch (error) {
-        console.log(error);
-        $('.validation-error').show();
+        gtag && gtag('event', 'Fail form validation', {category: 'error', label: error.message});
     }
 }
 
@@ -107,6 +123,7 @@ $(() => {
         },
         onClick() {
             toggleValidationMessage();
+            logCheckoutButtonClickEvent();
         },
         payment(data, actions) {
             const price = parseInt(getSelectedPrice(), 10);
@@ -145,9 +162,15 @@ $(() => {
                 // You can now show a confirmation message to the customer
                 $('.validation-error').hide();
                 $('.purchase-thank-you').show();
+
+                const price = parseInt(getSelectedPrice(), 10);
+                const quantity = parseInt(getQuantity(), 10);
+                const total = price * quantity;
+                gtag && gtag('event', 'Purchase tickets', {value: total});
             });
         },
         onCancel(data, actions) {
+            gtag && gtag('event', 'Cancel checkout');
         },
         onError(err) {
             // This doesn't work
