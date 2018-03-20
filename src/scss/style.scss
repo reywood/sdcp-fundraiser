@@ -54,7 +54,7 @@ body {
         .section2 {
             background-color: #fff;
             color: #555;
-            font-size: 1.3em;
+            // font-size: 1.3em;
             text-align: center;
 
             h2 {
@@ -77,8 +77,8 @@ body {
                 border: 8px solid #888;
                 box-shadow: 6px 6px #ddd;
                 margin: 0 auto;
-                max-width: 26em;
-                padding: 1em 2em;
+                max-width: 35em;
+                padding: 2em;
                 text-align: left;
 
                 p {
@@ -98,7 +98,12 @@ body {
                     small {
                         color: #888;
                         display: block;
+                        font-style: italic;
                     }
+                }
+
+                .ticket-quantity {
+                    max-width: 5em;
                 }
 
                 .paypal-button {

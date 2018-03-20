@@ -2,6 +2,17 @@
 <html>
 <head>
     <title>San Diego Cooperative Preschool Fundraiser</title>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116051168-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-116051168-1');
+    </script>
+
     <link href="https://fonts.googleapis.com/css?family=Lobster|Open+Sans|Syncopate:700" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
@@ -103,35 +114,54 @@
         <form>
             <fieldset class="form-group pl-0">
                 <div class="row">
-                    <legend class="col-form-label col-sm-4 pt-0">Amount</legend>
-                    <div class="col-sm-8">
+                    <legend class="col-form-label col-sm-3 pt-0">Amount</legend>
+                    <div class="col-sm-9">
                         <div class="form-check">
                             <input id="ticket-amount-50" class="form-check-input" type="radio" name="ticket-amount" value="50" checked>
-                            <label class="form-check-label" for="ticket-amount-50">$50</label>
+                            <label class="form-check-label" for="ticket-amount-50">$50 <small>admits one</small></label>
                         </div>
                         <div class="form-check">
                             <input id="ticket-amount-75" class="form-check-input" type="radio" name="ticket-amount" value="75">
-                            <label class="form-check-label" for="ticket-amount-75">$75 <small>(includes 2 raffle tickets)</small></label>
+                            <label class="form-check-label" for="ticket-amount-75">$75 <small>admits one + 2 raffle tickets ($90 value)</small></label>
                         </div>
                         <div class="form-check">
                             <input id="ticket-amount-100" class="form-check-input" type="radio" name="ticket-amount" value="100">
-                            <label class="form-check-label" for="ticket-amount-100">$100 <small>(includes 5 raffle tickets)</small></label>
+                            <label class="form-check-label" for="ticket-amount-100">$100 <small>admits one + 5 raffle tickets ($150 value)</small></label>
                         </div>
-                        <div class="form-check">
+                        <!-- <div class="form-check">
                             <input id="ticket-amount-other" class="form-check-input" type="radio" name="ticket-amount" value="other">
                             <label class="form-check-label" for="ticket-amount-other">
                                 <input class="form-control" type="number" name="other-amount" placeholder="Other amount" pattern="\d*" min="1">
                             </label>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </fieldset>
             <div class="form-group row">
-                <label class="col-sm-4" for="ticket-quantity">Quantity</label>
-                <div class="col-sm-8">
-                    <input id="ticket-quantity" class="form-control" type="number" name="ticket-quantity" value="1" min="1" pattern="\d*">
+                <label class="col-sm-3" for="ticket-quantity">Quantity</label>
+                <div class="col-sm-9">
+                    <input id="ticket-quantity" class="form-control ticket-quantity" type="number" name="ticket-quantity" value="1" min="1" pattern="\d*">
                 </div>
             </div>
+            <fieldset class="form-group pl-0">
+                <div class="row">
+                    <legend class="col-form-label col-sm-3 pt-0">We are a/an</legend>
+                    <div class="col-sm-9">
+                        <div class="form-check">
+                            <input id="attendee-type-alum" class="form-check-input" type="radio" name="attendee-type" value="alum">
+                            <label class="form-check-label" for="attendee-type-alum">Currently enrolled family / Alum</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="attendee-type-new-family" class="form-check-input" type="radio" name="attendee-type" value="new-family">
+                            <label class="form-check-label" for="attendee-type-new-family">New family</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="attendee-type-friend" class="form-check-input" type="radio" name="attendee-type" value="friend">
+                            <label class="form-check-label" for="attendee-type-friend">Grandparent / Special friend</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
         </form>
 
         <br>
@@ -150,6 +180,7 @@
             <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
             <input type="hidden" name="lc" value="US">
             <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
+            <input type="hidden" name="item_number" value="sdcp-fundraiser">
             <input type="hidden" name="no_note" value="0">
             <input type="hidden" name="currency_code" value="USD">
             <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
@@ -157,6 +188,26 @@
             <button class="btn btn-light donate-btn">Make a Donation</button>
             <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
         </form>
+
+        <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="EH7JZCWGSU9ZS">
+            <input type="image" src="http://www.sdcooppreschool.org/wp-content/uploads/2014/11/Unitarian-Cooperative-Preschool-San-Diego.jpg" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_donations">
+            <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
+            <input type="hidden" name="lc" value="US">
+            <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
+            <input type="hidden" name="item_number" value="sdcp-fundraiser">
+            <input type="hidden" name="no_note" value="0">
+            <input type="hidden" name="currency_code" value="USD">
+            <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form> -->
     </p>
 </div>
 
