@@ -2,6 +2,7 @@ ROOT_DIR := $(shell pwd)
 BIN_DIR := $(ROOT_DIR)/node_modules/.bin
 NODE_SASS := $(BIN_DIR)/node-sass
 BABEL := $(BIN_DIR)/babel
+TMUX_SESSION := sdcpfundraiser
 
 .PHONY: build build-css watch-css build-js watch-js run-server
 
@@ -28,6 +29,26 @@ upload: build
 	aws s3 cp --profile cli --acl public-read --recursive img s3://www.sdcpfundraiser.org/img/
 	aws s3 cp --profile cli --acl public-read --recursive lib s3://www.sdcpfundraiser.org/lib/
 	aws s3 cp --profile cli --acl public-read index.html s3://www.sdcpfundraiser.org/
+
+tmux:
+	tmux start-server
+	tmux new-session -d -s $(TMUX_SESSION) -n sdcpfundraiser	
+	tmux send-keys "make watch-js" C-m
+
+	tmux select-window -t $(TMUX_SESSION):0
+	tmux splitw -v
+	tmux send-keys "make watch-css" C-m
+
+	tmux splitw -v
+	tmux send-keys "make run-server" C-m
+
+	tmux splitw -v
+	tmux send-keys "tmux kill-session -t sdcpfundraiser"
+
+	tmux select-layout even-vertical
+	tmux select-window -t $(TMUX_SESSION):0
+
+	tmux attach-session -t $(TMUX_SESSION)
 
 $(BABEL):
 	npm install
