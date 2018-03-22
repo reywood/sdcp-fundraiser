@@ -6,11 +6,10 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116051168-1"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'UA-116051168-1');
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-116051168-1');
     </script>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Syncopate:700|Allura" rel="stylesheet">
@@ -27,15 +26,18 @@
     <![endif]-->
 
     <!-- OpenGraph tags -->
+    <meta property="og:url" content="https://www.sdcpfundraiser.org/">
     <meta property="og:site_name" content="San Diego Cooperative Preschool Fundraiser">
-    <meta property="og:description" content="Join us on the evening of May 18 2018 for an evening of wine &amp; whisky benefitting the San Diego Cooperative Preschool. Dinner and dancing for all!">
+    <meta property="og:title" content="San Diego Cooperative Preschool Fundraiser">
+    <meta property="og:description" content="Join us on the evening of May 18 2018 for an evening of wine &amp; whiskey benefitting the San Diego Cooperative Preschool. Dinner and dancing for all!">
+    <meta property="og:image" content="https://www.sdcpfundraiser.org/img/site-preview-1200x767.png">
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 </head>
 <body class="sdcp">
 
-<div class="section1">
+<div class="section section1">
     <p class="join-us caps">Join us</p>
 
     <h1 class="event-date caps">May 18 2018</h1>
@@ -104,17 +106,18 @@
     </div>
 </div>
 
-<div class="section2">
-    <p>
+<div class="section section-light section2">
+    <!-- <p>
         Mark your calendars for May 18th! The Gala committee has been hard at work planning an incredible evening for everyone. Can't wait to see you there!
-    </p>
+    </p> -->
 
     <h2 id="buy-tickets">Buy Your Tickets</h2>
 
+    <p class="purchase-description">
+        Choose the amount you would like to pay per ticket. Proceeds will go toward continuing education for the teachers that help make our school such a wonderful place for our children.
+    </p>
+
     <div class="purchase-container">
-        <p class="purchase-description">
-            Choose the amount you would like to pay per ticket. The money will go toward continuing education for your teachers.
-        </p>
         <form>
             <fieldset class="form-group pl-0">
                 <div class="row">
@@ -142,7 +145,7 @@
                 </div>
             </fieldset>
             <div class="form-group row">
-                <label class="col-sm-3" for="ticket-quantity">Quantity</label>
+                <label class="col-form-label col-sm-3" for="ticket-quantity">Quantity</label>
                 <div class="col-sm-9">
                     <input id="ticket-quantity" class="form-control ticket-quantity" type="number" name="ticket-quantity" value="1" min="1" pattern="\d*">
                 </div>
@@ -184,56 +187,58 @@
             Your tickets have been reserved
         </p>
     </div>
+</div>
 
+<div class="section section-dark section3">
     <h3 id="donate">Unable to make it to the party? You can still make a difference!</h3>
 
     <p>
-        Contributions will be used to further the education of your teachers.
+        While we wish everyone could join us, we understand that not everyone will be able to make it to this amazing event. We hope you will still consider helping us to reach our fundraising goals. No donation is too small. Contributions will be used to further the education of the teachers that help make our school such a wonderful place for our children.
+    </p>
+
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_donations">
+        <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
+        <input type="hidden" name="lc" value="US">
+        <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
+        <input type="hidden" name="item_number" value="fundraiser">
+        <input type="hidden" name="no_note" value="0">
+        <input type="hidden" name="currency_code" value="USD">
+        <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
+        <button class="btn btn-light donate-btn">Make a Donation</button>
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+    </form>
+</div>
+
+<div class="section section-light section4">
+    <h3>Please share this page!</h3>
+
+    <p>
+        All are welcome to attend this event. If you have friends or family members who would like to help support our school or would just enjoy a good party, please share this page with them.
     </p>
 
     <p>
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_donations">
-            <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
-            <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
-            <input type="hidden" name="item_number" value="sdcp-fundraiser">
-            <input type="hidden" name="no_note" value="0">
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
-            <!-- <input type="image" src="http://i0.wp.com/www.sdcooppreschool.org/wp-content/uploads/2014/11/almost-wink.jpg?zoom=2&resize=400%2C427" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!"> -->
-            <button class="btn btn-light donate-btn">Make a Donation</button>
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
+        <button id="fb-share-btn" type="button" class="btn btn-light">
+            <span class="fa fa-facebook-square"></span>
+            <span>Share on Facebook</span>
+        </button>
 
-        <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="EH7JZCWGSU9ZS">
-            <input type="image" src="http://www.sdcooppreschool.org/wp-content/uploads/2014/11/Unitarian-Cooperative-Preschool-San-Diego.jpg" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-
-        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_donations">
-            <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
-            <input type="hidden" name="lc" value="US">
-            <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
-            <input type="hidden" name="item_number" value="sdcp-fundraiser">
-            <input type="hidden" name="no_note" value="0">
-            <input type="hidden" name="currency_code" value="USD">
-            <input type="hidden" name="bn" value="PP-DonationsBF:btn_donateCC_LG.gif:NonHostedGuest">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form> -->
+        <a href="https://twitter.com/intent/tweet?text=Join%20us%20for%20an%20evening%20of%20wine%20%26%20whiskey%20benefitting%20the%20San%20Diego%20Cooperative%20Preschool.%20Dinner%20and%20dancing%20for%20all!&url=https%3A//www.sdcpfundraiser.org/" target="_blank" class="btn btn-light twitter-share-btn">
+            <span class="fa fa-twitter-square"></span> Share on Twitter
+        </a>
     </p>
 </div>
 
 <footer>
     <p class="social-links">
+        <a href="http://www.sdcooppreschool.org/">San Diego Cooperative Preschool</a> is a 501(c)(3) nonprofit organization
+        <br>
+
         <a href="https://www.facebook.com/San-Diego-Cooperative-Preschool-UCP-132776756765321/" title="Facebook"><span class="fa fa-facebook-square"><span class="sr-only">Facebook</span></span></a>
 
         <a href="https://www.yelp.com/biz/san-diego-cooperative-preschool-san-diego" title="Yelp"><span class="fa fa-yelp"><span class="sr-only">Yelp</span></span></a>
     </p>
+    <div class="clearfix"></div>
 </footer>
 
 <script src="lib/script.js"></script>

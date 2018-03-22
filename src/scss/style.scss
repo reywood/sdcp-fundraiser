@@ -31,19 +31,21 @@ body {
             padding: .5em 1em;
         }
 
-        .btn-dark {
-            background-color: #222;
-            color: #ffd700;
-            font-size: 1.2em;
-        }
+        // .btn-dark {
+        //     background-color: #222;
+        //     color: #ffd700;
+        //     font-size: 1.2em;
+        // }
 
         .btn-light {
-            background-color: #ffd700;
+            $btn-bg-color: #ffd700;
+
+            background-color: $btn-bg-color;
             border-width: 0;
             color: #000;
 
             &:hover {
-                background-color: lighten(#ffd700, 10%);
+                background-color: lighten($btn-bg-color, 10%);
                 color: #000;
             }
 
@@ -52,22 +54,46 @@ body {
             }
         }
 
-        .section1,
-        .section2,
+        .section,
         footer {
-            padding: 2em;
+            padding: 3em 2em;
+
+            @media (max-width: $screen-sm-max) {
+                & {
+                    padding: 2em;
+                }
+            }
+        }
+
+        .section {
+            p {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 50em;
+            }
+        }
+
+        $dark-theme-text-color: #eed;
+
+        .section-dark {
+            background-color: #000;
+            color: $dark-theme-text-color;
+        }
+
+        .section-light {
+            background-color: #fff;
+            color: #555;
         }
 
         .section1 {
             @import 'bubbles';
+            @extend .section-dark;
 
-            $text-color: #eed;
-
-            // background-color: #000;
-            color: $text-color;
+            background-color: transparent;
             font-size: 1.5em;
             position: relative;
             text-align: center;
+            text-shadow: 0 0 2px #000;
 
             .cursive {
                 font-size: 1.2em;
@@ -75,6 +101,7 @@ body {
 
             .btn {
                 min-width: 8em;
+                text-shadow: none;
             }
 
             .join-us {
@@ -86,7 +113,7 @@ body {
                 font-family: 'Syncopate', sans-serif;
                 font-weight: 500;
                 margin-bottom: 0;
-                text-shadow: 0 -1px 1px $text-color, 0 1px 1px $text-color, -1px 0 1px $text-color, 1px 0 1px $text-color, -1px -1px 1px $text-color, 1px 1px 1px $text-color, 1px -1px 1px $text-color, -1px 1px 1px $text-color;
+                text-shadow: 0 -1px 1px $dark-theme-text-color, 0 1px 1px $dark-theme-text-color, -1px 0 1px $dark-theme-text-color, 1px 0 1px $dark-theme-text-color, -1px -1px 1px $dark-theme-text-color, 1px 1px 1px $dark-theme-text-color, 1px -1px 1px $dark-theme-text-color, -1px 1px 1px $dark-theme-text-color;
             }
 
             .time-left {
@@ -122,13 +149,10 @@ body {
         }
 
         .section2 {
-            background-color: #fff;
-            color: #555;
             // font-size: 1.3em;
             text-align: center;
 
             h2 {
-                margin-top: 1em;
                 margin-bottom: 1em;
             }
 
@@ -137,9 +161,10 @@ body {
             }
 
             p {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 50em;
+                &.purchase-description {
+                    margin-bottom: 2em;
+                    // text-align: justify;
+                }
             }
 
             .purchase-container {
@@ -150,13 +175,6 @@ body {
                 max-width: 35em;
                 padding: 2em;
                 text-align: left;
-
-                p {
-                    &.purchase-description {
-                        margin-top: 0;
-                        text-align: justify;
-                    }
-                }
 
                 .form-check {
                     margin-bottom: 1em;
@@ -203,11 +221,40 @@ body {
             }
         }
 
+        .section3 {
+            text-align: center;
+
+            p {
+                margin-top: 2em;
+                margin-bottom: 2em;
+            }
+        }
+
+        .section4 {
+            text-align: center;
+
+            p {
+                margin-top: 2em;
+                margin-bottom: 2em;
+            }
+
+            .btn {
+                margin: .5em;
+
+                .fa {
+                    font-size: 1.5em;
+                    margin-right: .1em;
+                    vertical-align: text-bottom;
+                }
+            }
+        }
+
         footer {
+            color: #ddd;
+            font-size: .8em;
             text-align: center;
 
             .social-links {
-                font-size: 3em;
                 margin: 0;
                 padding: 0;
 
