@@ -66,10 +66,22 @@ body {
         }
 
         .section {
+            h2,
+            h3,
+            h4 {
+                margin-bottom: 1em;
+                text-align: center;
+
+                &:not(:first-child) {
+                    margin-top: 1.5em;
+                }
+            }
+
             p {
                 margin-left: auto;
                 margin-right: auto;
                 max-width: 50em;
+                text-align: justify;
             }
         }
 
@@ -94,6 +106,10 @@ body {
             position: relative;
             text-align: center;
             text-shadow: 0 0 2px #000;
+
+            p {
+                text-align: center;
+            }
 
             .cursive {
                 font-size: 1.2em;
@@ -121,6 +137,7 @@ body {
                 font-size: .7em;
                 margin-top: 0;
                 min-height: 1em;
+                opacity: 0;
             }
 
             .benefitting {
@@ -149,23 +166,7 @@ body {
         }
 
         .section2 {
-            // font-size: 1.3em;
             text-align: center;
-
-            h2 {
-                margin-bottom: 1em;
-            }
-
-            h3 {
-                margin-top: 2em;
-            }
-
-            p {
-                &.purchase-description {
-                    margin-bottom: 2em;
-                    // text-align: justify;
-                }
-            }
 
             .purchase-container {
                 background-color: #fff;
@@ -175,6 +176,24 @@ body {
                 max-width: 35em;
                 padding: 2em;
                 text-align: left;
+
+                fieldset {
+                    padding: 0;
+                }
+
+                legend,
+                label {
+                    font-size: inherit;
+                    font-weight: bold;
+                }
+
+                .form-check label {
+                    font-weight: normal;
+                }
+
+                .form-group {
+                    margin-bottom: 1.5em;
+                }
 
                 .form-check {
                     margin-bottom: 1em;
@@ -215,10 +234,6 @@ body {
                     text-align: center;
                 }
             }
-
-            .donate-btn {
-                margin-top: 1em;
-            }
         }
 
         .section3 {
@@ -236,6 +251,7 @@ body {
             p {
                 margin-top: 2em;
                 margin-bottom: 2em;
+                text-align: center;
             }
 
             .btn {
@@ -246,6 +262,15 @@ body {
                     margin-right: .1em;
                     vertical-align: text-bottom;
                 }
+            }
+        }
+
+        .donate-form {
+            .donate-in-honor-of {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 20em;
+                text-align: center;
             }
         }
 

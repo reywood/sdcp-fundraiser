@@ -2,6 +2,7 @@ ROOT_DIR := $(shell pwd)
 BIN_DIR := $(ROOT_DIR)/node_modules/.bin
 NODE_SASS := $(BIN_DIR)/node-sass
 BABEL := $(BIN_DIR)/babel
+BABEL_OPTIONS := src/js/ --out-file lib/script.js
 TMUX_SESSION := sdcpfundraiser
 
 .PHONY: build build-css watch-css build-js watch-js run-server
@@ -9,10 +10,13 @@ TMUX_SESSION := sdcpfundraiser
 build: build-js build-css
 
 build-js: $(BABEL)
-	$(BABEL) src/js/ --out-file lib/script.js
+	$(BABEL) $(BABEL_OPTIONS)
+
+build-js-min: $(BABEL)
+	$(BABEL) --minified $(BABEL_OPTIONS)
 
 watch-js: $(BABEL) build-js
-	$(BABEL) src/js/ --watch --out-file lib/script.js
+	$(BABEL) --watch $(BABEL_OPTIONS)
 
 build-css: $(NODE_SASS)
 	$(NODE_SASS) --output-style compressed src/scss/style.scss lib/style.css

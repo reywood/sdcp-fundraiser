@@ -43,7 +43,7 @@
 
     <h1 class="event-date caps">May 18 2018</h1>
 
-    <p class="time-left"></p>
+    <p class="time-left">&nbsp;</p>
 
     <p class="caps">An evening of wine &amp; whiskey</p>
 
@@ -108,22 +108,24 @@
 </div>
 
 <div class="section section-light section2">
-    <!-- <p>
-        Mark your calendars for May 18th! The Gala committee has been hard at work planning an incredible evening for everyone. Can't wait to see you there!
-    </p> -->
+    <h2>A Worthy Cause</h2>
 
-    <h2 id="buy-tickets">Buy Your Tickets</h2>
-
-    <p class="purchase-description">
-        Choose the amount you would like to pay per ticket. Proceeds will go toward continuing education for the teachers that help make our school such a wonderful place for our children.
+    <p>
+        Please join us on May 18th for an evening of wine, whiskey, dinner, and dancing to benefit the amazing teachers at the San Diego Cooperative Preschool.
     </p>
+
+    <p>
+        With your help, we will be able to send our teachers to the world's largest early childhood conference created by the <a href="https://www.naeyc.org/" target="_blank">National Association for the Education of Young Children</a>. Here they will be able to connect, collaborate and learn with fellow early childhood educators from around the globe. This annual conference takes place over several days and allows early childhood educators to get up to date with the latest practices in the field, choose from hundreds of innovative sessions to attend, network with other professionals, and reignite their passion for teaching young children.
+    </p>
+
+    <h3 id="buy-tickets">Buy Your Tickets</h2>
 
     <div class="purchase-container">
         <form>
             <fieldset class="form-group pl-0">
+                <legend class="xcol-form-label xcol-sm-3 pt-0">Choose your price:</legend>
                 <div class="row">
-                    <legend class="col-form-label col-sm-3 pt-0">Amount</legend>
-                    <div class="col-sm-9">
+                    <div class="offset-sm-1 col-sm-11">
                         <div class="form-check">
                             <input id="ticket-amount-50" class="form-check-input" type="radio" name="ticket-amount" value="50" checked>
                             <label class="form-check-label" for="ticket-amount-50">$50 <small>admits one</small></label>
@@ -145,16 +147,18 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="form-group row">
-                <label class="col-form-label col-sm-3" for="ticket-quantity">Quantity</label>
-                <div class="col-sm-9">
-                    <input id="ticket-quantity" class="form-control ticket-quantity" type="number" name="ticket-quantity" value="1" min="1" pattern="\d*">
+            <div class="form-group">
+                <label for="ticket-quantity">Number of tickets:</label>
+                <div class="row">
+                    <div class="offset-sm-1 col-sm-11">
+                        <input id="ticket-quantity" class="form-control ticket-quantity" type="number" name="ticket-quantity" value="1" min="1" pattern="\d*">
+                    </div>
                 </div>
             </div>
             <fieldset class="form-group pl-0">
+                <legend class="form-label pt-0">Are you a/an:</legend>
                 <div class="row">
-                    <legend class="col-form-label col-sm-3 pt-0">We are a/an</legend>
-                    <div class="col-sm-9">
+                    <div class="offset-sm-1 col-sm-11">
                         <div class="form-check">
                             <input id="attendee-type-current" class="form-check-input" type="radio" name="attendee-type" value="current family">
                             <label class="form-check-label" for="attendee-type-current">Currently enrolled family</label>
@@ -194,18 +198,28 @@
     <h3 id="donate">Unable to make it to the party? You can still make a difference!</h3>
 
     <p>
-        While we wish everyone could join us, we understand that not everyone will be able to make it to this amazing event. We hope you will still consider helping us to reach our fundraising goals. No donation is too small. Contributions will be used to further the education of the teachers that help make our school such a wonderful place for our children.
+        While we wish everyone could join us, we understand that not everyone will be able to make it to this amazing event. We hope you will still consider helping us to reach our fundraising goals. No donation is too small. Contributions are tax deductible and will be used to further the education of the teachers that help make our school such a wonderful place for our children.
     </p>
 
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <p>
+        If you are a friend or family member of a child that attends our school, please enter their name below.
+    </p>
+
+    <form id="donate-form" class="donate-form" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_donations">
         <input type="hidden" name="business" value="general@unitariancooperativepreschool.org">
         <input type="hidden" name="lc" value="US">
-        <input type="hidden" name="item_name" value="San Diego Cooperative Preschool">
-        <input type="hidden" name="item_number" value="fundraiser">
+        <input type="hidden" name="item_name" value="San Diego Cooperative Preschool Fundraiser">
         <input type="hidden" name="no_note" value="0">
         <input type="hidden" name="currency_code" value="USD">
         <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
+        <!-- <input type="hidden" name="custom" value="sdcpfundraiser-foo"> -->
+
+        <div class="form-group">
+            <label for="donate-in-honor-of" class="sr-only">In honor of</label>
+            <input id="donate-in-honor-of" class="form-control donate-in-honor-of" type="text" name="item_number" placeholder="In honor of (optional)" maxlength="127">
+        </div>
+
         <button class="btn btn-light donate-btn">Make a Donation</button>
         <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
     </form>
