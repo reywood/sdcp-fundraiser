@@ -1,4 +1,13 @@
 $(() => {
+    $('input[name="attendee-type"]').on('change', (e) => {
+        const checkbox = e.target;
+        if (checkbox.id === 'attendee-type-friend' && checkbox.checked) {
+            $('.form-group-in-honor-of').addClass('active');
+        } else {
+            $('.form-group-in-honor-of').removeClass('active');
+        }
+    });
+
     paypal.Button.render({
         env: 'production', // 'sandbox' or 'production'
         client: {
@@ -166,9 +175,19 @@ function buildItemName() {
     if (!attendeeType) {
         throw new FormValidationError('Please specifiy whether you are currently enrolled, an alum, etc');
     }
-    itemNameParts.push(`(${attendeeType})`);
+    const inHonorOf = getTicketInHonorOf();
+    if (inHonorOf) {
+        itemNameParts.push(`(${attendeeType}, in honor of ${inHonorOf})`);
+    } else {
+        itemNameParts.push(`(${attendeeType})`);
+    }
 
     return itemNameParts.join(' ');
+}
+
+function getTicketInHonorOf() {
+    const isActive = $('.form-group-in-honor-of').hasClass('active');
+    return isActive ? $('#ticket-in-honor-of').val() : '';
 }
 
 function getAttendeeType() {

@@ -213,6 +213,16 @@ body {
                     max-width: 5em;
                 }
 
+                .form-group-in-honor-of {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height .2s;
+
+                    &.active {
+                        max-height: 100px;
+                    }
+                }
+
                 .paypal-button {
                     margin: 0 auto;
                     text-align: center;
