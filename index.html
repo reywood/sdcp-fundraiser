@@ -7,7 +7,9 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-116051168-1"></script>
     <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag(...args) {
+        dataLayer.push(args);
+    }
     gtag('js', new Date());
     gtag('config', 'UA-116051168-1');
     </script>
@@ -39,7 +41,7 @@
 <body class="sdcp">
 
 <div class="section section1">
-    <p class="join-us caps">Join us</p>
+    <!--<p class="join-us caps">Join us</p>-->
 
     <h1 class="event-date caps">May 18 2018</h1>
 
@@ -53,6 +55,7 @@
 
     <p class="cursive">Dinner &amp; dancing for all</p>
 
+    <!--
     <p class="internal-page-links">
         <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light">
             Buy Tickets
@@ -62,6 +65,7 @@
             Donate
         </a>
     </p>
+    -->
 
     <div class="bubbles">
         <div class="bubble"></div>
@@ -107,6 +111,19 @@
     </div>
 </div>
 
+<div class="section section-light">
+    <h2>That's a wrap</h2>
+
+    <p>
+        Thank you to all the families that made our fundraiser a huge success! We surpassed all of our goals by a large margin, and we couldn't have done it without you.
+    </p>
+
+    <p>
+        See you all again next year!
+    </p>
+</div>
+
+<!--
 <div class="section section-light section2">
     <h2>A Worthy Cause</h2>
 
@@ -118,7 +135,7 @@
         With your help, we will be able to send our teachers to the world's largest early childhood conference created by the <a href="https://www.naeyc.org/" target="_blank">National Association for the Education of Young Children</a>. Here they will be able to connect, collaborate and learn with fellow early childhood educators from around the globe. This annual conference takes place over several days and allows early childhood educators to get up to date with the latest practices in the field, choose from hundreds of innovative sessions to attend, network with other professionals, and reignite their passion for teaching young children.
     </p>
 
-    <h3 id="buy-tickets">Buy Your Tickets</h2>
+    <h3 id="buy-tickets">Buy Your Tickets</h3>
 
     <div class="purchase-container">
         <form>
@@ -138,12 +155,6 @@
                             <input id="ticket-amount-100" class="form-check-input" type="radio" name="ticket-amount" value="100" data-extras="5 raffle tickets">
                             <label class="form-check-label" for="ticket-amount-100">$100 <small>admits one + 5 raffle tickets ($150 value)</small></label>
                         </div>
-                        <!-- <div class="form-check">
-                            <input id="ticket-amount-other" class="form-check-input" type="radio" name="ticket-amount" value="other">
-                            <label class="form-check-label" for="ticket-amount-other">
-                                <input class="form-control" type="number" name="other-amount" placeholder="Other amount" pattern="\d*" min="1">
-                            </label>
-                        </div> -->
                     </div>
                 </div>
             </fieldset>
@@ -222,8 +233,7 @@
         <input type="hidden" name="item_name" value="San Diego Cooperative Preschool Fundraiser">
         <input type="hidden" name="no_note" value="0">
         <input type="hidden" name="currency_code" value="USD">
-        <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&resize=400%2C427:NonHostedGuest">
-        <!-- <input type="hidden" name="custom" value="sdcpfundraiser-foo"> -->
+        <input type="hidden" name="bn" value="PP-DonationsBF:almost-wink.jpg?zoom=2&amp;resize=400%2C427:NonHostedGuest">
 
         <div class="form-group">
             <label for="donate-in-honor-of" class="sr-only">In honor of</label>
@@ -253,6 +263,7 @@
         </a>
     </p>
 </div>
+-->
 
 <footer>
     <p class="social-links">
