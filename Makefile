@@ -25,7 +25,8 @@ watch-css: $(NODE_SASS) build-css
 	$(NODE_SASS) --watch --output-style compressed src/scss/style.scss lib/style.css
 
 run-server:
-	npm start
+	# npm start
+	python -m SimpleHTTPServer 8080
 
 upload: build
 	@echo 'Making sure production Paypal is enabled'

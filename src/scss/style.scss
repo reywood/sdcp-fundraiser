@@ -10,15 +10,29 @@ $screen-sm-min: 576px;
 $screen-xs-max: $screen-sm-min - 1;
 $screen-xs-min: 0;
 
+
+$dark-theme-text-color: #ccc;
+
+
 body {
     &.sdcp {
         background-color: #555;
         color: #fff;
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 
+        .content {
+            background-color: #fff;
+            color: #333;
+        }
+
+
         .caps {
             letter-spacing: .2em;
             text-transform: uppercase;
+        }
+
+        .impact {
+            font-family: 'Passion One', cursive;
         }
 
         .cursive {
@@ -31,14 +45,8 @@ body {
             padding: .5em 1em;
         }
 
-        // .btn-dark {
-        //     background-color: #222;
-        //     color: #ffd700;
-        //     font-size: 1.2em;
-        // }
-
         .btn-light {
-            $btn-bg-color: #ffd700;
+            $btn-bg-color: #ee8b2f;
 
             background-color: $btn-bg-color;
             border-width: 0;
@@ -77,6 +85,18 @@ body {
                 }
             }
 
+            h2.impact {
+                font-size: 3rem;
+            }
+
+            h3.impact {
+                font-size: 2.3rem;
+            }
+
+            h2.impact, h3.impact {
+                color: #43a2be;
+            }
+
             p {
                 margin-left: auto;
                 margin-right: auto;
@@ -85,30 +105,53 @@ body {
             }
         }
 
-        $dark-theme-text-color: #eed;
-
-        .section-dark {
-            background-color: #000;
-            color: $dark-theme-text-color;
+        .ruler {
+            max-width: 681px;
+            width: 95%;
+            height: 123px;
+            margin: 2em auto;
+            background-image: url('/img/ruler1.png');
+            background-size: contain;
+            background-repeat: no-repeat;
         }
 
-        .section-light {
-            background-color: #fff;
-            color: #555;
-        }
-
-        .section1 {
-            @import 'bubbles';
-            @extend .section-dark;
-
+        .section.section1 {
             background-color: transparent;
+            background-image: url('/img/stucco-bg2.png');
             font-size: 1.5em;
             position: relative;
             text-align: center;
-            text-shadow: 0 0 2px #000;
+            padding-top: 0;
+            // text-shadow: 0 0 2px #000;
+
+            h1 {
+                margin-top: 0;
+                margin-bottom: .5em;
+                font-size: 2.5em;
+                color: #444;
+            }
 
             p {
                 text-align: center;
+            }
+
+            .page-header-image {
+                margin-top: -100px;
+                max-width: 776px;
+                width: 100%;
+                height: auto;
+
+                @media (max-width: $screen-sm-max) {
+                    & {
+                        margin-top: -20px;
+                    }
+                }
+            }
+
+            .section1-content {
+                position: relative;
+                max-width: 50em;
+                margin: 0 auto;
             }
 
             .cursive {
@@ -121,27 +164,51 @@ body {
             }
 
             .join-us {
-                font-size: 1.2em;
+                font-size: .9em;
             }
 
             .event-date {
+                $event-date-glow-color: #faa;
+
                 color: #000;
                 font-family: 'Syncopate', sans-serif;
                 font-weight: 500;
+                margin-top: .5em;
                 margin-bottom: 0;
-                text-shadow: 0 -1px 1px $dark-theme-text-color, 0 1px 1px $dark-theme-text-color, -1px 0 1px $dark-theme-text-color, 1px 0 1px $dark-theme-text-color, -1px -1px 1px $dark-theme-text-color, 1px 1px 1px $dark-theme-text-color, 1px -1px 1px $dark-theme-text-color, -1px 1px 1px $dark-theme-text-color;
+                // text-shadow:  0   -1px  1px $event-date-glow-color,
+                //               0    1px  1px $event-date-glow-color,
+                //              -1px  0    1px $event-date-glow-color,
+                //               1px  0    1px $event-date-glow-color,
+                //              -1px -1px  1px $event-date-glow-color,
+                //               1px  1px  1px $event-date-glow-color,
+                //               1px -1px  1px $event-date-glow-color,
+                //              -1px  1px  1px $event-date-glow-color;
             }
 
             .time-left {
-                color: #888;
+                color: #333;
                 font-size: .7em;
                 margin-top: 0;
                 min-height: 1em;
                 opacity: 0;
+
+                span {
+                    display: inline-block;
+                    white-space: nowrap;
+                }
             }
 
             .benefitting {
-                margin-top: 2em;
+                margin-top: 1em;
+
+                * {
+                    vertical-align: bottom;
+                }
+
+                span {
+                    display: inline-block;
+                    margin: 0 1rem;
+                }
             }
 
             .internal-page-links {
@@ -162,6 +229,12 @@ body {
                         margin: 0 auto;
                     }
                 }
+            }
+
+            .flower-border-left {
+                position: absolute;
+                top: 0;
+                left: 0;
             }
         }
 
