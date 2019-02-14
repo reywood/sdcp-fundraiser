@@ -1,4 +1,4 @@
-@import 'normalize';
+// @import 'normalize';
 
 $screen-xl-min: 1200px;
 $screen-lg-max: $screen-xl-min - 1;
@@ -15,16 +15,32 @@ $dark-theme-text-color: #ccc;
 
 
 body {
+    font-size:16px;
+
+    @media (max-width: $screen-sm-max) {
+        font-size: 14px;
+    }
+
     &.sdcp {
         background-color: #555;
         color: #fff;
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 
+        a,
+        a:link,
+        a:visited {
+            color: #43a2be;
+        }
+
+        a:hover,
+        a:active {
+            color: lighten(#43a2be, 10%);
+        }
+
         .content {
             background-color: #fff;
             color: #333;
         }
-
 
         .caps {
             letter-spacing: .2em;
@@ -45,7 +61,11 @@ body {
             padding: .5em 1em;
         }
 
-        .btn-light {
+        .btn-light,
+        .btn-light:link,
+        .btn-light:active,
+        .btn-light:hover,
+        .btn-light:visited {
             $btn-bg-color: #ee8b2f;
 
             background-color: $btn-bg-color;
@@ -64,19 +84,32 @@ body {
 
         .section,
         footer {
-            padding: 3em 2em;
+            // padding: 3rem 2rem;
+            padding-top: 0;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            padding-bottom: 2rem;
+            margin-top: 1rem;
 
             @media (max-width: $screen-sm-max) {
                 & {
-                    padding: 2em;
+                    // padding: 2rem;
+                    // margin-top: 2rem;
                 }
             }
+        }
+
+        footer {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            margin-top: 0;
         }
 
         .section {
             h2,
             h3,
             h4 {
+                margin-top: 1em;
                 margin-bottom: 1em;
                 text-align: center;
 
@@ -108,20 +141,26 @@ body {
         .ruler {
             max-width: 681px;
             width: 95%;
-            height: 123px;
+            height: 0;
             margin: 2em auto;
+            padding-bottom: 10%;
             background-image: url('/img/ruler1.png');
             background-size: contain;
             background-repeat: no-repeat;
+            background-position: center;
+
+            @media (max-width: $screen-xs-max) {
+                padding-bottom: 15%;
+            }
         }
 
         .section.section1 {
             background-color: transparent;
             background-image: url('/img/stucco-bg2.png');
             font-size: 1.5em;
-            position: relative;
+            // position: relative;
             text-align: center;
-            padding-top: 0;
+            margin-top: 0;
             // text-shadow: 0 0 2px #000;
 
             h1 {
@@ -143,7 +182,7 @@ body {
 
                 @media (max-width: $screen-sm-max) {
                     & {
-                        margin-top: -20px;
+                        margin-top: -40px;
                     }
                 }
             }
@@ -199,10 +238,17 @@ body {
             }
 
             .benefitting {
-                margin-top: 1em;
+                // margin-top: 1em;
 
                 * {
                     vertical-align: bottom;
+                }
+
+                img {
+                    @media (max-width: $screen-xs-max) {
+                        width: 80px;
+                        height: auto;
+                    }
                 }
 
                 span {
@@ -317,6 +363,15 @@ body {
                     text-align: center;
                 }
             }
+
+            .location {
+                text-align: center;
+
+                iframe {
+                    margin-top: 1.5em;
+                    max-width: 100%;
+                }
+            }
         }
 
         .section3 {
@@ -330,6 +385,7 @@ body {
 
         .section4 {
             text-align: center;
+            padding-bottom: 3rem;
 
             p {
                 margin-top: 2em;
@@ -369,6 +425,12 @@ body {
                 a {
                     color: #fff;
                     margin: 0 .2em;
+                }
+
+                .fa {
+                    display: inline-block;
+                    margin: 1em .5em;
+                    font-size: 1.8em;
                 }
             }
         }

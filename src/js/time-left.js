@@ -1,4 +1,5 @@
-const eventDate = new Date('2019-05-03T18:00:00-0700');
+// May 3, 2019 7:00pm -0700
+const eventDate = new Date('2019-05-04T02:00:00Z');
 
 $(() => {
     updateTimeLeftDisplay();
