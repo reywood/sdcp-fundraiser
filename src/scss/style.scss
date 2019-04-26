@@ -38,6 +38,23 @@ body {
             color: lighten(#43a2be, 10%);
         }
 
+        header {
+            nav {
+                background-color: rgba(#fff, .95);
+                // left: 0;
+                // position: fixed;
+                // right: 0;
+                // top: 0;
+                // z-index: 100;
+                transition: background-color .7s;
+                box-shadow: 0 5px 5px rgba(#000, .2);
+
+                &.dark {
+                    // background-color: rgba(#000, .3);
+                }
+            }
+        }
+
         .content {
             background-color: #fff;
             color: #333;
@@ -176,7 +193,7 @@ body {
             }
 
             .page-header-image {
-                margin-top: -100px;
+                margin-top: -50px;
                 max-width: 776px;
                 width: 100%;
                 height: auto;

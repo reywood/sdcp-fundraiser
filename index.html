@@ -15,7 +15,7 @@
 
     <link href="https://fonts.googleapis.com/css?family=Allura|Open+Sans|Passion+One" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/style.css" rel="stylesheet">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,11 +32,32 @@
     <meta property="og:title" content="San Diego Cooperative Preschool Fundraiser">
     <meta property="og:description" content="Join us on the evening of Friday May 3 2019 for our annual gala fundraiser benefitting San Diego Cooperative Preschool. Dinner and dancing for all!">
     <meta property="og:image" content="https://www.sdcpfundraiser.org/img/site-preview-1200x812.png">
-
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 </head>
 <body class="sdcp">
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top">
+        <a class="navbar-brand sr-only" href="#">Home</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto float-right">
+                <!-- <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#buy-tickets" class="buy-tickets-link">Buy Tickets</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#donate" class="donate-link">Donate</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
 <div class="content">
     <div class="section section1">
@@ -62,11 +83,11 @@
             <p class="caps">San Diego Cooperative Preschool</p>
 
             <p class="internal-page-links">
-                <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light">
+                <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light buy-tickets-link">
                     Buy Tickets
                 </a>
                 <span class="cursive">or</span>
-                <a id="donate-link" href="#donate" class="btn btn-light">
+                <a id="donate-link" href="#donate" class="btn btn-light donate-link">
                     Donate
                 </a>
             </p>
@@ -87,6 +108,9 @@
         <h3 id="buy-tickets" class="impact">Buy Your Gala Tickets</h3>
 
         <div class="purchase-container">
+            <p>
+                 Dinner, beer, and wine are included in the cost of admission. There will also be a cash bar for cocktails. There is no dress code, but cocktail attire is encouraged.
+            </p>
             <form>
                 <fieldset class="form-group pl-0">
                     <legend class="xcol-form-label xcol-sm-3 pt-0">Choose your price:</legend>
@@ -168,7 +192,7 @@
 
         <div class="purchase-container raffle-ticket-prices">
             <p>
-                If you would like to buy more raffle tickets, they will be available in the front office of the school. There is a volume discount for purchasing multiple tickets at once. Prices for tickets are as follows:
+                If you would like to buy raffle tickets, they will be available in the front office of the school and at the gala. There is a volume discount for purchasing multiple tickets at once. Prices for tickets are as follows:
             </p>
 
             <ul>
@@ -267,6 +291,10 @@
     <div class="clearfix"></div>
 </footer>
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script src="lib/script.js"></script>
 
 </body>
