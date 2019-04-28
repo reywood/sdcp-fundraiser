@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>San Diego Cooperative Preschool Fundraiser</title>
 
@@ -18,6 +18,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/style.css" rel="stylesheet">
 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!--[if lt IE 9]>
@@ -36,23 +37,29 @@
 <body class="sdcp">
 
 <header>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top">
-        <a class="navbar-brand sr-only" href="#">Home</a>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top justify-content-end">
+        <!-- <a href="/" class="navbar-brand d-flex w-50 mr-auto">Navbar 3</a> -->
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto float-right">
+        <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
+            <ul class="navbar-nav w-100 justify-content-end">
                 <!-- <li class="nav-item active">
                     <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#buy-tickets" class="buy-tickets-link">Buy Tickets</a>
+                    <a class="nav-link js-buy-tickets-link" href="#buy-tickets">Buy Tickets</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#donate" class="donate-link">Donate</a>
+                    <a class="nav-link js-donate-link" href="#donate">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-location-link" href="#location">Location</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://live.cause4auction.com/auction_item_list.php?auction_id=255">Auction</a>
                 </li>
             </ul>
         </div>
@@ -83,11 +90,11 @@
             <p class="caps">San Diego Cooperative Preschool</p>
 
             <p class="internal-page-links">
-                <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light buy-tickets-link">
+                <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light js-buy-tickets-link">
                     Buy Tickets
                 </a>
                 <span class="cursive">or</span>
-                <a id="donate-link" href="#donate" class="btn btn-light donate-link">
+                <a id="donate-link" href="#donate" class="btn btn-light js-donate-link">
                     Donate
                 </a>
             </p>
@@ -204,7 +211,7 @@
         </div>
 
 
-        <h3 class="impact">Location</h3>
+        <h3 id="location" class="impact">Location</h3>
 
         <p class="location">
             This year's gala will be held at the Riverwalk Golf Club in Mission Valley.<br>
@@ -291,7 +298,7 @@
     <div class="clearfix"></div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js"integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>

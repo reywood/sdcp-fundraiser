@@ -12,8 +12,8 @@ $screen-xs-min: 0;
 
 
 $dark-theme-text-color: #ccc;
-
 $muted-text-color: #888;
+$link-color: #43a2be;
 
 body {
     font-size:18px;
@@ -29,28 +29,32 @@ body {
 
         a,
         a:link,
-        a:visited {
-            color: #43a2be;
+        a:visited,
+        .navbar .navbar-nav .nav-link {
+            color: $link-color;
         }
 
         a:hover,
-        a:active {
-            color: lighten(#43a2be, 10%);
+        a:active,
+        .navbar .navbar-nav .nav-link:hover,
+        .navbar .navbar-nav .nav-link:active {
+            color: lighten($link-color, 10%);
         }
 
         header {
-            nav {
+            nav.navbar {
                 background-color: rgba(#fff, .95);
-                // left: 0;
-                // position: fixed;
-                // right: 0;
-                // top: 0;
-                // z-index: 100;
                 transition: background-color .7s;
                 box-shadow: 0 5px 5px rgba(#000, .2);
 
                 &.dark {
                     // background-color: rgba(#000, .3);
+                }
+
+                @media (min-width: $screen-md-min) {
+                    font-size: .9rem;
+                    padding-bottom: 0;
+                    padding-top: 0;
                 }
             }
         }
@@ -193,7 +197,7 @@ body {
             }
 
             .page-header-image {
-                margin-top: -50px;
+                margin-top: -70px;
                 max-width: 776px;
                 width: 100%;
                 height: auto;

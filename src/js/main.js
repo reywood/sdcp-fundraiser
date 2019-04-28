@@ -1,17 +1,11 @@
 $(() => {
-    $(window).on('scroll', (e) => {
-        if ($(window).scrollTop() > 750) {
-            $('header nav').addClass('dark');
-        } else {
-            $('header nav').removeClass('dark');
-        }
-    });
-
-    $('.buy-tickets-link, .donate-link').on('click', (e) => {
+    $('.js-buy-tickets-link, .js-donate-link, .js-location-link').on('click', (e) => {
+        console.log(e);
         e.preventDefault();
 
         const $linkToElement = $($(e.target).attr('href'));
-        $('html, body').animate({scrollTop: $linkToElement.offset().top}, 500);
+        const navBarHeight = 50;
+        $('html, body').animate({scrollTop: $linkToElement.offset().top - navBarHeight}, 500);
     });
 
     $('input[name="other-amount"]').on('input', (e) => {
@@ -33,32 +27,32 @@ $(() => {
 
     // colorizePageHeader();
 
-    function colorizePageHeader() {
-        const colors = [
-            '#e2242e',
-            '#ee8b2f',
-            '#589e5d',
-            '#43a2be',
-            '#9b3880',
-            '#419cb7',
-            // '#e1242e',
-            '#5ba360',
-        ];
+    // function colorizePageHeader() {
+    //     const colors = [
+    //         '#e2242e',
+    //         '#ee8b2f',
+    //         '#589e5d',
+    //         '#43a2be',
+    //         '#9b3880',
+    //         '#419cb7',
+    //         // '#e1242e',
+    //         '#5ba360',
+    //     ];
 
-        const h1 = document.querySelector('.section1 h1');
-        const text = h1.textContent.trim();
-        const chars = text.split('');
-        let colorIndex = 0;
-        const newHTML = chars.map((c) => {
-            if (/\s/.test(c)) {
-                return c;
-            }
-            if (colorIndex >= colors.length) {
-                colorIndex = 0;
-            }
-            return `<span style="color: ${colors[colorIndex++]}">${c}</span>`;
-        }).join('');
+    //     const h1 = document.querySelector('.section1 h1');
+    //     const text = h1.textContent.trim();
+    //     const chars = text.split('');
+    //     let colorIndex = 0;
+    //     const newHTML = chars.map((c) => {
+    //         if (/\s/.test(c)) {
+    //             return c;
+    //         }
+    //         if (colorIndex >= colors.length) {
+    //             colorIndex = 0;
+    //         }
+    //         return `<span style="color: ${colors[colorIndex++]}">${c}</span>`;
+    //     }).join('');
 
-        h1.innerHTML = newHTML;
-    }
+    //     h1.innerHTML = newHTML;
+    // }
 });
