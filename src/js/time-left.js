@@ -1,5 +1,5 @@
 // May 3, 2019 7:00pm -0700
-const eventDate = new Date('2019-05-04T02:00:00Z');
+const eventDate = new Date('2020-05-15T02:00:00Z');
 
 $(() => {
     updateTimeLeftDisplay();

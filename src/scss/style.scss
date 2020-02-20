@@ -150,6 +150,10 @@ body {
                 margin-right: auto;
                 max-width: 50em;
                 text-align: justify;
+
+                &.center {
+                    text-align: center;
+                }
             }
         }
 
