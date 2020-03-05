@@ -1,6 +1,7 @@
 {
     "root": true,
-    "extends": "google",
+    "extends": ["google", "prettier"],
+    "plugins": ["prettier"],
     "parserOptions": {
         "ecmaVersion": 2017,
         "sourceType": "module"
@@ -8,6 +9,9 @@
     "env": {
         "browser": true,
         "jquery": true
+    },
+    "globals": {
+        "Stripe": true
     },
     "rules": {
         "complexity": ["error", 8],

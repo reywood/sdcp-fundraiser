@@ -82,7 +82,7 @@ $(() => {
             //     $('.validation-error').show();
             // }
         },
-    }, '#paypal-button');
+    }, '#payment-button');
 });
 
 class FormValidationError extends Error {

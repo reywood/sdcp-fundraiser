@@ -1,6 +1,5 @@
 $(() => {
-    $('.js-buy-tickets-link, .js-donate-link, .js-location-link').on('click', (e) => {
-        console.log(e);
+    $('.js-buy-tickets-link, .js-donate-link, .js-location-link').on('click', e => {
         e.preventDefault();
 
         const $linkToElement = $($(e.target).attr('href'));
@@ -8,11 +7,11 @@ $(() => {
         $('html, body').animate({scrollTop: $linkToElement.offset().top - navBarHeight}, 500);
     });
 
-    $('input[name="other-amount"]').on('input', (e) => {
+    $('input[name="other-amount"]').on('input', e => {
         $('#ticket-amount-other').prop('checked', true);
     });
 
-    $('#donate-form').on('submit', (e) => {
+    $('#donate-form').on('submit', e => {
         e.preventDefault();
 
         const width = 600;
