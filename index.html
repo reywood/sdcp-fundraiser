@@ -39,6 +39,8 @@
         <meta property="og:image" content="https://www.sdcpfundraiser.org/img/site-preview-1200x812.png" />
     </head>
     <body class="sdcp">
+        <div class="alert-container"></div>
+
         <header>
             <nav class="navbar navbar-expand navbar-light fixed-top justify-content-center justify-content-md-end">
                 <button
@@ -142,6 +144,19 @@
                         encouraged.
                     </p>
                     <form>
+                        <div class="form-group">
+                            <label for="ticket-buyer-name">Your name:</label>
+                            <div class="row">
+                                <div class="offset-sm-1 col-sm-11">
+                                    <input
+                                        id="ticket-buyer-name"
+                                        class="form-control ticket-buyer-name"
+                                        type="text"
+                                        name="ticket-buyer-name"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                         <fieldset class="form-group pl-0">
                             <legend class="xcol-form-label xcol-sm-3 pt-0">Choose your price:</legend>
                             <div class="row">

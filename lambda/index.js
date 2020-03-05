@@ -52,7 +52,16 @@ const VALID_TICKET_AMOUNTS = ticketOptions.reduce((amounts, option) => {
 const VALID_ATTENDEE_TYPES = ['current family', 'alum', 'new family', 'grandparent / special friend'];
 
 exports.handler = async event => {
-    const queryArgs = JSON.parse(event.body);
+    let queryArgs;
+    try {
+        queryArgs = JSON.parse(event.body);
+    } catch (error) {
+        return {
+            statusCode: 400,
+            body: JSON.stringify('Invalid request body')
+        };
+    }
+    const buyerName = queryArgs.buyerName;
     const ticketAmountInDollars = parseInt(queryArgs.ticketAmount, 10);
     const quantity = parseInt(queryArgs.quantity, 10);
     const attendeeType = queryArgs.attendeeType;
@@ -82,6 +91,7 @@ exports.handler = async event => {
             ],
             payment_intent_data: {
                 metadata: {
+                    name: buyerName,
                     'attendee type': attendeeType,
                     extras: extras,
                     'in honor of': inHonorOf

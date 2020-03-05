@@ -1,6 +1,6 @@
 $(() => {
-    createCheckoutButton();
-    handleChargeSuccessOrCancel();
+    const checkoutBtn = createCheckoutButton();
+    handleCheckoutSuccessOrCancel();
 
     // toggleCheckoutButton(checkoutBtn);
     // onFormInputChange(() => {
@@ -8,21 +8,46 @@ $(() => {
     // });
 });
 
-function handleChargeSuccessOrCancel() {
+function handleCheckoutSuccessOrCancel() {
     const searchParams = new URLSearchParams(window.location.search);
     const chargeStatus = searchParams.get('charge-status');
     if (chargeStatus === 'success') {
-        $('.purchase-thank-you').show();
-        const price = searchParams.get('price');
-        const quantity = searchParams.get('quantity');
-        if (price && quantity) {
-            const total = parseInt(price, 10) * parseInt(quantity, 10);
-            gtag && gtag('event', 'Purchase tickets', {value: total});
-        }
+        showCheckoutSuccessMessage();
+        logSuccessfulCheckout(searchParams);
     }
     if (chargeStatus === 'cancel') {
-        gtag && gtag('event', 'Cancel checkout');
+        logCancelledCheckout();
     }
+}
+
+function showCheckoutSuccessMessage() {
+    const $alert = $(`
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            <h4 class="alert-heading">Thank you!</h4>
+            Your payment has been received. We'll see you at the gala!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    `);
+    $alert.alert();
+    $('.alert-container').append($alert);
+    setTimeout(() => {
+        $alert.alert('close');
+    }, 10000);
+}
+
+function logSuccessfulCheckout(searchParams) {
+    const price = searchParams.get('price');
+    const quantity = searchParams.get('quantity');
+    if (price && quantity) {
+        const total = parseInt(price, 10) * parseInt(quantity, 10);
+        gtag && gtag('event', 'Purchase tickets', {value: total});
+    }
+}
+
+function logCancelledCheckout() {
+    gtag && gtag('event', 'Cancel checkout');
 }
 
 function createCheckoutButton() {
@@ -44,6 +69,17 @@ function createCheckoutButton() {
             });
         }
     });
+
+    return checkoutBtn;
+}
+
+function logCheckoutButtonClickEvent() {
+    try {
+        validate();
+        gtag && gtag('event', 'Checkout');
+    } catch (error) {
+        gtag && gtag('event', 'Fail form validation', {category: 'error', label: error.message});
+    }
 }
 
 function requestSessionId() {
@@ -72,7 +108,7 @@ function requestSessionId() {
 }
 
 function redirectToCheckout(sessionId) {
-    const stripe = Stripe('pk_test_f2pBW8S36KI3jielImS2Odg2', {
+    const stripe = new Stripe('pk_test_f2pBW8S36KI3jielImS2Odg2', {
         stripeAccount: 'acct_1E2m0vASc7ERbwvp'
     });
     stripe.redirectToCheckout({sessionId});
@@ -95,6 +131,7 @@ function buildSessionRequestBody() {
     const price = getSelectedPrice();
     const quantity = getQuantity();
     return JSON.stringify({
+        buyerName: getBuyerName(),
         ticketAmount: price,
         quantity: quantity,
         attendeeType: getAttendeeType(),
@@ -114,10 +151,6 @@ function getSelectedPrice() {
 
 function getSelectedPriceRadio() {
     return $('input[name="ticket-amount"]:checked');
-}
-
-function getQuantity() {
-    return $('#ticket-quantity').val();
 }
 
 function getTicketInHonorOf() {

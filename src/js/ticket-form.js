@@ -18,6 +18,11 @@ class FormValidationError extends Error {
 function validate() {
     const integerRegex = /^[0-9]+$/;
 
+    const buyerName = getBuyerName();
+    if (!buyerName || buyerName.length <= 0) {
+        throw new FormValidationError('Please enter your name');
+    }
+
     const price = getSelectedPrice();
     if (!integerRegex.test(price)) {
         throw new FormValidationError('Select a valid price');
@@ -42,15 +47,6 @@ function toggleValidationMessage() {
     }
 }
 
-function logCheckoutButtonClickEvent() {
-    try {
-        validate();
-        gtag && gtag('event', 'Checkout');
-    } catch (error) {
-        gtag && gtag('event', 'Fail form validation', {category: 'error', label: error.message});
-    }
-}
-
 function doAllFieldsPassValidation() {
     try {
         validate();
@@ -58,6 +54,10 @@ function doAllFieldsPassValidation() {
     } catch (error) {
         return false;
     }
+}
+
+function getBuyerName() {
+    return $('#ticket-buyer-name').val();
 }
 
 function getSelectedPrice() {
@@ -83,8 +83,4 @@ function getTicketInHonorOf() {
 
 function getAttendeeType() {
     return $('input[name="attendee-type"]:checked').val();
-}
-
-function getExtras() {
-    return getSelectedPriceRadio().data('extras');
 }
