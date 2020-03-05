@@ -339,6 +339,10 @@ body {
                     font-weight: bold;
                 }
 
+                input[type='text'] {
+                    max-width: 26em;
+                }
+
                 .form-check label {
                     font-weight: normal;
                 }
@@ -361,10 +365,6 @@ body {
                     }
                 }
 
-                .ticket-buyer-name {
-                    max-width: 26em;
-                }
-
                 .ticket-quantity {
                     max-width: 5em;
                 }
@@ -382,6 +382,10 @@ body {
                 .payment-button {
                     margin: 0 auto;
                     text-align: center;
+
+                    button {
+                        width: 10em;
+                    }
                 }
 
                 .validation-error {
