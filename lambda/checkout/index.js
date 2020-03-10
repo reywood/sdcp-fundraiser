@@ -70,7 +70,7 @@ exports.handler = async event => {
     const cancelUrl = queryArgs.cancelUrl;
 
     try {
-        validate(ticketAmountInDollars, quantity, attendeeType, inHonorOf);
+        validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf);
         const extras = getExtras(ticketAmountInDollars);
         const itemName = buildItemName(extras, attendeeType, inHonorOf);
 
@@ -112,18 +112,29 @@ exports.handler = async event => {
     }
 };
 
-function validate(ticketAmountInDollars, quantity, attendeeType, inHonorOf) {
-    if (!VALID_TICKET_AMOUNTS.includes(ticketAmountInDollars)) {
-        throw new Error('Invalid ticket amount');
+function validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf) {
+    validateText(buyerName, 1, 100, 'Invalid name');
+    validateText(inHonorOf, 0, 100, 'Invalid in honor of');
+    validateEnum(ticketAmountInDollars, VALID_TICKET_AMOUNTS, 'Invalid ticket amount');
+    validateEnum(attendeeType, VALID_ATTENDEE_TYPES, 'Invalid attendee type');
+    validateNumber(quantity, 1, 100, 'Invalid quantity');
+}
+
+function validateText(value, minLength, maxLength, errorMessage) {
+    if (value.length < minLength || value.length > maxLength) {
+        throw new Error(errorMessage);
     }
-    if (isNaN(quantity) || quantity <= 0 || quantity > 100) {
-        throw new Error('Invalid quantity');
+}
+
+function validateEnum(value, validValues, errorMessage) {
+    if (!validValues.includes(value)) {
+        throw new Error(errorMessage);
     }
-    if (!VALID_ATTENDEE_TYPES.includes(attendeeType)) {
-        throw new Error('Invalid attendee type');
-    }
-    if (inHonorOf.length > 50) {
-        throw new Error('Invalid in honor of');
+}
+
+function validateNumber(value, min, max, errorMessage) {
+    if (isNaN(value) || value < min || value > max) {
+        throw new Error(errorMessage);
     }
 }
 

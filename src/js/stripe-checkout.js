@@ -1,10 +1,10 @@
 $(() => {
-    handleCheckoutSuccessOrCancel();
+    stripeCheckout.handleCheckoutSuccessOrCancel();
 });
 
 const stripeCheckout = {
     checkout() {
-        this.requestSessionId().then(sessionId => {
+        return this.requestSessionId().then(sessionId => {
             this.redirectToCheckout(sessionId);
         });
     },
@@ -35,9 +35,7 @@ const stripeCheckout = {
     },
 
     redirectToCheckout(sessionId) {
-        const stripe = new Stripe('pk_test_f2pBW8S36KI3jielImS2Odg2'); // , {
-        //     stripeAccount: 'acct_1E2m0vASc7ERbwvp'
-        // });
+        const stripe = new Stripe(config.stripeKey);
         stripe.redirectToCheckout({sessionId});
     },
 
@@ -54,23 +52,22 @@ const stripeCheckout = {
             successUrl: `${baseReturnUrl}?checkout-status=success&price=${price}&quantity=${quantity}`,
             cancelUrl: `${baseReturnUrl}?checkout-status=cancel`
         });
-    }
-};
+    },
 
-function handleCheckoutSuccessOrCancel() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const chargeStatus = searchParams.get('checkout-status');
-    if (chargeStatus === 'success') {
-        showCheckoutSuccessMessage();
-        logSuccessfulCheckout(searchParams);
-    }
-    if (chargeStatus === 'cancel') {
-        logCancelledCheckout();
-    }
-}
+    handleCheckoutSuccessOrCancel() {
+        const searchParams = new URLSearchParams(window.location.search);
+        const chargeStatus = searchParams.get('checkout-status');
+        if (chargeStatus === 'success') {
+            this.showCheckoutSuccessMessage();
+            this.logSuccessfulCheckout(searchParams);
+        }
+        if (chargeStatus === 'cancel') {
+            this.logCancelledCheckout();
+        }
+    },
 
-function showCheckoutSuccessMessage() {
-    const $alert = $(`
+    showCheckoutSuccessMessage() {
+        const $alert = $(`
         <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
             <h4 class="alert-heading">Thank you!</h4>
             Your payment has been received. We'll see you at the gala!
@@ -79,22 +76,23 @@ function showCheckoutSuccessMessage() {
             </button>
         </div>
     `);
-    $alert.alert();
-    $('.alert-container').append($alert);
-    setTimeout(() => {
-        $alert.alert('close');
-    }, 10000);
-}
+        $alert.alert();
+        $('.alert-container').append($alert);
+        setTimeout(() => {
+            $alert.alert('close');
+        }, 10000);
+    },
 
-function logSuccessfulCheckout(searchParams) {
-    const price = searchParams.get('price');
-    const quantity = searchParams.get('quantity');
-    if (price && quantity) {
-        const total = parseInt(price, 10) * parseInt(quantity, 10);
-        gtag && gtag('event', 'Purchase tickets', {value: total});
+    logSuccessfulCheckout(searchParams) {
+        const price = searchParams.get('price');
+        const quantity = searchParams.get('quantity');
+        if (price && quantity) {
+            const total = parseInt(price, 10) * parseInt(quantity, 10);
+            gtag && gtag('event', 'Ticket purchase successful', {value: total});
+        }
+    },
+
+    logCancelledCheckout() {
+        gtag && gtag('event', 'Cancel checkout');
     }
-}
-
-function logCancelledCheckout() {
-    gtag && gtag('event', 'Cancel checkout');
-}
+};

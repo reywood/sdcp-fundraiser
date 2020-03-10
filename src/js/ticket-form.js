@@ -4,32 +4,34 @@ $(() => {
 
 const ticketForm = {
     init(checkoutHandler) {
-        this.createCheckoutButton(checkoutHandler);
+        document.getElementById('ticket-purchase-form').addEventListener('submit', e => {
+            e.preventDefault();
+            this.handleSubmit(checkoutHandler);
+        });
+
         this.bindToggleInHonorOfOnAttendeeTypeChange();
         this.toggleInHonorOf();
         // $('.purchase-container form .form-check').css('color', 'red');
     },
 
-    createCheckoutButton(checkoutHandler) {
-        const checkoutBtn = document.createElement('button');
-        checkoutBtn.classList.add('btn');
-        checkoutBtn.classList.add('btn-success');
-        checkoutBtn.textContent = 'Checkout';
-        checkoutBtn.addEventListener('click', () => this.handleCheckoutButtonClick(checkoutBtn));
-
-        document.getElementById('payment-button').appendChild(checkoutBtn);
-
-        return checkoutBtn;
-    },
-
-    handleCheckoutButtonClick(checkoutBtn) {
+    handleSubmit(checkoutHandler) {
+        const checkoutBtn = document.querySelector('#payment-button button');
+        const checkoutBtnOriginalText = checkoutBtn.textContent;
         checkoutBtn.disabled = true;
         this.toggleValidationMessage();
 
         if (this.doAllFieldsPassValidation()) {
             this.showCheckingOutIndicator(checkoutBtn);
             this.logCheckoutButtonClickEvent();
-            checkoutHandler();
+            checkoutHandler().catch(error => {
+                alert('Unable to process checkout. Please try again.');
+                if (this.checkingOutInterval) {
+                    clearInterval(this.checkingOutInterval);
+                    this.checkingOutInterval = null;
+                }
+                checkoutBtn.textContent = checkoutBtnOriginalText;
+                checkoutBtn.disabled = false;
+            });
         } else {
             checkoutBtn.disabled = false;
             if (!this.isFormInputChangeValidationHandlerAttached) {
@@ -41,9 +43,9 @@ const ticketForm = {
 
     showCheckingOutIndicator(checkoutBtn) {
         let counter = 0;
-        setInterval(() => {
+        this.checkingOutInterval = setInterval(() => {
             const ellipsis = [...Array(counter)].map(() => '.').join('');
-            const text = `Checking out ${ellipsis}`;
+            const text = `Processing ${ellipsis}`;
             counter = ++counter % 4;
             checkoutBtn.textContent = text;
         }, 500);
@@ -66,9 +68,9 @@ const ticketForm = {
     logCheckoutButtonClickEvent() {
         try {
             validate();
-            gtag && gtag('event', 'Checkout');
+            gtag && gtag('event', 'Ticket checkout');
         } catch (error) {
-            gtag && gtag('event', 'Fail form validation', {category: 'error', label: error.message});
+            gtag && gtag('event', 'Fail checkout form validation', {category: 'error', label: error.message});
         }
     },
 
@@ -77,35 +79,35 @@ const ticketForm = {
 
         const buyerName = this.getBuyerName();
         if (!buyerName || buyerName.length <= 0) {
-            throw new FormValidationError('Please enter your name');
+            throw new this.FormValidationError('Please enter your name');
         }
 
         const price = this.getSelectedPrice();
         if (!integerRegex.test(price)) {
-            throw new FormValidationError('Select a valid price');
+            throw new this.FormValidationError('Select a valid price');
         }
 
         const quantity = this.getQuantity();
         if (!integerRegex.test(quantity) || parseInt(quantity, 10) <= 0) {
-            throw new FormValidationError('Select a valid quantity');
+            throw new this.FormValidationError('Select a valid quantity');
         }
 
         const attendeeType = this.getAttendeeType();
         if (!attendeeType || attendeeType.length <= 0) {
-            throw new FormValidationError('Please specifiy whether you are currently enrolled, an alum, etc');
+            throw new this.FormValidationError('Please specifiy whether you are currently enrolled, an alum, etc');
         }
     },
 
     onFormInputChange(handler) {
         $('.purchase-container input').on('change', handler);
-        $('.purchase-container input[type="text"]').on('input', handler);
+        $('.purchase-container input[type="text"], .purchase-container input[type="number"]').on('input', handler);
     },
 
     toggleValidationMessage() {
         if (this.doAllFieldsPassValidation()) {
-            $('.validation-error').hide();
+            $('.checkout-validation-error').hide();
         } else {
-            $('.validation-error').show();
+            $('.checkout-validation-error').show();
         }
     },
 
@@ -145,11 +147,11 @@ const ticketForm = {
 
     getAttendeeType() {
         return $('input[name="attendee-type"]:checked').val();
+    },
+
+    FormValidationError: class FormValidationError extends Error {
+        constructor(message) {
+            super(message);
+        }
     }
 };
-
-class FormValidationError extends Error {
-    constructor(message) {
-        super(message);
-    }
-}

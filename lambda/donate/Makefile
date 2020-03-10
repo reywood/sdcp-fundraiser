@@ -4,7 +4,7 @@ NODE_MODULES_DIRECTORY := $(ROOT_DIR)/node_modules
 BUILD_DIRECTORY := $(ROOT_DIR)/build
 BUNDLE_FILE_NAME := sdcp-ticket-order-$(DATE).zip
 BUNDLE_FILE_PATH := $(BUILD_DIRECTORY)/$(BUNDLE_FILE_NAME)
-LAMBDA_FUNCTION := sdcp-ticket-order
+LAMBDA_FUNCTION := sdcp-donate
 
 .PHONY: test test-url build clean lint update-lambda
 

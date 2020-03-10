@@ -143,7 +143,7 @@
                         also be a cash bar for additional drinks. There is no dress code, but cocktail attire is
                         encouraged.
                     </p>
-                    <form>
+                    <form id="ticket-purchase-form">
                         <div class="form-group">
                             <label for="ticket-buyer-name">Your name:</label>
                             <div class="row">
@@ -153,6 +153,7 @@
                                         class="form-control ticket-buyer-name"
                                         type="text"
                                         name="ticket-buyer-name"
+                                        maxlength="100"
                                     />
                                 </div>
                             </div>
@@ -214,6 +215,7 @@
                                         name="ticket-quantity"
                                         value="1"
                                         min="1"
+                                        max="100"
                                         pattern="\d*"
                                     />
                                 </div>
@@ -274,7 +276,7 @@
                         </fieldset>
                         <div class="form-group-in-honor-of">
                             <div class="form-group">
-                                <label for="ticket-quantity">In honor of:</label>
+                                <label for="ticket-in-honor-of">In honor of:</label>
                                 <div class="row">
                                     <div class="offset-sm-1 col-sm-11">
                                         <input
@@ -282,18 +284,21 @@
                                             class="form-control ticket-in-honor-of"
                                             type="text"
                                             name="ticket-in-honor-of"
-                                            placeholder="name of student (optional)"
+                                            placeholder="name of child (optional)"
+                                            maxlength="100"
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <br />
+                        <div id="payment-button" class="submit-button">
+                            <button type="submit" class="btn btn-success">Checkout</button>
+                        </div>
                     </form>
 
-                    <br />
-                    <div id="payment-button" class="payment-button"></div>
-
-                    <p class="validation-error">
+                    <p class="checkout-validation-error validation-error">
                         Please be sure to fill out all of the above fields
                     </p>
 
@@ -303,20 +308,22 @@
                     </p>
                 </div>
 
-                <!--h3 id="buy-raffle-tickets" class="impact">Buy More Raffle Tickets</h3>
+                <h3 id="buy-raffle-tickets" class="impact">Buy More Raffle Tickets</h3>
 
-        <div class="purchase-container raffle-ticket-prices">
-            <p>
-                If you would like to buy raffle tickets, they will be available in the front office of the school and at the gala. There is a volume discount for purchasing multiple tickets at once. Prices for tickets are as follows:
-            </p>
+                <div class="purchase-container raffle-ticket-prices">
+                    <p>
+                        If you would like to buy raffle tickets, they will be available in the front office of the
+                        school and at the gala. There is a volume discount for purchasing multiple tickets at once.
+                        Prices for tickets are as follows:
+                    </p>
 
-            <ul>
-                <li>1 ticket for $10</li>
-                <li>5 tickets for $40 <em class="raffle-savings">($10 savings)</em></li>
-                <li>10 tickets for $75 <em class="raffle-savings">($25 savings)</em></li>
-                <li>20 tickets for $140 <em class="raffle-savings">($60 savings)</em></li>
-            </ul>
-        </div-->
+                    <ul>
+                        <li>1 ticket for $10</li>
+                        <li>5 tickets for $40 <em class="raffle-savings">($10 savings)</em></li>
+                        <li>10 tickets for $75 <em class="raffle-savings">($25 savings)</em></li>
+                        <li>20 tickets for $140 <em class="raffle-savings">($60 savings)</em></li>
+                    </ul>
+                </div>
 
                 <h3 id="location" class="impact">Location</h3>
 
@@ -357,46 +364,72 @@
                     below.
                 </p>
 
-                <form
-                    id="donate-form"
-                    class="donate-form"
-                    action="https://www.paypal.com/cgi-bin/webscr"
-                    method="post"
-                    target="_blank"
-                >
-                    <input type="hidden" name="cmd" value="_donations" />
-                    <input type="hidden" name="business" value="general@unitariancooperativepreschool.org" />
-                    <input type="hidden" name="lc" value="US" />
-                    <input type="hidden" name="item_name" value="San Diego Cooperative Preschool Fundraiser" />
-                    <input type="hidden" name="no_note" value="0" />
-                    <input type="hidden" name="currency_code" value="USD" />
-                    <input
-                        type="hidden"
-                        name="bn"
-                        value="PP-DonationsBF:almost-wink.jpg?zoom=2&amp;resize=400%2C427:NonHostedGuest"
-                    />
+                <div class="donate-container">
+                    <form id="donation-form">
+                        <div class="form-group">
+                            <label for="donation-donor-name">Your name:</label>
+                            <div class="row">
+                                <div class="offset-sm-1 col-sm-11">
+                                    <input
+                                        id="donation-donor-name"
+                                        class="form-control donation-donor-name"
+                                        type="text"
+                                        name="donation-donor-name"
+                                        maxlength="100"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="donation-amount">Donation amount:</label>
+                            <div class="row">
+                                <div class="offset-sm-1 col-sm-11">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input
+                                            id="donation-amount"
+                                            class="form-control donation-amount"
+                                            type="number"
+                                            name="donation-amount"
+                                            value="100"
+                                            min="1"
+                                            max="1000000"
+                                            pattern="\d*"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group-in-honor-of">
+                            <div class="form-group">
+                                <label for="donation-in-honor-of">In honor of:</label>
+                                <div class="row">
+                                    <div class="offset-sm-1 col-sm-11">
+                                        <input
+                                            id="donation-in-honor-of"
+                                            class="form-control donation-in-honor-of"
+                                            type="text"
+                                            name="donation-in-honor-of"
+                                            placeholder="name of child (optional)"
+                                            maxlength="100"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="donate-in-honor-of" class="sr-only">In honor of</label>
-                        <input
-                            id="donate-in-honor-of"
-                            class="form-control donate-in-honor-of"
-                            type="text"
-                            name="item_number"
-                            placeholder="In honor of (optional)"
-                            maxlength="127"
-                        />
-                    </div>
+                        <br />
+                        <div id="donate-button" class="submit-button">
+                            <button type="submit" class="btn btn-success">Make a Donation</button>
+                        </div>
+                    </form>
 
-                    <button class="btn btn-light donate-btn">Make a Donation</button>
-                    <img
-                        alt=""
-                        border="0"
-                        src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif"
-                        width="1"
-                        height="1"
-                    />
-                </form>
+                    <p class="donation-validation-error validation-error">
+                        Please be sure to fill out all of the above fields
+                    </p>
+                </div>
 
                 <p class="donate-by-mail">
                     Or you can mail a check to:<br />

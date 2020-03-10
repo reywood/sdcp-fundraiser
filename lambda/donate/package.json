@@ -1,0 +1,8 @@
+{
+    "scripts": {
+        "lint": "eslint"
+    },
+    "dependencies": {
+        "stripe": "^8.24.1"
+    }
+}
