@@ -70,7 +70,7 @@ body {
         }
 
         .caps {
-            letter-spacing: 0.2em;
+            letter-spacing: 0.15em;
             text-transform: uppercase;
         }
 
@@ -80,6 +80,10 @@ body {
 
         .cursive {
             font-family: 'Allura', cursive;
+        }
+
+        .hide {
+            display: none;
         }
 
         .btn {
@@ -412,6 +416,31 @@ body {
             }
         }
 
+        .purchase-container-tickets {
+            .early-bird-1-offer,
+            .early-bird-2-offer {
+                display: none;
+            }
+
+            &.early-bird-1,
+            &.early-bird-2 {
+                .standard-offer {
+                    display: none;
+                }
+            }
+
+            &.early-bird-1 .early-bird-1-offer {
+                display: inline;
+            }
+
+            &.early-bird-2 .early-bird-2-offer {
+                display: inline;
+            }
+            // .purchase-early-bird strong {
+            //     font-weight: 500;
+            // }
+        }
+
         .section2 {
             text-align: center;
 
@@ -480,15 +509,6 @@ body {
                     margin-right: 0.1em;
                     vertical-align: text-bottom;
                 }
-            }
-        }
-
-        .donate-form {
-            .donate-in-honor-of {
-                margin-left: auto;
-                margin-right: auto;
-                max-width: 20em;
-                text-align: center;
             }
         }
 

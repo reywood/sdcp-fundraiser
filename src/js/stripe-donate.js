@@ -42,6 +42,7 @@ const stripeDonate = {
         const baseReturnUrl = `${location.protocol}//${location.host}${location.pathname}`;
         const amount = donationForm.getAmount();
         return JSON.stringify({
+            environment: config.environment,
             donorName: donationForm.getDonorName(),
             amount: amount,
             inHonorOf: donationForm.getTicketInHonorOf(),

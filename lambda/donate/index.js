@@ -1,8 +1,4 @@
-const apiKey = process.env.API_KEY;
-const stripe = require('stripe')(apiKey, {
-    apiVersion: '2019-12-03',
-    maxNetworkRetries: 1
-});
+const Stripe = require('stripe');
 
 exports.handler = async event => {
     let queryArgs;
@@ -24,6 +20,10 @@ exports.handler = async event => {
         validate(donorName, donationAmountInDollars, inHonorOf);
         const itemName = buildItemName(donorName, inHonorOf);
 
+        const stripe = Stripe(getApiKey(queryArgs.environment), {
+            apiVersion: '2019-12-03',
+            maxNetworkRetries: 3
+        });
         const session = await stripe.checkout.sessions.create({
             success_url: successUrl,
             cancel_url: cancelUrl,
@@ -59,6 +59,15 @@ exports.handler = async event => {
         };
     }
 };
+
+function getApiKey(environment) {
+    if (environment === 'dev') {
+        return process.env.API_KEY_DEV;
+    }
+    if (environment === 'prod') {
+        return process.env.API_KEY_PROD;
+    }
+}
 
 function validate(donorName, donationAmountInDollars, inHonorOf) {
     validateText(donorName, 1, 100, 'Invalid donor name');

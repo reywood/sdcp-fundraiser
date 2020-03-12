@@ -1,5 +1,6 @@
 {
     "dependencies": {
+        "moment": "^2.24.0",
         "stripe": "^8.24.1"
     }
 }

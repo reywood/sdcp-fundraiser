@@ -89,7 +89,8 @@
                     </h1>
 
                     <h2 class="event-date caps">
-                        <nobr>Friday <wbr />May 15 2020 <wbr /> 7:00pm</nobr>
+                        Friday <nobr>May 15 2020</nobr> <br />
+                        <small>7:00pm to 10:00pm</small>
                     </h2>
 
                     <p class="time-left">&nbsp;</p>
@@ -136,14 +137,27 @@
 
                 <h3 id="buy-tickets" class="impact">Buy Your Gala Tickets</h3>
 
-                <div class="purchase-container">
-                    <!--p class="center">Tickets will go on sale March 13. Please check back then.</p-->
+                <div class="purchase-container purchase-container-tickets">
                     <p>
-                        Dinner and two drink tickets for beer and wine are included in the cost of admission. There will
-                        also be a cash bar for additional drinks. There is no dress code, but cocktail attire is
-                        encouraged.
+                        Dinner, dessert, two drink tickets for beer and wine, and a whole lot of fun are included in the cost of admission.
+                        There will also be a cash bar for additional drinks. There is no dress code, but cocktail attire
+                        is encouraged.
                     </p>
-                    <form id="ticket-purchase-form">
+
+                    <p class="center purchase-check-back hide">
+                        <strong>Tickets will go on sale <span class="ticket-sale-start-date"></span>. Please check back then.</strong>
+                    </p>
+
+                    <p class="purchase-early-bird hide">
+                        <strong>We're having an early bird sale!</strong> If you purchase right now, you'll get
+                        <span class="early-bird-offer text-success"></span> for each ticket purchased.
+                    </p>
+
+                    <p class="center purchase-after-event hide">
+                        <strong>That's a wrap! See you at next year's party!</strong>
+                    </p>
+
+                    <form id="ticket-purchase-form" class="hide">
                         <div class="form-group">
                             <label for="ticket-buyer-name">Your name:</label>
                             <div class="row">
@@ -171,9 +185,14 @@
                                             value="50"
                                             checked
                                         />
-                                        <label class="form-check-label" for="ticket-amount-50"
-                                            >$50 <small>admits one</small></label
-                                        >
+                                        <label class="form-check-label" for="ticket-amount-50">
+                                            $50
+                                            <small>
+                                                admits one
+                                                <span class="early-bird-2-offer">+ 2 early bird raffle tickets ($70 value)</span>
+                                                <span class="early-bird-1-offer">+ 1 early bird raffle ticket ($60 value)</span>
+                                            </small>
+                                    </label>
                                     </div>
                                     <div class="form-check">
                                         <input
@@ -184,9 +203,15 @@
                                             value="75"
                                             data-extras="4 raffle tickets"
                                         />
-                                        <label class="form-check-label" for="ticket-amount-75"
-                                            >$75 <small>admits one + 4 raffle tickets ($90 value)</small></label
-                                        >
+                                        <label class="form-check-label" for="ticket-amount-75">
+                                            $75
+                                            <small>
+                                                admits one
+                                                <span class="standard-offer">+ 4 raffle tickets ($90 value)</span>
+                                                <span class="early-bird-2-offer">+ 4 raffle tickets + 2 early bird raffle tickets ($110 value)</span>
+                                                <span class="early-bird-1-offer">+ 4 raffle tickets + 1 early bird raffle ticket ($100 value)</span>
+                                            </small>
+                                        </label>
                                     </div>
                                     <div class="form-check">
                                         <input
@@ -197,9 +222,15 @@
                                             value="100"
                                             data-extras="10 raffle tickets"
                                         />
-                                        <label class="form-check-label" for="ticket-amount-100"
-                                            >$100 <small>admits one + 10 raffle tickets ($150 value)</small></label
-                                        >
+                                        <label class="form-check-label" for="ticket-amount-100">
+                                            $100
+                                            <small>
+                                                admits one
+                                                <span class="standard-offer">+ 10 raffle tickets ($150 value)</span>
+                                                <span class="early-bird-2-offer">+ 10 raffle tickets + 2 early bird raffle tickets ($170 value)</span>
+                                                <span class="early-bird-1-offer">+ 10 raffle tickets + 1 early bird raffle ticket ($160 value)</span>
+                                            </small>
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -292,7 +323,7 @@
                             </div>
                         </div>
 
-                        <br />
+                        <strongr strong>
                         <div id="payment-button" class="submit-button">
                             <button type="submit" class="btn btn-success">Checkout</button>
                         </div>
@@ -498,6 +529,11 @@
         <script
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+            integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
             crossorigin="anonymous"
         ></script>
         <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->

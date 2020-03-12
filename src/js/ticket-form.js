@@ -9,9 +9,55 @@ const ticketForm = {
             this.handleSubmit(checkoutHandler);
         });
 
+        this.showAppropriateContent();
         this.bindToggleInHonorOfOnAttendeeTypeChange();
         this.toggleInHonorOf();
         // $('.purchase-container form .form-check').css('color', 'red');
+    },
+
+    showAppropriateContent() {
+        const now = new Date();
+        if (now < config.saleStartDate) {
+            document.querySelector('.ticket-sale-start-date').textContent = moment(config.saleStartDate).format(
+                'MMMM Do'
+            );
+            document.querySelector('.purchase-check-back').style.display = 'block';
+        } else if (now > config.eventEndDate) {
+            document.querySelector('.purchase-after-event').style.display = 'block';
+        } else {
+            document.querySelector('#ticket-purchase-form').style.display = 'block';
+            this.showEarlyBirdOfferIfApplicable();
+        }
+    },
+
+    showEarlyBirdOfferIfApplicable() {
+        const earlyBirdSales = getEarlyBirdSales();
+        const now = new Date();
+        for (const saleInfo of earlyBirdSales) {
+            if (now >= saleInfo.startDate && now <= saleInfo.endDate) {
+                const container = document.querySelector('.purchase-early-bird');
+                const offerDetailElement = container.querySelector('.early-bird-offer');
+                const detail = `${saleInfo.bonusRaffleTickets} extra raffle ${this.pluralize(
+                    saleInfo.bonusRaffleTickets,
+                    'ticket'
+                )}`;
+                offerDetailElement.textContent = detail;
+                container.style.display = 'block';
+
+                document
+                    .querySelector('.purchase-container-tickets')
+                    .classList.add(`early-bird-${saleInfo.bonusRaffleTickets}`);
+
+                break;
+            }
+        }
+    },
+
+    pluralize(qty, noun) {
+        if (qty === 1) {
+            return noun;
+        }
+        return `${noun}s`;
     },
 
     handleSubmit(checkoutHandler) {
@@ -24,6 +70,7 @@ const ticketForm = {
             this.showCheckingOutIndicator(checkoutBtn);
             this.logCheckoutButtonClickEvent();
             checkoutHandler().catch(error => {
+                console.log(error);
                 alert('Unable to process checkout. Please try again.');
                 if (this.checkingOutInterval) {
                     clearInterval(this.checkingOutInterval);
@@ -125,11 +172,7 @@ const ticketForm = {
     },
 
     getSelectedPrice() {
-        let selectedAmount = this.getSelectedPriceRadio().val();
-        if (selectedAmount === 'other') {
-            selectedAmount = $('input[name="other-amount"]').val();
-        }
-        return selectedAmount;
+        return this.getSelectedPriceRadio().val();
     },
 
     getSelectedPriceRadio() {

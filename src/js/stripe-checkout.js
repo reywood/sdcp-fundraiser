@@ -20,7 +20,7 @@ const stripeCheckout = {
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Request failed');
+                        throw new Error(`Request failed: ${response.statusText}`);
                     }
                     return response.json();
                 })
@@ -28,7 +28,6 @@ const stripeCheckout = {
                     resolve(responseJson.sessionId);
                 })
                 .catch(error => {
-                    alert('Unable to process order');
                     reject(error);
                 });
         });
@@ -44,6 +43,7 @@ const stripeCheckout = {
         const price = ticketForm.getSelectedPrice();
         const quantity = ticketForm.getQuantity();
         return JSON.stringify({
+            environment: config.environment,
             buyerName: ticketForm.getBuyerName(),
             ticketAmount: price,
             quantity: quantity,

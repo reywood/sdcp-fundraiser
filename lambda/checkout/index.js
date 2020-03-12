@@ -1,8 +1,5 @@
-const apiKey = process.env.API_KEY;
-const stripe = require('stripe')(apiKey, {
-    apiVersion: '2019-12-03',
-    maxNetworkRetries: 1
-});
+const moment = require('moment');
+const Stripe = require('stripe');
 
 const ticketOptions = [
     {
@@ -19,16 +16,24 @@ const ticketOptions = [
     }
 ];
 
+const saleStartDate = moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate();
 const earlyBirdSales = {
     sales: [
         {
-            startDate: new Date('2020-03-13T00:00:00-0700'),
-            endDate: new Date('2020-03-27T23:59:59-0700'),
+            startDate: saleStartDate,
+            endDate: moment(saleStartDate)
+                .add(2, 'weeks')
+                .toDate(),
             bonusRaffleTickets: 2
         },
         {
-            startDate: new Date('2020-03-28T00:00:00-0700'),
-            endDate: new Date('2020-04-10T23:59:59-0700'),
+            startDate: moment(saleStartDate)
+                .add(2, 'weeks')
+                .add(1, 'second')
+                .toDate(),
+            endDate: moment(saleStartDate)
+                .add(4, 'weeks')
+                .toDate(),
             bonusRaffleTickets: 1
         }
     ],
@@ -52,15 +57,18 @@ const VALID_TICKET_AMOUNTS = ticketOptions.reduce((amounts, option) => {
 const VALID_ATTENDEE_TYPES = ['current family', 'alum', 'new family', 'grandparent / special friend'];
 
 exports.handler = async event => {
+    const now = new Date();
+    if (now < saleStartDate) {
+        return createResponse(403, 'Tickets are not yet for sale');
+    }
+
     let queryArgs;
     try {
         queryArgs = JSON.parse(event.body);
     } catch (error) {
-        return {
-            statusCode: 400,
-            body: JSON.stringify('Invalid request body')
-        };
+        return createResponse(400, 'Invalid request body');
     }
+
     const buyerName = queryArgs.buyerName;
     const ticketAmountInDollars = parseInt(queryArgs.ticketAmount, 10);
     const quantity = parseInt(queryArgs.quantity, 10);
@@ -74,6 +82,10 @@ exports.handler = async event => {
         const extras = getExtras(ticketAmountInDollars);
         const itemName = buildItemName(extras, attendeeType, inHonorOf);
 
+        const stripe = Stripe(getApiKey(queryArgs.environment), {
+            apiVersion: '2019-12-03',
+            maxNetworkRetries: 3
+        });
         const session = await stripe.checkout.sessions.create({
             success_url: successUrl,
             cancel_url: cancelUrl,
@@ -99,18 +111,27 @@ exports.handler = async event => {
             }
         });
 
-        const response = {
-            statusCode: 200,
-            body: JSON.stringify({sessionId: session.id, itemName})
-        };
-        return response;
+        return createResponse(200, {sessionId: session.id, itemName});
     } catch (error) {
-        return {
-            statusCode: 500,
-            body: JSON.stringify('An error occurred. Please try again.\n' + error)
-        };
+        return createResponse(500, 'An error occurred. Please try again.\n' + error);
     }
 };
+
+function getApiKey(environment) {
+    if (environment === 'dev') {
+        return process.env.API_KEY_DEV;
+    }
+    if (environment === 'prod') {
+        return process.env.API_KEY_PROD;
+    }
+}
+
+function createResponse(statusCode, body) {
+    return {
+        statusCode: statusCode,
+        body: JSON.stringify(body)
+    };
+}
 
 function validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf) {
     validateText(buyerName, 1, 100, 'Invalid name');
@@ -121,7 +142,7 @@ function validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHo
 }
 
 function validateText(value, minLength, maxLength, errorMessage) {
-    if (value.length < minLength || value.length > maxLength) {
+    if (typeof value === 'undefined' || value.length < minLength || value.length > maxLength) {
         throw new Error(errorMessage);
     }
 }
@@ -155,9 +176,6 @@ function buildItemName(extras, attendeeType, inHonorOf) {
 
     if (extras) {
         itemNameParts.push(extras);
-    }
-    if (!attendeeType) {
-        throw new Error('Please specifiy whether you are currently enrolled, an alum, etc');
     }
     if (inHonorOf) {
         itemNameParts.push(`(${attendeeType}, in honor of ${inHonorOf})`);
