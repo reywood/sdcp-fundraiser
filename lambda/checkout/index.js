@@ -102,6 +102,7 @@ exports.handler = async event => {
                 }
             ],
             payment_intent_data: {
+                description: `Ticket $${ticketAmountInDollars} x${quantity}`,
                 metadata: {
                     name: buyerName,
                     'attendee type': attendeeType,
@@ -161,12 +162,12 @@ function validateNumber(value, min, max, errorMessage) {
 
 function getExtras(ticketAmountInDollars) {
     const ticketOption = ticketOptions.filter(option => option.amount === ticketAmountInDollars)[0];
-    if (ticketOption.includedRaffleTickets > 0) {
-        let raffleTicketQuantity = ticketOption.includedRaffleTickets;
-        const activeSale = earlyBirdSales.getActive();
-        if (activeSale) {
-            raffleTicketQuantity += activeSale.bonusRaffleTickets;
-        }
+    let raffleTicketQuantity = ticketOption.includedRaffleTickets;
+    const activeSale = earlyBirdSales.getActive();
+    if (activeSale) {
+        raffleTicketQuantity += activeSale.bonusRaffleTickets;
+    }
+    if (raffleTicketQuantity > 0) {
         return `+ ${raffleTicketQuantity} raffle tickets`;
     }
 }

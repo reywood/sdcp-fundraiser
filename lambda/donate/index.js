@@ -40,6 +40,7 @@ exports.handler = async event => {
                 }
             ],
             payment_intent_data: {
+                description: `Donation $${donationAmountInDollars}`,
                 metadata: {
                     name: donorName,
                     'in honor of': inHonorOf

@@ -30,7 +30,7 @@ run-server:
 
 upload: build
 	@echo 'Making sure production config is enabled'
-	@grep "const config = prodConfig;" src/js/config.js > /dev/null
+	@grep "Object.assign(config, prodConfig);" src/js/config.js > /dev/null
 	aws s3 cp --profile cli --acl public-read --recursive img s3://www.sdcpfundraiser.org/img/
 	aws s3 cp --profile cli --acl public-read --recursive lib s3://www.sdcpfundraiser.org/lib/
 	aws s3 cp --profile cli --acl public-read index.html s3://www.sdcpfundraiser.org/
