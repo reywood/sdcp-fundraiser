@@ -1,3 +1,5 @@
+@import 'normalize';
+
 $screen-xl-min: 1200px;
 $screen-lg-max: $screen-xl-min - 1;
 $screen-lg-min: 992px;
@@ -39,6 +41,19 @@ body {
     .navbar .navbar-nav .nav-link:hover,
     .navbar .navbar-nav .nav-link:active {
         color: lighten($link-color, 10%);
+    }
+
+    .caps {
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+    }
+
+    .impact {
+        font-family: 'Passion One', cursive;
+    }
+
+    .cursive {
+        font-family: 'Allura', cursive;
     }
 }
 

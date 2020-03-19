@@ -2,6 +2,7 @@ import React from 'react';
 import ReactGA from 'react-ga';
 import styled from 'styled-components';
 import HeroSection from './HeroSection';
+import Ruler from '../../components/Ruler';
 
 const Content = styled.div`
     background-color: #fff;
@@ -14,6 +15,7 @@ export default () => {
     return (
         <Content>
             <HeroSection />
+            <Ruler />
         </Content>
     );
 };
