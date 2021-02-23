@@ -29,6 +29,12 @@ Mappings:
       S3HostedZoneID: Z31GFT0UA1I2HV
       WebsiteEndPoint: s3-website-sa-east-1.amazonaws.com
 
+  HostedZoneMap:
+    sdcpfundraiser.org:
+      HostedZoneId: ZIP00J87XOGMD
+    sdcpfundraiser.com:
+      HostedZoneId: Z3L3TH76EV80QO
+
 Resources:
   WebsiteBucket:
     Type: AWS::S3::Bucket
@@ -51,12 +57,19 @@ Resources:
     Properties:
       DomainName: www.sdcpfundraiser.org
       DomainValidationOptions:
+        - DomainName: sdcpfundraiser.org
+          HostedZoneId: !FindInMap [HostedZoneMap, sdcpfundraiser.org, HostedZoneId]
         - DomainName: www.sdcpfundraiser.org
-          ValidationDomain: sdcpfundraiser.org
+          HostedZoneId: !FindInMap [HostedZoneMap, sdcpfundraiser.org, HostedZoneId]
+        - DomainName: sdcpfundraiser.com
+          HostedZoneId: !FindInMap [HostedZoneMap, sdcpfundraiser.com, HostedZoneId]
+        - DomainName: www.sdcpfundraiser.com
+          HostedZoneId: !FindInMap [HostedZoneMap, sdcpfundraiser.com, HostedZoneId]
       SubjectAlternativeNames:
         - sdcpfundraiser.org
         - sdcpfundraiser.com
         - www.sdcpfundraiser.com
+      ValidationMethod: DNS
 
   WebsiteDistribution:
     Type: AWS::CloudFront::Distribution
