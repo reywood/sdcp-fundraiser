@@ -12,7 +12,7 @@ var config = {
     saleStartDate: moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
     eventEndDate: moment('2020-05-15T22:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, devConfig);
+Object.assign(config, prodConfig);
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -176,7 +176,8 @@ window.fbAsyncInit = function () {
         return;
     }
     var fjs = d.getElementsByTagName(s)[0];
-    var js = d.createElement(s);js.id = id;
+    var js = d.createElement(s);
+    js.id = id;
     js.src = 'https://connect.facebook.net/en_US/sdk.js';
     fjs.parentNode.insertBefore(js, fjs);
 })(document, 'script', 'facebook-jssdk');
@@ -184,10 +185,15 @@ window.fbAsyncInit = function () {
 $(function () {
     var shareUrl = $('meta[property="og:url"]').attr('content');
     $('#fb-share-btn').on('click', function () {
-        FB.ui({
-            method: 'share',
-            href: shareUrl
-        }, function (response) {});
+        try {
+            FB.ui({
+                method: 'share',
+                href: shareUrl
+            }, function (response) {});
+        } catch (error) {
+            console.log('Unable to open FB share', error);
+            window.open('https://facebook.com/', '_blank');
+        }
 
         gtag && gtag('event', 'Share on Facebook');
     });
@@ -210,7 +216,7 @@ function initSmoothNavLinkScrolling() {
 'use strict';
 
 $(function () {
-    stripeCheckout.handleCheckoutSuccessOrCancel();
+    // stripeCheckout.handleCheckoutSuccessOrCancel();
 });
 
 var stripeCheckout = {
@@ -385,9 +391,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 $(function () {
-    ticketForm.init(function () {
-        return stripeCheckout.checkout();
-    });
+    // ticketForm.init(() => stripeCheckout.checkout());
 });
 
 var ticketForm = {
@@ -607,7 +611,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 var eventDate = new Date('2020-05-15T02:00:00Z');
 
 $(function () {
-    timeLeftDisplay.init();
+    // timeLeftDisplay.init();
 });
 
 var timeLeftDisplay = {

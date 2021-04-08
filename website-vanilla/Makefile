@@ -26,7 +26,7 @@ watch-css: $(NODE_SASS) build-css
 
 run-server:
 	# npm start
-	python -m SimpleHTTPServer 8080
+	python3 -m http.server 8080
 
 upload: build
 	@echo 'Making sure production config is enabled'

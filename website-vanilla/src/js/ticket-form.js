@@ -1,5 +1,5 @@
 $(() => {
-    ticketForm.init(() => stripeCheckout.checkout());
+    // ticketForm.init(() => stripeCheckout.checkout());
 });
 
 const ticketForm = {

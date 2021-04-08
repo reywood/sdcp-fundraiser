@@ -1,5 +1,5 @@
 $(() => {
-    stripeCheckout.handleCheckoutSuccessOrCancel();
+    // stripeCheckout.handleCheckoutSuccessOrCancel();
 });
 
 const stripeCheckout = {

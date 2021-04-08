@@ -15,15 +15,20 @@ $muted-text-color: #888;
 $link-color: #43a2be;
 
 body {
-    font-size: 18px;
+    font-size: 20px;
 
     @media (max-width: $screen-sm-max) {
-        font-size: 14px;
+        // font-size: 16px;
+    }
+
+    .img-responsive {
+        max-width: 100%;
+        height: auto;
     }
 
     &.sdcp {
-        background-color: #555;
-        color: #fff;
+        background-color: #ddd;
+        color: #555;
         font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 
         a,
@@ -44,7 +49,7 @@ body {
             nav.navbar {
                 background-color: rgba(#fff, 0.95);
                 box-shadow: 0 5px 5px rgba(#000, 0.2);
-                font-size: 0.9rem;
+                font-size: 1.1rem;
                 padding-bottom: 0;
                 padding-top: 0;
                 transition: background-color 0.7s;
@@ -130,12 +135,6 @@ body {
             }
         }
 
-        footer {
-            padding-top: 3rem;
-            padding-bottom: 3rem;
-            margin-top: 0;
-        }
-
         .section {
             h2,
             h3,
@@ -193,7 +192,7 @@ body {
         .section.section1 {
             background-color: transparent;
             background-image: url('/img/stucco-bg2.png');
-            font-size: 1.5em;
+            // font-size: 1.2rem;
             // position: relative;
             text-align: center;
             margin-top: 0;
@@ -201,8 +200,8 @@ body {
 
             h1 {
                 margin-top: 0;
-                margin-bottom: 0.5em;
-                font-size: 2.5em;
+                margin-bottom: 0.5rem;
+                font-size: 2.5rem;
                 color: #444;
             }
 
@@ -210,15 +209,63 @@ body {
                 text-align: center;
             }
 
+            .hero-flexbox {
+                display: flex;
+                flex-flow: row wrap;
+                justify-content: center;
+                align-items: flex-start;
+                max-width: 60rem;
+                margin: 2rem auto 1rem;
+
+                .hero-flexbox-item-right {
+                    flex: 0 0 auto;
+                    margin-right: 2rem;
+                    width: 40%;
+
+                    @media (max-width: $screen-sm-max) {
+                        & {
+                            margin-right: 0;
+                            width: 60%;
+                        }
+                    }
+                }
+
+                .hero-flexbox-item-left {
+                    flex: 0 0 auto;
+                    width: 55%;
+                    text-align: left;
+
+                    p {
+                        text-align: left;
+                    }
+
+                    .internal-page-links {
+                        text-align: left;
+                    }
+
+                    @media (max-width: $screen-sm-max) {
+                        & {
+                            margin-top: 2rem;
+                            width: 100%;
+                            text-align: center;
+
+                            p {
+                                text-align: justify;
+                            }
+                        }
+                    }
+                }
+            }
+
             .page-header-image {
-                margin-top: -70px;
+                margin-top: -140px;
                 max-width: 776px;
                 width: 100%;
                 height: auto;
 
                 @media (max-width: $screen-sm-max) {
                     & {
-                        margin-top: -20px;
+                        margin-top: -70px;
                     }
                 }
             }
@@ -294,7 +341,7 @@ body {
             }
 
             .internal-page-links {
-                margin-top: 2em;
+                margin-top: 2rem;
 
                 * {
                     vertical-align: middle;
@@ -518,16 +565,24 @@ body {
         }
 
         footer {
-            color: #ddd;
+            color: #555;
             font-size: 0.8em;
             text-align: center;
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+            margin-top: 0;
+
+            a,
+            a:visited,
+            a:link {
+                color: #36849b;
+            }
 
             .social-links {
                 margin: 0;
                 padding: 0;
 
                 a {
-                    color: #fff;
                     margin: 0 0.2em;
                 }
 

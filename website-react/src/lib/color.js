@@ -55,6 +55,8 @@ function rgbToHsl(r, g, b) {
             case b:
                 h = (r - g) / d + 4;
                 break;
+            default:
+                throw new Error('This should never happen');
         }
         h /= 6;
     }
@@ -111,6 +113,8 @@ function rgbToHsv(r, g, b) {
             h = r - g + d * 4;
             h /= 6 * d;
             break;
+        default:
+            throw new Error('This should never happen');
     }
 
     return {
@@ -158,6 +162,8 @@ function hsvToRgb(h, s, v) {
             g = p;
             b = q;
             break;
+        default:
+            throw new Error('This should never happen');
     }
     return {
         r: Math.round(r * 255),

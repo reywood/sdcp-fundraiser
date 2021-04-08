@@ -2,7 +2,7 @@
 const eventDate = new Date('2020-05-15T02:00:00Z');
 
 $(() => {
-    timeLeftDisplay.init();
+    // timeLeftDisplay.init();
 });
 
 const timeLeftDisplay = {
