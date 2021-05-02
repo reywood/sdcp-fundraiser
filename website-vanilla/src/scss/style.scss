@@ -72,6 +72,8 @@ body {
         .content {
             background-color: #fff;
             color: #333;
+            padding-top: 2rem;
+            padding-bottom: 2rem;
         }
 
         .caps {
@@ -91,10 +93,26 @@ body {
             display: none;
         }
 
-        .btn {
-            border-radius: 0;
-            font-size: 1.2em;
-            padding: 0.5em 1em;
+        .btn,
+        .btn:link,
+        .btn:active,
+        .btn:visited {
+            border-radius: 0.2rem;
+            font-size: 1.7rem;
+            padding: 0.8rem 2rem;
+            transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+            border-width: 0;
+
+            @media (max-width: $screen-xs-max) {
+                font-size: 1.3rem;
+                width: 90%;
+            }
+
+            &:hover {
+                transform: translate(-2px, -2px);
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+            }
         }
 
         .btn-light,
@@ -102,30 +120,25 @@ body {
         .btn-light:active,
         .btn-light:hover,
         .btn-light:visited {
-            $btn-bg-color: #ee8b2f;
+            $btn-bg-color: #d384ea;
 
             background-color: $btn-bg-color;
-            border-width: 0;
             color: #000;
 
             &:hover {
                 background-color: lighten($btn-bg-color, 10%);
                 color: #000;
             }
-
-            &:focus {
-                box-shadow: none;
-            }
         }
 
         .section,
         footer {
             // padding: 3rem 2rem;
-            padding-top: 0;
+            // padding-top: 0;
             padding-left: 2rem;
             padding-right: 2rem;
-            padding-bottom: 2rem;
-            margin-top: 1rem;
+            margin-top: 3rem;
+            margin-bottom: 2rem;
 
             @media (max-width: $screen-sm-max) {
                 & {
@@ -136,11 +149,15 @@ body {
         }
 
         .section {
+            &:first-child {
+                margin-top: 0;
+            }
+
             h2,
             h3,
             h4 {
-                margin-top: 1em;
-                margin-bottom: 1em;
+                margin-top: 1.5rem;
+                margin-bottom: 1rem;
                 text-align: center;
 
                 &:not(:first-child) {
@@ -177,7 +194,7 @@ body {
             max-width: 681px;
             width: 95%;
             height: 0;
-            margin: 2em auto;
+            margin: 2rem auto;
             padding-bottom: 10%;
             background-image: url('/img/ruler1.png');
             background-size: contain;
@@ -191,12 +208,10 @@ body {
 
         .section.section1 {
             background-color: transparent;
-            background-image: url('/img/stucco-bg2.png');
-            // font-size: 1.2rem;
-            // position: relative;
             text-align: center;
-            margin-top: 0;
-            // text-shadow: 0 0 2px #000;
+            // margin-top: 0;
+            // padding-top: 1rem;
+            // padding-bottom: 1rem;
 
             h1 {
                 margin-top: 0;
@@ -209,67 +224,6 @@ body {
                 text-align: center;
             }
 
-            .hero-flexbox {
-                display: flex;
-                flex-flow: row wrap;
-                justify-content: center;
-                align-items: flex-start;
-                max-width: 60rem;
-                margin: 2rem auto 1rem;
-
-                .hero-flexbox-item-right {
-                    flex: 0 0 auto;
-                    margin-right: 2rem;
-                    width: 40%;
-
-                    @media (max-width: $screen-sm-max) {
-                        & {
-                            margin-right: 0;
-                            width: 60%;
-                        }
-                    }
-                }
-
-                .hero-flexbox-item-left {
-                    flex: 0 0 auto;
-                    width: 55%;
-                    text-align: left;
-
-                    p {
-                        text-align: left;
-                    }
-
-                    .internal-page-links {
-                        text-align: left;
-                    }
-
-                    @media (max-width: $screen-sm-max) {
-                        & {
-                            margin-top: 2rem;
-                            width: 100%;
-                            text-align: center;
-
-                            p {
-                                text-align: justify;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .page-header-image {
-                margin-top: -140px;
-                max-width: 776px;
-                width: 100%;
-                height: auto;
-
-                @media (max-width: $screen-sm-max) {
-                    & {
-                        margin-top: -70px;
-                    }
-                }
-            }
-
             .section1-content {
                 position: relative;
                 max-width: 50em;
@@ -278,33 +232,6 @@ body {
 
             .cursive {
                 font-size: 1.2em;
-            }
-
-            .btn {
-                min-width: 8em;
-                text-shadow: none;
-            }
-
-            .join-us {
-                font-size: 0.9em;
-            }
-
-            .event-date {
-                $event-date-glow-color: #faa;
-
-                color: #000;
-                font-family: 'Syncopate', sans-serif;
-                font-weight: 500;
-                margin-top: 0.5em;
-                margin-bottom: 0;
-                // text-shadow:  0   -1px  1px $event-date-glow-color,
-                //               0    1px  1px $event-date-glow-color,
-                //              -1px  0    1px $event-date-glow-color,
-                //               1px  0    1px $event-date-glow-color,
-                //              -1px -1px  1px $event-date-glow-color,
-                //               1px  1px  1px $event-date-glow-color,
-                //               1px -1px  1px $event-date-glow-color,
-                //              -1px  1px  1px $event-date-glow-color;
             }
 
             .time-left {
@@ -320,36 +247,18 @@ body {
                 }
             }
 
-            .benefitting {
-                // margin-top: 1em;
-
-                * {
-                    vertical-align: bottom;
-                }
-
-                img {
-                    @media (max-width: $screen-xs-max) {
-                        width: 80px;
-                        height: auto;
-                    }
-                }
-
-                span {
-                    display: inline-block;
-                    margin: 0 1rem;
-                }
-            }
-
             .internal-page-links {
-                margin-top: 2rem;
+                margin-top: 4rem;
 
                 * {
                     vertical-align: middle;
                 }
 
-                span {
+                .btn {
+                    min-width: 8em;
+                    text-shadow: none;
                     display: inline-block;
-                    margin: 0 1em;
+                    margin: 0.5rem 1rem;
                 }
 
                 @media (max-width: $screen-sm-max) {
@@ -381,6 +290,8 @@ body {
             border: 1px solid #eee;
             border-radius: 1em;
             box-shadow: 5px 5px 25px rgba(#bbb, 0.3);
+            margin-top: 4rem;
+            margin-bottom: 4rem;
             padding: 2em;
 
             fieldset {
@@ -523,14 +434,8 @@ body {
         .section3 {
             text-align: center;
 
-            p {
-                margin-top: 2em;
-                margin-bottom: 2em;
-            }
-
             .donate-by-mail {
                 display: inline-block;
-                margin-top: 4em;
             }
 
             .mailing-address {
@@ -545,7 +450,7 @@ body {
 
         .section4 {
             text-align: center;
-            padding-bottom: 3rem;
+            // padding-bottom: 3rem;
 
             p {
                 margin-top: 2em;

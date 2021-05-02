@@ -5,6 +5,12 @@
         }
     ],
     "settings": {
+        "workbench.colorCustomizations": {
+            "activityBar.background": "#a91b8a",
+            "activityBar.foreground": "#ffffff",
+            "titleBar.activeBackground": "#e124b8",
+            "titleBar.activeForeground": "#ffffff"
+        },
         "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": true

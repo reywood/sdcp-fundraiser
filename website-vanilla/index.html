@@ -17,7 +17,7 @@
         <link href="https://fonts.googleapis.com/css?family=Allura|Open+Sans:400,700|Passion+One&display=swap" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="lib/style.css" rel="stylesheet" />
+        <link href="lib/style.css?ts=2021-05-02" rel="stylesheet" />
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -36,8 +36,7 @@
             property="og:description"
             content="Please help us raise money to improve our school!"
         />
-        <!-- content="Join us on the evening of Friday May 15 2020 for our annual gala fundraiser benefitting San Diego Cooperative Preschool. Dinner and dancing for all!" -->
-        <!-- <meta property="og:image" content="https://www.sdcpfundraiser.org/img/site-preview-1000x500.png" /> -->
+        <meta property="og:image" content="https://www.sdcpfundraiser.org/img/fun-a-thon-960x227.png" />
     </head>
     <body class="sdcp">
         <div class="alert-container"></div>
@@ -78,49 +77,25 @@
         <div class="content">
             <div class="section section1">
                 <div class="section1-content">
-                    <img src="img/header-bg-top.png" width="776" height="260" class="page-header-image img-responsive" alt="decoration" />
+                    <img src="img/fun-a-thon-960x227.png" width="960" height="227" alt="San Diego Cooperative Preschool 2021 Fun-A-Thon" class="img-responsive"/>
 
-                    <!-- <p class="join-us">Join us for our</p> -->
-
-                    <!-- <h3 class="caps">San Diego Cooperative Preschool</h3> -->
-
-                    <div class="hero-flexbox">
-                        <div class="hero-flexbox-item-right">
-                            <img src="img/SDCP-Logo.png" width="354" height="240" alt="San Diego Cooperative Preschool" class="img-responsive"/>
-                        </div>
-                        <div class="hero-flexbox-item-left">
-                            <h1 class="impact" style="margin-bottom: 0; font-size: 3rem;">
-                                <!-- <small>San Diego Cooperative Preschool</small><br> -->
-                                2021 Fundraiser
-                            </h1>
-                            <p>
-                                In previous years our fundraising Gala was held at a venue, in the evening and for adults only. This year due to COVID-19 we have had to find other ways to raise money to help support our preschool community.
-                                <a href="#continue-reading">Continue reading...</a>
-                            </p>
-
-                            <p class="internal-page-links">
-                                <!-- <a id="buy-tickets-link" href="#buy-tickets" class="btn btn-light js-buy-tickets-link">
-                                    Buy Tickets
-                                </a>
-                                <span class="cursive">or</span> -->
-                                <a id="donate-link" href="#donate" class="btn btn-light js-donate-link">
-                                    Donate
-                                </a>
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- <p class="benefitting cursive">
-                        <img src="img/flower-deco-left.png" width="192" height="105" />
-                        <span>Benefitting</span>
-                        <img src="img/flower-deco-right.png" width="192" height="105" />
-                    </p> -->
+                    <p class="internal-page-links">
+                        <a id="donate-link" href="#donate" class="btn btn-light js-donate-link">
+                            Donate
+                        </a>
+                        <a href="http://admit.cause4auction.com/sdcp2021" class="btn btn-light" target="_blank">
+                            Register for Auction
+                        </a>
+                    </p>
                 </div>
             </div>
 
             <div id="continue-reading" class="section section2">
-                <h2 class="impact">A Worthy Cause</h2>
+                <h2 class="impact">Raising Money For Our School</h2>
 
+                <p>
+                    In previous years our fundraising Gala was held at a venue, in the evening and for adults only. This year due to COVID-19 we have had to find other ways to raise money to help support our preschool community.
+                </p>
                 <p>
                     This year's proceeds will go directly back to the classrooms. Our goal is to raise enough money to have professionally installed shades put into each classroom and a security gate installed in room 103’s outdoor play area.
                 </p>
@@ -130,273 +105,16 @@
                 <p>
                     The Fundraising Committee will be putting out more detailed information in April. We are hoping that parents will be able to volunteer during their child’s designated activity time but will have more details on this soon.
                 </p>
-
-                <!--
-                <p>
-                    With your help, we will be able to send our teachers to the world's largest early childhood
-                    conference created by the
-                    <a href="https://www.naeyc.org/" target="_blank"
-                        >National Association for the Education of Young Children</a
-                    >. Here they will be able to connect, collaborate and learn with fellow early childhood educators
-                    from around the globe. This annual conference takes place over several days and allows early
-                    childhood educators to get up to date with the latest practices in the field, choose from hundreds
-                    of innovative sessions to attend, network with other professionals, and reignite their passion for
-                    teaching young children.
-                </p>
-
-                <h3 id="buy-tickets" class="impact">Buy Your Gala Tickets</h3>
-
-                <div class="purchase-container purchase-container-tickets">
-                    <p>
-                        Dinner, dessert, two drink tickets for beer and wine, and a whole lot of fun are included in the cost of admission.
-                        There will also be a cash bar for additional drinks. There is no dress code, but cocktail attire
-                        is encouraged.
-                    </p>
-
-                    <p class="center purchase-check-back hide">
-                        <strong>Tickets will go on sale <span class="ticket-sale-start-date"></span>. Please check back then.</strong>
-                    </p>
-
-                    <p class="purchase-early-bird hide">
-                        <strong>We're having an early bird sale!</strong> If you purchase right now, you'll get
-                        <span class="early-bird-offer text-success"></span> for each ticket purchased.
-                    </p>
-
-                    <p class="center purchase-after-event hide">
-                        <strong>That's a wrap! See you at next year's party!</strong>
-                    </p>
-
-                    <form id="ticket-purchase-form" class="hide">
-                        <div class="form-group">
-                            <label for="ticket-buyer-name">Your name:</label>
-                            <div class="row">
-                                <div class="offset-sm-1 col-sm-11">
-                                    <input
-                                        id="ticket-buyer-name"
-                                        class="form-control ticket-buyer-name"
-                                        type="text"
-                                        name="ticket-buyer-name"
-                                        maxlength="100"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <fieldset class="form-group pl-0">
-                            <legend class="xcol-form-label xcol-sm-3 pt-0">Choose your price:</legend>
-                            <div class="row">
-                                <div class="offset-sm-1 col-sm-11">
-                                    <div class="form-check">
-                                        <input
-                                            id="ticket-amount-50"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="ticket-amount"
-                                            value="50"
-                                            checked
-                                        />
-                                        <label class="form-check-label" for="ticket-amount-50">
-                                            $50
-                                            <small>
-                                                admits one
-                                                <span class="early-bird-2-offer">+ 2 early bird raffle tickets ($70 value)</span>
-                                                <span class="early-bird-1-offer">+ 1 early bird raffle ticket ($60 value)</span>
-                                            </small>
-                                    </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="ticket-amount-75"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="ticket-amount"
-                                            value="75"
-                                            data-extras="4 raffle tickets"
-                                        />
-                                        <label class="form-check-label" for="ticket-amount-75">
-                                            $75
-                                            <small>
-                                                admits one
-                                                <span class="standard-offer">+ 4 raffle tickets ($90 value)</span>
-                                                <span class="early-bird-2-offer">+ 4 raffle tickets + 2 early bird raffle tickets ($110 value)</span>
-                                                <span class="early-bird-1-offer">+ 4 raffle tickets + 1 early bird raffle ticket ($100 value)</span>
-                                            </small>
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="ticket-amount-100"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="ticket-amount"
-                                            value="100"
-                                            data-extras="10 raffle tickets"
-                                        />
-                                        <label class="form-check-label" for="ticket-amount-100">
-                                            $100
-                                            <small>
-                                                admits one
-                                                <span class="standard-offer">+ 10 raffle tickets ($150 value)</span>
-                                                <span class="early-bird-2-offer">+ 10 raffle tickets + 2 early bird raffle tickets ($170 value)</span>
-                                                <span class="early-bird-1-offer">+ 10 raffle tickets + 1 early bird raffle ticket ($160 value)</span>
-                                            </small>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <div class="form-group">
-                            <label for="ticket-quantity">Number of tickets:</label>
-                            <div class="row">
-                                <div class="offset-sm-1 col-sm-11">
-                                    <input
-                                        id="ticket-quantity"
-                                        class="form-control ticket-quantity"
-                                        type="number"
-                                        name="ticket-quantity"
-                                        value="1"
-                                        min="1"
-                                        max="100"
-                                        pattern="\d*"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <fieldset class="form-group pl-0">
-                            <legend class="form-label pt-0">Are you a/an:</legend>
-                            <div class="row">
-                                <div class="offset-sm-1 col-sm-11">
-                                    <div class="form-check">
-                                        <input
-                                            id="attendee-type-current"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="attendee-type"
-                                            value="current family"
-                                        />
-                                        <label class="form-check-label" for="attendee-type-current"
-                                            >Currently enrolled family</label
-                                        >
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="attendee-type-alum"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="attendee-type"
-                                            value="alum"
-                                        />
-                                        <label class="form-check-label" for="attendee-type-alum">Alum</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="attendee-type-new-family"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="attendee-type"
-                                            value="new family"
-                                        />
-                                        <label class="form-check-label" for="attendee-type-new-family"
-                                            >New family</label
-                                        >
-                                    </div>
-                                    <div class="form-check">
-                                        <input
-                                            id="attendee-type-friend"
-                                            class="form-check-input"
-                                            type="radio"
-                                            name="attendee-type"
-                                            value="grandparent / special friend"
-                                        />
-                                        <label class="form-check-label" for="attendee-type-friend"
-                                            >Grandparent / Special friend</label
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <div class="form-group-in-honor-of">
-                            <div class="form-group">
-                                <label for="ticket-in-honor-of">In honor of:</label>
-                                <div class="row">
-                                    <div class="offset-sm-1 col-sm-11">
-                                        <input
-                                            id="ticket-in-honor-of"
-                                            class="form-control ticket-in-honor-of"
-                                            type="text"
-                                            name="ticket-in-honor-of"
-                                            placeholder="name of child (optional)"
-                                            maxlength="100"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <strongr strong>
-                        <div id="payment-button" class="submit-button">
-                            <button type="submit" class="btn btn-success">Checkout</button>
-                        </div>
-                    </form>
-
-                    <p class="checkout-validation-error validation-error">
-                        Please be sure to fill out all of the above fields
-                    </p>
-
-                    <p class="purchase-thank-you">
-                        Thank you!<br />
-                        Your tickets have been reserved
-                    </p>
-                </div>
-
-                <h3 id="buy-raffle-tickets" class="impact">Buy More Raffle Tickets</h3>
-
-                <div class="raffle-ticket-prices">
-                    <p>
-                        If you would like to buy raffle tickets, they will be available in the front office of the
-                        school and at the gala. There is a volume discount for purchasing multiple tickets at once.
-                        Prices for tickets are as follows:
-                    </p>
-
-                    <ul>
-                        <li>1 ticket for $10</li>
-                        <li>5 tickets for $40 <em class="raffle-savings">($10 savings)</em></li>
-                        <li>10 tickets for $75 <em class="raffle-savings">($25 savings)</em></li>
-                        <li>20 tickets for $140 <em class="raffle-savings">($60 savings)</em></li>
-                    </ul>
-                </div>
-
-                <h3 id="location" class="impact">Location</h3>
-
-                <p class="location">
-                    This year's gala will be held at Stone Brewing World Bistro & Gardens in Liberty Station.<br />
-                    <a
-                        href="https://maps.google.com/?q=Stone%20Brewing%20World%20Bistro%20%26%20Gardens%2C%202816%20Historic%20Decatur%20Rd%2C%20San%20Diego%2C%20CA%2092106"
-                        target="_blank"
-                        >2816 Historic Decatur Rd, San Diego, CA 92106</a
-                    >
-
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3355.9481410978915!2d-117.2137464845158!3d32.74056769314961!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80deab0375ddf765%3A0xb7539190ea356d2!2sStone%20Brewing%20World%20Bistro%20%26%20Gardens%20%E2%80%93%20Liberty%20Station!5e0!3m2!1sen!2sus!4v1581662617519!5m2!1sen!2sus"
-                        width="600"
-                        height="450"
-                        frameborder="0"
-                        allowfullscreen=""
-                    ></iframe>
-                </p>
-                -->
             </div>
 
             <div class="ruler"></div>
 
             <div class="section section3">
                 <h2 id="donate" class="impact">
-                    <!-- Unable to make it to the party?<br />You can still make a difference! -->
                     Make a donation
                 </h2>
 
                 <p>
-                    <!-- While we wish everyone could join us, we understand that not everyone will be able to make it to
-                    this amazing event. We hope you will still consider helping us to reach our fundraising goals. -->
                     No donation is too small. Contributions are tax deductible and will be used to improve our classrooms.
                 </p>
 
@@ -463,7 +181,7 @@
 
                         <br />
                         <div id="donate-button" class="submit-button">
-                            <button type="submit" class="btn btn-success">Make a Donation</button>
+                            <button type="submit" class="btn btn-success">Make Donation</button>
                         </div>
                     </form>
 
@@ -488,12 +206,15 @@
                 <h2 class="impact">Invite your family and friends to donate!</h2>
 
                 <p>
-                    <!-- All are welcome to attend this event. -->
-                    If you have friends or family members who would like to help
-                    support our school <!--or would just enjoy a good party-->, please share this page with them.
+                    If you have friends or family members who would like to help support our school, please share this
+                    page with them. You can also download our fundraising letter suitable for printing.
                 </p>
 
                 <p>
+                    <a href="downloads/SDCP Fundraising Letter to Extended Family.pdf" class="btn btn-light" target="_blank">
+                        <span class="fa fa-file-pdf-o"></span>  Fundraising Letter
+                    </a><br/>
+
                     <button id="fb-share-btn" type="button" class="btn btn-light">
                         <span class="fa fa-facebook-square"></span>
                         <span>Share on Facebook</span>
@@ -558,7 +279,6 @@
             integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ="
             crossorigin="anonymous"
         ></script>
-        <!-- <script src="https://www.paypalobjects.com/api/checkout.js"></script> -->
         <script src="https://js.stripe.com/v3/"></script>
         <script src="lib/script.js"></script>
     </body>

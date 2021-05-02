@@ -10,4 +10,4 @@ const config = {
     saleStartDate: moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
     eventEndDate: moment('2020-05-15T22:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, devConfig);
+Object.assign(config, prodConfig);
