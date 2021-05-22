@@ -5,12 +5,16 @@ BUILD_DIRECTORY := $(ROOT_DIR)/build
 BUNDLE_FILE_NAME := sdcp-ticket-order-$(DATE).zip
 BUNDLE_FILE_PATH := $(BUILD_DIRECTORY)/$(BUNDLE_FILE_NAME)
 LAMBDA_FUNCTION := sdcp-donate
+ESLINT := $(NODE_MODULES_DIRECTORY)/.bin/eslint
 
 .PHONY: test test-url build clean lint update-lambda
 
-build: clean $(BUNDLE_FILE_PATH)
+build: lint clean $(BUNDLE_FILE_PATH)
 clean:
 	rm -rf node_modules/
+
+lint:
+	$(ESLINT) "$(ROOT_DIR)"
 
 update-lambda: build
 	aws --profile personal lambda update-function-code --function-name $(LAMBDA_FUNCTION) --zip-file fileb://$(BUNDLE_FILE_PATH)

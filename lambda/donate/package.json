@@ -4,5 +4,8 @@
     },
     "dependencies": {
         "stripe": "^8.24.1"
+    },
+    "devDependencies": {
+        "eslint": "^7.27.0"
     }
 }

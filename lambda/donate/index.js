@@ -1,13 +1,13 @@
 const Stripe = require('stripe');
 
-exports.handler = async event => {
+exports.handler = async (event) => {
     let queryArgs;
     try {
         queryArgs = JSON.parse(event.body);
     } catch (error) {
         return {
             statusCode: 400,
-            body: JSON.stringify('Invalid request body')
+            body: JSON.stringify('Invalid request body'),
         };
     }
     const donorName = queryArgs.donorName;
@@ -22,7 +22,7 @@ exports.handler = async event => {
 
         const stripe = Stripe(getApiKey(queryArgs.environment), {
             apiVersion: '2019-12-03',
-            maxNetworkRetries: 3
+            maxNetworkRetries: 3,
         });
         const session = await stripe.checkout.sessions.create({
             success_url: successUrl,
@@ -30,33 +30,34 @@ exports.handler = async event => {
             payment_method_types: ['card'],
             mode: 'payment',
             submit_type: 'donate',
+            billing_address_collection: 'required',
             line_items: [
                 {
                     name: itemName,
                     // description: 'Comfortable cotton t-shirt',
                     amount: donationAmountInDollars * 100,
                     quantity: 1,
-                    currency: 'usd'
-                }
+                    currency: 'usd',
+                },
             ],
             payment_intent_data: {
                 description: `Donation $${donationAmountInDollars}`,
                 metadata: {
                     name: donorName,
-                    'in honor of': inHonorOf
-                }
-            }
+                    'in honor of': inHonorOf,
+                },
+            },
         });
 
         const response = {
             statusCode: 200,
-            body: JSON.stringify({sessionId: session.id, itemName})
+            body: JSON.stringify({sessionId: session.id, itemName}),
         };
         return response;
     } catch (error) {
         return {
             statusCode: 500,
-            body: JSON.stringify('An error occurred. Please try again.\n' + error)
+            body: JSON.stringify('An error occurred. Please try again.\n' + error),
         };
     }
 };
