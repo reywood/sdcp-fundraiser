@@ -205,10 +205,11 @@ $(function () {
 });
 
 function initSmoothNavLinkScrolling() {
-    $('.js-buy-tickets-link, .js-donate-link, .js-location-link').on('click', function (e) {
+    $('.js-internal-link').on('click', function (e) {
         e.preventDefault();
 
-        var $linkToElement = $($(e.target).attr('href'));
+        var selector = $(e.target).attr('href');
+        var $linkToElement = $(selector);
         var navBarHeight = 50;
         $('html, body').animate({ scrollTop: $linkToElement.offset().top - navBarHeight }, 500);
     });
