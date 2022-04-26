@@ -1,12 +1,18 @@
 $(() => {
-    donationForm.init(() => stripeDonate.checkout());
+    donationForm.init(({ amount, donorName, ticketInHonorOf }) => {
+        stripeDonateSession({ amount, donorName, ticketInHonorOf }).checkout()
+    });
 });
 
 const donationForm = {
     init(checkoutHandler) {
         document.getElementById('donation-form').addEventListener('submit', e => {
             e.preventDefault();
-            this.handleSubmit(checkoutHandler);
+            this.handleSubmit(() => checkoutHandler({
+                amount: this.getAmount(),
+                donorName: this.getDonorName(),
+                ticketInHonorOf: this.getTicketInHonorOf(),
+            }));
         });
 
         // $('.purchase-container form .form-check').css('color', 'red');
@@ -55,7 +61,7 @@ const donationForm = {
             validate();
             gtag && gtag('event', 'Donation checkout');
         } catch (error) {
-            gtag && gtag('event', 'Fail donation form validation', {category: 'error', label: error.message});
+            gtag && gtag('event', 'Fail donation form validation', { category: 'error', label: error.message });
         }
     },
 

@@ -1,59 +1,62 @@
 $(() => {
-    // stripeCheckout.handleCheckoutSuccessOrCancel();
+    stripeCheckoutResponse.handleCheckoutSuccessOrCancel();
 });
 
-const stripeCheckout = {
-    checkout() {
-        return this.requestSessionId().then(sessionId => {
-            this.redirectToCheckout(sessionId);
-        });
-    },
+const stripeCheckoutSession = ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
+    return {
+        checkout() {
+            return this.requestSessionId().then(sessionId => {
+                this.redirectToCheckout(sessionId);
+            });
+        },
 
-    requestSessionId() {
-        const url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
-        return new Promise((resolve, reject) => {
-            fetch(url, {
-                method: 'POST',
-                cache: 'no-cache',
-                mode: 'cors',
-                body: this.buildSessionRequestBody()
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(`Request failed: ${response.statusText}`);
-                    }
-                    return response.json();
+        requestSessionId() {
+            const url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
+            return new Promise((resolve, reject) => {
+                fetch(url, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    body: this.buildSessionRequestBody()
                 })
-                .then(responseJson => {
-                    resolve(responseJson.sessionId);
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
-    },
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error(`Request failed: ${response.statusText}`);
+                        }
+                        return response.json();
+                    })
+                    .then(responseJson => {
+                        resolve(responseJson.sessionId);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+            });
+        },
 
-    redirectToCheckout(sessionId) {
-        const stripe = new Stripe(config.stripeKey);
-        stripe.redirectToCheckout({sessionId});
-    },
+        redirectToCheckout(sessionId) {
+            const stripe = new Stripe(config.stripeKey);
+            stripe.redirectToCheckout({ sessionId });
+        },
 
-    buildSessionRequestBody() {
-        const baseReturnUrl = `${location.protocol}//${location.host}${location.pathname}`;
-        const price = ticketForm.getSelectedPrice();
-        const quantity = ticketForm.getQuantity();
-        return JSON.stringify({
-            environment: config.environment,
-            buyerName: ticketForm.getBuyerName(),
-            ticketAmount: price,
-            quantity: quantity,
-            attendeeType: ticketForm.getAttendeeType(),
-            inHonorOf: ticketForm.getTicketInHonorOf(),
-            successUrl: `${baseReturnUrl}?checkout-status=success&price=${price}&quantity=${quantity}`,
-            cancelUrl: `${baseReturnUrl}?checkout-status=cancel`
-        });
-    },
+        buildSessionRequestBody() {
+            const baseReturnUrl = `${location.protocol}//${location.host}${location.pathname}`;
+            return JSON.stringify({
+                environment: config.environment,
+                buyerName: buyerName,
+                ticketAmount: selectedPrice,
+                quantity: quantity,
+                attendeeType: attendeeType,
+                inHonorOf: ticketInHonorOf,
+                successUrl: `${baseReturnUrl}?checkout-status=success&price=${selectedPrice}&quantity=${quantity}`,
+                cancelUrl: `${baseReturnUrl}?checkout-status=cancel`
+            });
+        },
+    }
+}
 
+
+const stripeCheckoutResponse = {
     handleCheckoutSuccessOrCancel() {
         const searchParams = new URLSearchParams(window.location.search);
         const chargeStatus = searchParams.get('checkout-status');
@@ -88,7 +91,7 @@ const stripeCheckout = {
         const quantity = searchParams.get('quantity');
         if (price && quantity) {
             const total = parseInt(price, 10) * parseInt(quantity, 10);
-            gtag && gtag('event', 'Ticket purchase successful', {value: total});
+            gtag && gtag('event', 'Ticket purchase successful', { value: total });
         }
     },
 

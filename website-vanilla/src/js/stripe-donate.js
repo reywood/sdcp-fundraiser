@@ -1,56 +1,59 @@
 $(() => {
-    stripeDonate.handleDonationSuccessOrCancel();
+    stripeDonateResponse.handleDonationSuccessOrCancel();
 });
 
-const stripeDonate = {
-    checkout() {
-        return this.requestSessionId().then(sessionId => {
-            this.redirectToCheckout(sessionId);
-        });
-    },
+const stripeDonateSession = ({ amount, donorName, ticketInHonorOf }) => {
+    return {
+        checkout() {
+            return this.requestSessionId().then(sessionId => {
+                this.redirectToCheckout(sessionId);
+            });
+        },
 
-    requestSessionId() {
-        const url = 'https://api.sdcpfundraiser.org/default/sdcp-donate';
-        return new Promise((resolve, reject) => {
-            fetch(url, {
-                method: 'POST',
-                cache: 'no-cache',
-                mode: 'cors',
-                body: this.buildSessionRequestBody()
-            })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Request failed');
-                    }
-                    return response.json();
+        requestSessionId() {
+            const url = 'https://api.sdcpfundraiser.org/default/sdcp-donate';
+            return new Promise((resolve, reject) => {
+                fetch(url, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    body: this.buildSessionRequestBody()
                 })
-                .then(responseJson => {
-                    resolve(responseJson.sessionId);
-                })
-                .catch(error => {
-                    reject(error);
-                });
-        });
-    },
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Request failed');
+                        }
+                        return response.json();
+                    })
+                    .then(responseJson => {
+                        resolve(responseJson.sessionId);
+                    })
+                    .catch(error => {
+                        reject(error);
+                    });
+            });
+        },
 
-    redirectToCheckout(sessionId) {
-        const stripe = new Stripe(config.stripeKey);
-        stripe.redirectToCheckout({sessionId});
-    },
+        redirectToCheckout(sessionId) {
+            const stripe = new Stripe(config.stripeKey);
+            stripe.redirectToCheckout({ sessionId });
+        },
 
-    buildSessionRequestBody() {
-        const baseReturnUrl = `${location.protocol}//${location.host}${location.pathname}`;
-        const amount = donationForm.getAmount();
-        return JSON.stringify({
-            environment: config.environment,
-            donorName: donationForm.getDonorName(),
-            amount: amount,
-            inHonorOf: donationForm.getTicketInHonorOf(),
-            successUrl: `${baseReturnUrl}?donation-status=success&amount=${amount}`,
-            cancelUrl: `${baseReturnUrl}?donation-status=cancel`
-        });
-    },
+        buildSessionRequestBody() {
+            const baseReturnUrl = `${location.protocol}//${location.host}${location.pathname}`;
+            return JSON.stringify({
+                environment: config.environment,
+                donorName,
+                amount: amount,
+                inHonorOf: ticketInHonorOf,
+                successUrl: `${baseReturnUrl}?donation-status=success&amount=${amount}`,
+                cancelUrl: `${baseReturnUrl}?donation-status=cancel`
+            });
+        },
+    };
+};
 
+const stripeDonateResponse = {
     handleDonationSuccessOrCancel() {
         const searchParams = new URLSearchParams(window.location.search);
         const donationStatus = searchParams.get('donation-status');
@@ -83,7 +86,7 @@ const stripeDonate = {
     logSuccessfulDonation(searchParams) {
         const amount = searchParams.get('amount');
         if (amount) {
-            gtag && gtag('event', 'Donation successful', {value: parseInt(amount, 10)});
+            gtag && gtag('event', 'Donation successful', { value: parseInt(amount, 10) });
         }
     },
 

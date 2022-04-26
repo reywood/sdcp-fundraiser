@@ -1,12 +1,28 @@
 $(() => {
-    // ticketForm.init(() => stripeCheckout.checkout());
+    ticketForm.init(
+        ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
+            stripeCheckoutSession({
+                selectedPrice,
+                quantity,
+                buyerName,
+                attendeeType,
+                ticketInHonorOf,
+            }).checkout();
+        }
+    );
 });
 
 const ticketForm = {
     init(checkoutHandler) {
         document.getElementById('ticket-purchase-form').addEventListener('submit', e => {
             e.preventDefault();
-            this.handleSubmit(checkoutHandler);
+            this.handleSubmit(() => checkoutHandler({
+                selectedPrice: this.getSelectedPrice(),
+                quantity: this.getQuantity(),
+                buyerName: this.getBuyerName(),
+                attendeeType: this.getAttendeeType(),
+                ticketInHonorOf: this.getTicketInHonorOf()
+            }));
         });
 
         this.showAppropriateContent();
@@ -117,7 +133,7 @@ const ticketForm = {
             validate();
             gtag && gtag('event', 'Ticket checkout');
         } catch (error) {
-            gtag && gtag('event', 'Fail checkout form validation', {category: 'error', label: error.message});
+            gtag && gtag('event', 'Fail checkout form validation', { category: 'error', label: error.message });
         }
     },
 

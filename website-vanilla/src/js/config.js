@@ -7,7 +7,10 @@ const prodConfig = {
     stripeKey: 'pk_live_mnRjCTNhog7LSLemgyxoS5nm'
 };
 const config = {
-    saleStartDate: moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
-    eventEndDate: moment('2020-05-15T22:00:00-07:00', moment.ISO_8601).toDate()
+    saleStartDate: moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
+
+    // June 9, 2022 6:00pm -0700
+    eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
+    eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, devConfig);
+Object.assign(config, prodConfig);

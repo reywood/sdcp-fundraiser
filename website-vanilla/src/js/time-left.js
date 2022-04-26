@@ -1,19 +1,16 @@
-// May 3, 2019 7:00pm -0700
-const eventDate = new Date('2020-05-15T02:00:00Z');
-
 $(() => {
-    // timeLeftDisplay.init();
+    timeLeftDisplay.init();
 });
 
 const timeLeftDisplay = {
     init() {
         this.update();
-        $('.time-left').animate({opacity: 1}, 500);
+        $('.time-left').animate({ opacity: 1 }, 500);
         setInterval(() => this.update(), 15 * 1000);
     },
 
     update() {
-        const {weeks, days, hours, minutes, seconds} = this.getTimeLeft();
+        const { weeks, days, hours, minutes, seconds } = this.getTimeLeft();
 
         if (days + hours + minutes + seconds <= 0) {
             $('.time-left').html('');
@@ -48,7 +45,7 @@ const timeLeftDisplay = {
 
     getTimeLeft() {
         const now = new Date();
-        const secondsLeft = (eventDate.getTime() - now.getTime()) / 1000;
+        const secondsLeft = (config.eventStartDate.getTime() - now.getTime()) / 1000;
         const weeksLeft = Math.floor(secondsLeft / 60 / 60 / 24 / 7);
         const daysLeft = Math.floor(secondsLeft / 60 / 60 / 24) % 7;
         const hoursLeft = Math.floor(secondsLeft / 60 / 60) % 24;

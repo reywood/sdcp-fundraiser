@@ -9,8 +9,11 @@ var prodConfig = {
     stripeKey: 'pk_live_mnRjCTNhog7LSLemgyxoS5nm'
 };
 var config = {
-    saleStartDate: moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
-    eventEndDate: moment('2020-05-15T22:00:00-07:00', moment.ISO_8601).toDate()
+    saleStartDate: moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
+
+    // June 9, 2022 6:00pm -0700
+    eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
+    eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
 };
 Object.assign(config, prodConfig);
 'use strict';
@@ -24,8 +27,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 $(function () {
-    donationForm.init(function () {
-        return stripeDonate.checkout();
+    donationForm.init(function (_ref) {
+        var amount = _ref.amount,
+            donorName = _ref.donorName,
+            ticketInHonorOf = _ref.ticketInHonorOf;
+
+        stripeDonateSession({ amount: amount, donorName: donorName, ticketInHonorOf: ticketInHonorOf }).checkout();
     });
 });
 
@@ -35,7 +42,13 @@ var donationForm = {
 
         document.getElementById('donation-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            _this.handleSubmit(checkoutHandler);
+            _this.handleSubmit(function () {
+                return checkoutHandler({
+                    amount: _this.getAmount(),
+                    donorName: _this.getDonorName(),
+                    ticketInHonorOf: _this.getTicketInHonorOf()
+                });
+            });
         });
 
         // $('.purchase-container form .form-check').css('color', 'red');
@@ -217,58 +230,67 @@ function initSmoothNavLinkScrolling() {
 'use strict';
 
 $(function () {
-    // stripeCheckout.handleCheckoutSuccessOrCancel();
+    stripeCheckoutResponse.handleCheckoutSuccessOrCancel();
 });
 
-var stripeCheckout = {
-    checkout: function checkout() {
-        var _this = this;
+var stripeCheckoutSession = function stripeCheckoutSession(_ref) {
+    var selectedPrice = _ref.selectedPrice,
+        quantity = _ref.quantity,
+        buyerName = _ref.buyerName,
+        attendeeType = _ref.attendeeType,
+        ticketInHonorOf = _ref.ticketInHonorOf;
 
-        return this.requestSessionId().then(function (sessionId) {
-            _this.redirectToCheckout(sessionId);
-        });
-    },
-    requestSessionId: function requestSessionId() {
-        var _this2 = this;
+    return {
+        checkout: function checkout() {
+            var _this = this;
 
-        var url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
-        return new Promise(function (resolve, reject) {
-            fetch(url, {
-                method: 'POST',
-                cache: 'no-cache',
-                mode: 'cors',
-                body: _this2.buildSessionRequestBody()
-            }).then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Request failed: ' + response.statusText);
-                }
-                return response.json();
-            }).then(function (responseJson) {
-                resolve(responseJson.sessionId);
-            }).catch(function (error) {
-                reject(error);
+            return this.requestSessionId().then(function (sessionId) {
+                _this.redirectToCheckout(sessionId);
             });
-        });
-    },
-    redirectToCheckout: function redirectToCheckout(sessionId) {
-        var stripe = new Stripe(config.stripeKey);
-        stripe.redirectToCheckout({ sessionId: sessionId });
-    },
-    buildSessionRequestBody: function buildSessionRequestBody() {
-        var baseReturnUrl = location.protocol + '//' + location.host + location.pathname;
-        var price = ticketForm.getSelectedPrice();
-        var quantity = ticketForm.getQuantity();
-        return JSON.stringify({
-            environment: config.environment,
-            buyerName: ticketForm.getBuyerName(),
-            ticketAmount: price,
-            quantity: quantity,
-            attendeeType: ticketForm.getAttendeeType(),
-            inHonorOf: ticketForm.getTicketInHonorOf(),
-            successUrl: baseReturnUrl + '?checkout-status=success&price=' + price + '&quantity=' + quantity,
-            cancelUrl: baseReturnUrl + '?checkout-status=cancel'
-        });
-    },
+        },
+        requestSessionId: function requestSessionId() {
+            var _this2 = this;
+
+            var url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
+            return new Promise(function (resolve, reject) {
+                fetch(url, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    body: _this2.buildSessionRequestBody()
+                }).then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Request failed: ' + response.statusText);
+                    }
+                    return response.json();
+                }).then(function (responseJson) {
+                    resolve(responseJson.sessionId);
+                }).catch(function (error) {
+                    reject(error);
+                });
+            });
+        },
+        redirectToCheckout: function redirectToCheckout(sessionId) {
+            var stripe = new Stripe(config.stripeKey);
+            stripe.redirectToCheckout({ sessionId: sessionId });
+        },
+        buildSessionRequestBody: function buildSessionRequestBody() {
+            var baseReturnUrl = location.protocol + '//' + location.host + location.pathname;
+            return JSON.stringify({
+                environment: config.environment,
+                buyerName: buyerName,
+                ticketAmount: selectedPrice,
+                quantity: quantity,
+                attendeeType: attendeeType,
+                inHonorOf: ticketInHonorOf,
+                successUrl: baseReturnUrl + '?checkout-status=success&price=' + selectedPrice + '&quantity=' + quantity,
+                cancelUrl: baseReturnUrl + '?checkout-status=cancel'
+            });
+        }
+    };
+};
+
+var stripeCheckoutResponse = {
     handleCheckoutSuccessOrCancel: function handleCheckoutSuccessOrCancel() {
         var searchParams = new URLSearchParams(window.location.search);
         var chargeStatus = searchParams.get('checkout-status');
@@ -303,55 +325,63 @@ var stripeCheckout = {
 'use strict';
 
 $(function () {
-    stripeDonate.handleDonationSuccessOrCancel();
+    stripeDonateResponse.handleDonationSuccessOrCancel();
 });
 
-var stripeDonate = {
-    checkout: function checkout() {
-        var _this = this;
+var stripeDonateSession = function stripeDonateSession(_ref) {
+    var amount = _ref.amount,
+        donorName = _ref.donorName,
+        ticketInHonorOf = _ref.ticketInHonorOf;
 
-        return this.requestSessionId().then(function (sessionId) {
-            _this.redirectToCheckout(sessionId);
-        });
-    },
-    requestSessionId: function requestSessionId() {
-        var _this2 = this;
+    return {
+        checkout: function checkout() {
+            var _this = this;
 
-        var url = 'https://api.sdcpfundraiser.org/default/sdcp-donate';
-        return new Promise(function (resolve, reject) {
-            fetch(url, {
-                method: 'POST',
-                cache: 'no-cache',
-                mode: 'cors',
-                body: _this2.buildSessionRequestBody()
-            }).then(function (response) {
-                if (!response.ok) {
-                    throw new Error('Request failed');
-                }
-                return response.json();
-            }).then(function (responseJson) {
-                resolve(responseJson.sessionId);
-            }).catch(function (error) {
-                reject(error);
+            return this.requestSessionId().then(function (sessionId) {
+                _this.redirectToCheckout(sessionId);
             });
-        });
-    },
-    redirectToCheckout: function redirectToCheckout(sessionId) {
-        var stripe = new Stripe(config.stripeKey);
-        stripe.redirectToCheckout({ sessionId: sessionId });
-    },
-    buildSessionRequestBody: function buildSessionRequestBody() {
-        var baseReturnUrl = location.protocol + '//' + location.host + location.pathname;
-        var amount = donationForm.getAmount();
-        return JSON.stringify({
-            environment: config.environment,
-            donorName: donationForm.getDonorName(),
-            amount: amount,
-            inHonorOf: donationForm.getTicketInHonorOf(),
-            successUrl: baseReturnUrl + '?donation-status=success&amount=' + amount,
-            cancelUrl: baseReturnUrl + '?donation-status=cancel'
-        });
-    },
+        },
+        requestSessionId: function requestSessionId() {
+            var _this2 = this;
+
+            var url = 'https://api.sdcpfundraiser.org/default/sdcp-donate';
+            return new Promise(function (resolve, reject) {
+                fetch(url, {
+                    method: 'POST',
+                    cache: 'no-cache',
+                    mode: 'cors',
+                    body: _this2.buildSessionRequestBody()
+                }).then(function (response) {
+                    if (!response.ok) {
+                        throw new Error('Request failed');
+                    }
+                    return response.json();
+                }).then(function (responseJson) {
+                    resolve(responseJson.sessionId);
+                }).catch(function (error) {
+                    reject(error);
+                });
+            });
+        },
+        redirectToCheckout: function redirectToCheckout(sessionId) {
+            var stripe = new Stripe(config.stripeKey);
+            stripe.redirectToCheckout({ sessionId: sessionId });
+        },
+        buildSessionRequestBody: function buildSessionRequestBody() {
+            var baseReturnUrl = location.protocol + '//' + location.host + location.pathname;
+            return JSON.stringify({
+                environment: config.environment,
+                donorName: donorName,
+                amount: amount,
+                inHonorOf: ticketInHonorOf,
+                successUrl: baseReturnUrl + '?donation-status=success&amount=' + amount,
+                cancelUrl: baseReturnUrl + '?donation-status=cancel'
+            });
+        }
+    };
+};
+
+var stripeDonateResponse = {
     handleDonationSuccessOrCancel: function handleDonationSuccessOrCancel() {
         var searchParams = new URLSearchParams(window.location.search);
         var donationStatus = searchParams.get('donation-status');
@@ -392,7 +422,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 $(function () {
-    // ticketForm.init(() => stripeCheckout.checkout());
+    ticketForm.init(function (_ref) {
+        var selectedPrice = _ref.selectedPrice,
+            quantity = _ref.quantity,
+            buyerName = _ref.buyerName,
+            attendeeType = _ref.attendeeType,
+            ticketInHonorOf = _ref.ticketInHonorOf;
+
+        stripeCheckoutSession({
+            selectedPrice: selectedPrice,
+            quantity: quantity,
+            buyerName: buyerName,
+            attendeeType: attendeeType,
+            ticketInHonorOf: ticketInHonorOf
+        }).checkout();
+    });
 });
 
 var ticketForm = {
@@ -401,7 +445,15 @@ var ticketForm = {
 
         document.getElementById('ticket-purchase-form').addEventListener('submit', function (e) {
             e.preventDefault();
-            _this.handleSubmit(checkoutHandler);
+            _this.handleSubmit(function () {
+                return checkoutHandler({
+                    selectedPrice: _this.getSelectedPrice(),
+                    quantity: _this.getQuantity(),
+                    buyerName: _this.getBuyerName(),
+                    attendeeType: _this.getAttendeeType(),
+                    ticketInHonorOf: _this.getTicketInHonorOf()
+                });
+            });
         });
 
         this.showAppropriateContent();
@@ -608,11 +660,8 @@ var ticketForm = {
 
 var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-// May 3, 2019 7:00pm -0700
-var eventDate = new Date('2020-05-15T02:00:00Z');
-
 $(function () {
-    // timeLeftDisplay.init();
+    timeLeftDisplay.init();
 });
 
 var timeLeftDisplay = {
@@ -666,7 +715,7 @@ var timeLeftDisplay = {
     },
     getTimeLeft: function getTimeLeft() {
         var now = new Date();
-        var secondsLeft = (eventDate.getTime() - now.getTime()) / 1000;
+        var secondsLeft = (config.eventStartDate.getTime() - now.getTime()) / 1000;
         var weeksLeft = Math.floor(secondsLeft / 60 / 60 / 24 / 7);
         var daysLeft = Math.floor(secondsLeft / 60 / 60 / 24) % 7;
         var hoursLeft = Math.floor(secondsLeft / 60 / 60) % 24;
@@ -680,6 +729,77 @@ var timeLeftDisplay = {
             seconds: Math.floor(secondsLeft % 60)
         };
     }
+};
+'use strict';
+
+console.log('HI x');
+
+$(function () {
+    var h1 = document.querySelector('.section1 h1');
+    if (h1) {
+        titleColorizer(h1).colorize();
+    }
+});
+
+var titleColorizer = function titleColorizer(element) {
+    return {
+        colors: ['#6375c7', '#ed6660', '#cc62a0', '#a0b31c', '#08b8ad', '#ffb741'],
+        currentColorIndex: 0,
+        colorize: function colorize() {
+            var text = element.textContent;
+
+            this._removeAllChildren();
+            var newChildren = this._createColorizedTextElements(text);
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = newChildren[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var child = _step.value;
+
+                    element.appendChild(child);
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+        },
+        _removeAllChildren: function _removeAllChildren() {
+            while (element.firstChild) {
+                element.firstChild.remove();
+            }
+        },
+        _createColorizedTextElements: function _createColorizedTextElements(text) {
+            var _this = this;
+
+            return text.split('').map(function (char) {
+                if (char === ' ') {
+                    return document.createTextNode(char);
+                }
+                var span = document.createElement('span');
+                span.style.color = _this._getNextColor();
+                span.textContent = char;
+                return span;
+            });
+        },
+        _getNextColor: function _getNextColor() {
+            var nextColor = this.colors[this.currentColorIndex];
+            this.currentColorIndex = (this.currentColorIndex + 1) % this.colors.length;
+            return nextColor;
+        }
+    };
 };
 'use strict';
 
