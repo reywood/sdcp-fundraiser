@@ -1,0 +1,15 @@
+$link-color: #43a2be;
+
+a,
+a:link,
+a:visited,
+.navbar .navbar-nav .nav-link {
+    color: $link-color;
+}
+
+a:hover,
+a:active,
+.navbar .navbar-nav .nav-link:hover,
+.navbar .navbar-nav .nav-link:active {
+    color: lighten($link-color, 10%);
+}

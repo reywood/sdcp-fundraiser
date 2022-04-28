@@ -27,18 +27,22 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 $(function () {
-    donationForm.init(function (_ref) {
-        var amount = _ref.amount,
-            donorName = _ref.donorName,
-            ticketInHonorOf = _ref.ticketInHonorOf;
+    donationForm.init({
+        checkoutHandler: function checkoutHandler(_ref) {
+            var amount = _ref.amount,
+                donorName = _ref.donorName,
+                ticketInHonorOf = _ref.ticketInHonorOf;
 
-        stripeDonateSession({ amount: amount, donorName: donorName, ticketInHonorOf: ticketInHonorOf }).checkout();
+            stripeDonateSession({ amount: amount, donorName: donorName, ticketInHonorOf: ticketInHonorOf }).checkout();
+        }
     });
 });
 
 var donationForm = {
-    init: function init(checkoutHandler) {
+    init: function init(_ref2) {
         var _this = this;
+
+        var checkoutHandler = _ref2.checkoutHandler;
 
         document.getElementById('donation-form').addEventListener('submit', function (e) {
             e.preventDefault();
@@ -50,8 +54,6 @@ var donationForm = {
                 });
             });
         });
-
-        // $('.purchase-container form .form-check').css('color', 'red');
     },
     handleSubmit: function handleSubmit(checkoutHandler) {
         var _this2 = this;
@@ -422,26 +424,30 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 $(function () {
-    ticketForm.init(function (_ref) {
-        var selectedPrice = _ref.selectedPrice,
-            quantity = _ref.quantity,
-            buyerName = _ref.buyerName,
-            attendeeType = _ref.attendeeType,
-            ticketInHonorOf = _ref.ticketInHonorOf;
+    ticketForm.init({
+        checkoutHandler: function checkoutHandler(_ref) {
+            var selectedPrice = _ref.selectedPrice,
+                quantity = _ref.quantity,
+                buyerName = _ref.buyerName,
+                attendeeType = _ref.attendeeType,
+                ticketInHonorOf = _ref.ticketInHonorOf;
 
-        stripeCheckoutSession({
-            selectedPrice: selectedPrice,
-            quantity: quantity,
-            buyerName: buyerName,
-            attendeeType: attendeeType,
-            ticketInHonorOf: ticketInHonorOf
-        }).checkout();
+            stripeCheckoutSession({
+                selectedPrice: selectedPrice,
+                quantity: quantity,
+                buyerName: buyerName,
+                attendeeType: attendeeType,
+                ticketInHonorOf: ticketInHonorOf
+            }).checkout();
+        }
     });
 });
 
 var ticketForm = {
-    init: function init(checkoutHandler) {
+    init: function init(_ref2) {
         var _this = this;
+
+        var checkoutHandler = _ref2.checkoutHandler;
 
         document.getElementById('ticket-purchase-form').addEventListener('submit', function (e) {
             e.preventDefault();

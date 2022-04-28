@@ -1,19 +1,20 @@
 $(() => {
-    ticketForm.init(
-        ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
-            stripeCheckoutSession({
-                selectedPrice,
-                quantity,
-                buyerName,
-                attendeeType,
-                ticketInHonorOf,
-            }).checkout();
-        }
-    );
+    ticketForm.init({
+        checkoutHandler:
+            ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
+                stripeCheckoutSession({
+                    selectedPrice,
+                    quantity,
+                    buyerName,
+                    attendeeType,
+                    ticketInHonorOf,
+                }).checkout();
+            }
+    });
 });
 
 const ticketForm = {
-    init(checkoutHandler) {
+    init({ checkoutHandler }) {
         document.getElementById('ticket-purchase-form').addEventListener('submit', e => {
             e.preventDefault();
             this.handleSubmit(() => checkoutHandler({

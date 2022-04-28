@@ -1,11 +1,13 @@
 $(() => {
-    donationForm.init(({ amount, donorName, ticketInHonorOf }) => {
-        stripeDonateSession({ amount, donorName, ticketInHonorOf }).checkout()
+    donationForm.init({
+        checkoutHandler: ({ amount, donorName, ticketInHonorOf }) => {
+            stripeDonateSession({ amount, donorName, ticketInHonorOf }).checkout()
+        }
     });
 });
 
 const donationForm = {
-    init(checkoutHandler) {
+    init({ checkoutHandler }) {
         document.getElementById('donation-form').addEventListener('submit', e => {
             e.preventDefault();
             this.handleSubmit(() => checkoutHandler({
@@ -14,8 +16,6 @@ const donationForm = {
                 ticketInHonorOf: this.getTicketInHonorOf(),
             }));
         });
-
-        // $('.purchase-container form .form-check').css('color', 'red');
     },
 
     handleSubmit(checkoutHandler) {

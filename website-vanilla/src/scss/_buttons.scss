@@ -1,0 +1,53 @@
+.btn,
+.btn:link,
+.btn:active,
+.btn:visited {
+    border-radius: 0.2rem;
+    font-size: 1.7rem;
+    padding: 0.8rem 2rem;
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+    border-width: 0;
+
+    @media (max-width: $screen-xs-max) {
+        font-size: 1.3rem;
+        width: 90%;
+    }
+
+    &:hover {
+        transform: translate(-2px, -2px);
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+}
+
+.btn-light,
+.btn-light:link,
+.btn-light:active,
+.btn-light:hover,
+.btn-light:visited {
+    $btn-bg-color: #ef96ca;
+
+    background-color: $btn-bg-color;
+    color: #000;
+
+    &:hover {
+        background-color: darken($btn-bg-color, 10%);
+        color: #000;
+    }
+}
+
+.btn-success,
+.btn-success:link,
+.btn-success:active,
+.btn-success:hover,
+.btn-success:visited {
+    $btn-bg-color: #37bb8f;
+
+    background-color: $btn-bg-color;
+    color: #fff;
+
+    &:hover {
+        background-color: lighten($btn-bg-color, 10%);
+        color: #000;
+    }
+}
