@@ -5,6 +5,7 @@ exports.handler = async (event) => {
     try {
         queryArgs = JSON.parse(event.body);
     } catch (error) {
+        console.log("Failed to parse event body", error);
         return {
             statusCode: 400,
             body: JSON.stringify('Invalid request body'),
@@ -16,9 +17,35 @@ exports.handler = async (event) => {
     const successUrl = queryArgs.successUrl;
     const cancelUrl = queryArgs.cancelUrl;
 
+    let ccFeeOffset = 0;
+    if (queryArgs.ccFeeOffset) {
+        ccFeeOffset = parseFloat(queryArgs.ccFeeOffset);
+    }
+
     try {
         validate(donorName, donationAmountInDollars, inHonorOf);
         const itemName = buildItemName(donorName, inHonorOf);
+        let description = `Donation $${donationAmountInDollars}`;
+        const lineItems = [
+            {
+                name: itemName,
+                // description: 'Comfortable cotton t-shirt',
+                amount: donationAmountInDollars * 100,
+                quantity: 1,
+                currency: 'usd',
+            },
+        ];
+
+        if (ccFeeOffset > 0) {
+            const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+            description += ` (+ ${currencyFormatter.format(ccFeeOffset)} to offset CC fee)`;
+            lineItems.push({
+                name: 'Credit card fee offset',
+                amount: Math.round(ccFeeOffset * 100),
+                currency: 'usd',
+                quantity: 1
+            });
+        }
 
         const stripe = Stripe(getApiKey(queryArgs.environment), {
             apiVersion: '2019-12-03',
@@ -31,17 +58,9 @@ exports.handler = async (event) => {
             mode: 'payment',
             submit_type: 'donate',
             billing_address_collection: 'required',
-            line_items: [
-                {
-                    name: itemName,
-                    // description: 'Comfortable cotton t-shirt',
-                    amount: donationAmountInDollars * 100,
-                    quantity: 1,
-                    currency: 'usd',
-                },
-            ],
+            line_items: lineItems,
             payment_intent_data: {
-                description: `Donation $${donationAmountInDollars}`,
+                description: description,
                 metadata: {
                     name: donorName,
                     'in honor of': inHonorOf,
@@ -49,12 +68,14 @@ exports.handler = async (event) => {
             },
         });
 
+        console.log("Created checkout session " + session.id);
         const response = {
             statusCode: 200,
-            body: JSON.stringify({sessionId: session.id, itemName}),
+            body: JSON.stringify({ sessionId: session.id, itemName }),
         };
         return response;
     } catch (error) {
+        console.log("Failed to create checkout session", error);
         return {
             statusCode: 500,
             body: JSON.stringify('An error occurred. Please try again.\n' + error),

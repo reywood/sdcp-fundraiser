@@ -1,13 +1,14 @@
 $(() => {
     ticketForm.init({
         checkoutHandler:
-            ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
-                stripeCheckoutSession({
+            ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf, ccFeeOffset }) => {
+                return stripeCheckoutSession({
                     selectedPrice,
                     quantity,
                     buyerName,
                     attendeeType,
                     ticketInHonorOf,
+                    ccFeeOffset,
                 }).checkout();
             }
     });
@@ -22,7 +23,8 @@ const ticketForm = {
                 quantity: this.getQuantity(),
                 buyerName: this.getBuyerName(),
                 attendeeType: this.getAttendeeType(),
-                ticketInHonorOf: this.getTicketInHonorOf()
+                ticketInHonorOf: this.getTicketInHonorOf(),
+                ccFeeOffset: this.getCcFeeOffset(),
             }));
         });
 
@@ -203,6 +205,14 @@ const ticketForm = {
     getTicketInHonorOf() {
         const isActive = $('.form-group-in-honor-of').hasClass('active');
         return isActive ? $('#ticket-in-honor-of').val() : '';
+    },
+
+    getCcFeeOffset() {
+        if ($('#ticket-cc-fee-offset').prop('checked')) {
+            const total = parseFloat(this.getSelectedPrice()) * parseInt(this.getQuantity(), 10);
+            return calculateCreditCardProcessingFee(total);
+        }
+        return 0;
     },
 
     getAttendeeType() {

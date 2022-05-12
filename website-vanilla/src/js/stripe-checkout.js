@@ -2,22 +2,30 @@ $(() => {
     stripeCheckoutResponse.handleCheckoutSuccessOrCancel();
 });
 
-const stripeCheckoutSession = ({ selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf }) => {
+const stripeCheckoutSession = ({
+    selectedPrice, quantity, buyerName, attendeeType, ticketInHonorOf, ccFeeOffset = 0
+}) => {
     return {
         checkout() {
             return this.requestSessionId().then(sessionId => {
-                this.redirectToCheckout(sessionId);
+                try {
+                    this.redirectToCheckout(sessionId);
+                } catch (err) {
+                    console.log('Failed to redirect to checkout', err);
+                }
             });
         },
 
         requestSessionId() {
             const url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
             return new Promise((resolve, reject) => {
+                const body = this.buildSessionRequestBody();
+                console.log(body);
                 fetch(url, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
-                    body: this.buildSessionRequestBody()
+                    body
                 })
                     .then(response => {
                         if (!response.ok) {
@@ -48,6 +56,7 @@ const stripeCheckoutSession = ({ selectedPrice, quantity, buyerName, attendeeTyp
                 quantity: quantity,
                 attendeeType: attendeeType,
                 inHonorOf: ticketInHonorOf,
+                ccFeeOffset: ccFeeOffset,
                 successUrl: `${baseReturnUrl}?checkout-status=success&price=${selectedPrice}&quantity=${quantity}`,
                 cancelUrl: `${baseReturnUrl}?checkout-status=cancel`
             });

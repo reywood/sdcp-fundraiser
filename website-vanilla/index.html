@@ -22,7 +22,7 @@
         />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="lib/style.css?ts=2022-04-28.2" rel="stylesheet" />
+        <link href="lib/style.css?ts=2022-05-11.2" rel="stylesheet" />
 
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -384,7 +384,26 @@
                             </div>
                         </div>
 
-                        <strongr strong>
+                        <fieldset class="form-group pl-0">
+                            <legend class="form-label pt-0">Would you like to help offset credit card processing fees to ensure the full price of your ticket goes to help the school?</legend>
+                            <div class="row">
+                                <div class="offset-sm-1 col-sm-11">
+                                    <div class="form-check">
+                                        <input
+                                            id="ticket-cc-fee-offset"
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="ticket-cc-fee-offset"
+                                            value="yes"
+                                        />
+                                        <label class="form-check-label" for="ticket-cc-fee-offset" >
+                                            Yes, I would like to pay for credit card processing fees
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
                         <div id="payment-button" class="submit-button">
                             <button type="submit" class="btn btn-success">Checkout</button>
                         </div>
@@ -473,6 +492,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        <fieldset class="form-group pl-0">
+                            <legend class="form-label pt-0">Would you like to help offset credit card processing fees to ensure your full donation goes to help the school?</legend>
+                            <div class="row">
+                                <div class="offset-sm-1 col-sm-11">
+                                    <div class="form-check">
+                                        <input
+                                            id="donate-cc-fee-offset"
+                                            class="form-check-input"
+                                            type="checkbox"
+                                            name="donate-cc-fee-offset"
+                                            value="yes"
+                                        />
+                                        <label class="form-check-label" for="donate-cc-fee-offset" >
+                                            Yes, I would like to pay for credit card processing fees
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
 
                         <br />
                         <div id="donate-button" class="submit-button">
@@ -600,6 +639,6 @@
             crossorigin="anonymous"
         ></script>
         <script src="https://js.stripe.com/v3/"></script>
-        <script src="lib/script.js?ts=2022-04-28.2"></script>
+        <script src="lib/script.js?ts=2022-05-11.2"></script>
     </body>
 </html>

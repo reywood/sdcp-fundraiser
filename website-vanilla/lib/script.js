@@ -15,7 +15,7 @@ var config = {
     eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
     eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, prodConfig);
+Object.assign(config, devConfig);
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,9 +31,10 @@ $(function () {
         checkoutHandler: function checkoutHandler(_ref) {
             var amount = _ref.amount,
                 donorName = _ref.donorName,
-                ticketInHonorOf = _ref.ticketInHonorOf;
+                ticketInHonorOf = _ref.ticketInHonorOf,
+                ccFeeOffset = _ref.ccFeeOffset;
 
-            stripeDonateSession({ amount: amount, donorName: donorName, ticketInHonorOf: ticketInHonorOf }).checkout();
+            return stripeDonateSession({ amount: amount, donorName: donorName, ticketInHonorOf: ticketInHonorOf, ccFeeOffset: ccFeeOffset }).checkout();
         }
     });
 });
@@ -50,7 +51,8 @@ var donationForm = {
                 return checkoutHandler({
                     amount: _this.getAmount(),
                     donorName: _this.getDonorName(),
-                    ticketInHonorOf: _this.getTicketInHonorOf()
+                    ticketInHonorOf: _this.getTicketInHonorOf(),
+                    ccFeeOffset: _this.getCcFeeOffset()
                 });
             });
         });
@@ -146,6 +148,13 @@ var donationForm = {
     getTicketInHonorOf: function getTicketInHonorOf() {
         return $('#donation-in-honor-of').val();
     },
+    getCcFeeOffset: function getCcFeeOffset() {
+        if ($('#donate-cc-fee-offset').prop('checked')) {
+            var amount = parseFloat(this.getAmount());
+            return calculateCreditCardProcessingFee(amount);
+        }
+        return 0;
+    },
 
 
     FormValidationError: function (_Error) {
@@ -240,14 +249,20 @@ var stripeCheckoutSession = function stripeCheckoutSession(_ref) {
         quantity = _ref.quantity,
         buyerName = _ref.buyerName,
         attendeeType = _ref.attendeeType,
-        ticketInHonorOf = _ref.ticketInHonorOf;
+        ticketInHonorOf = _ref.ticketInHonorOf,
+        _ref$ccFeeOffset = _ref.ccFeeOffset,
+        ccFeeOffset = _ref$ccFeeOffset === undefined ? 0 : _ref$ccFeeOffset;
 
     return {
         checkout: function checkout() {
             var _this = this;
 
             return this.requestSessionId().then(function (sessionId) {
-                _this.redirectToCheckout(sessionId);
+                try {
+                    _this.redirectToCheckout(sessionId);
+                } catch (err) {
+                    console.log('Failed to redirect to checkout', err);
+                }
             });
         },
         requestSessionId: function requestSessionId() {
@@ -255,11 +270,13 @@ var stripeCheckoutSession = function stripeCheckoutSession(_ref) {
 
             var url = 'https://api.sdcpfundraiser.org/default/sdcp-ticket-order';
             return new Promise(function (resolve, reject) {
+                var body = _this2.buildSessionRequestBody();
+                console.log(body);
                 fetch(url, {
                     method: 'POST',
                     cache: 'no-cache',
                     mode: 'cors',
-                    body: _this2.buildSessionRequestBody()
+                    body: body
                 }).then(function (response) {
                     if (!response.ok) {
                         throw new Error('Request failed: ' + response.statusText);
@@ -285,6 +302,7 @@ var stripeCheckoutSession = function stripeCheckoutSession(_ref) {
                 quantity: quantity,
                 attendeeType: attendeeType,
                 inHonorOf: ticketInHonorOf,
+                ccFeeOffset: ccFeeOffset,
                 successUrl: baseReturnUrl + '?checkout-status=success&price=' + selectedPrice + '&quantity=' + quantity,
                 cancelUrl: baseReturnUrl + '?checkout-status=cancel'
             });
@@ -333,7 +351,9 @@ $(function () {
 var stripeDonateSession = function stripeDonateSession(_ref) {
     var amount = _ref.amount,
         donorName = _ref.donorName,
-        ticketInHonorOf = _ref.ticketInHonorOf;
+        ticketInHonorOf = _ref.ticketInHonorOf,
+        _ref$ccFeeOffset = _ref.ccFeeOffset,
+        ccFeeOffset = _ref$ccFeeOffset === undefined ? 0 : _ref$ccFeeOffset;
 
     return {
         checkout: function checkout() {
@@ -376,6 +396,7 @@ var stripeDonateSession = function stripeDonateSession(_ref) {
                 donorName: donorName,
                 amount: amount,
                 inHonorOf: ticketInHonorOf,
+                ccFeeOffset: ccFeeOffset,
                 successUrl: baseReturnUrl + '?donation-status=success&amount=' + amount,
                 cancelUrl: baseReturnUrl + '?donation-status=cancel'
             });
@@ -430,14 +451,16 @@ $(function () {
                 quantity = _ref.quantity,
                 buyerName = _ref.buyerName,
                 attendeeType = _ref.attendeeType,
-                ticketInHonorOf = _ref.ticketInHonorOf;
+                ticketInHonorOf = _ref.ticketInHonorOf,
+                ccFeeOffset = _ref.ccFeeOffset;
 
-            stripeCheckoutSession({
+            return stripeCheckoutSession({
                 selectedPrice: selectedPrice,
                 quantity: quantity,
                 buyerName: buyerName,
                 attendeeType: attendeeType,
-                ticketInHonorOf: ticketInHonorOf
+                ticketInHonorOf: ticketInHonorOf,
+                ccFeeOffset: ccFeeOffset
             }).checkout();
         }
     });
@@ -457,7 +480,8 @@ var ticketForm = {
                     quantity: _this.getQuantity(),
                     buyerName: _this.getBuyerName(),
                     attendeeType: _this.getAttendeeType(),
-                    ticketInHonorOf: _this.getTicketInHonorOf()
+                    ticketInHonorOf: _this.getTicketInHonorOf(),
+                    ccFeeOffset: _this.getCcFeeOffset()
                 });
             });
         });
@@ -645,6 +669,13 @@ var ticketForm = {
         var isActive = $('.form-group-in-honor-of').hasClass('active');
         return isActive ? $('#ticket-in-honor-of').val() : '';
     },
+    getCcFeeOffset: function getCcFeeOffset() {
+        if ($('#ticket-cc-fee-offset').prop('checked')) {
+            var total = parseFloat(this.getSelectedPrice()) * parseInt(this.getQuantity(), 10);
+            return calculateCreditCardProcessingFee(total);
+        }
+        return 0;
+    },
     getAttendeeType: function getAttendeeType() {
         return $('input[name="attendee-type"]:checked').val();
     },
@@ -738,8 +769,6 @@ var timeLeftDisplay = {
 };
 'use strict';
 
-console.log('HI x');
-
 $(function () {
     var h1 = document.querySelector('.section1 h1');
     if (h1) {
@@ -823,3 +852,9 @@ $(function () {
         gtag && gtag('event', 'Share on Twitter');
     });
 });
+"use strict";
+
+function calculateCreditCardProcessingFee(amount) {
+    var fee = amount * .029 + .3;
+    return Math.round(fee * 100) / 100;
+}

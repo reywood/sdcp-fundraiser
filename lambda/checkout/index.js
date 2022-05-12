@@ -16,39 +16,39 @@ const ticketOptions = [
     }
 ];
 
-const saleStartDate = moment('2020-03-13T00:00:00-07:00', moment.ISO_8601).toDate();
-const earlyBirdSales = {
-    sales: [
-        {
-            startDate: saleStartDate,
-            endDate: moment(saleStartDate)
-                .add(2, 'weeks')
-                .toDate(),
-            bonusRaffleTickets: 2
-        },
-        {
-            startDate: moment(saleStartDate)
-                .add(2, 'weeks')
-                .add(1, 'second')
-                .toDate(),
-            endDate: moment(saleStartDate)
-                .add(4, 'weeks')
-                .toDate(),
-            bonusRaffleTickets: 1
-        }
-    ],
-    getActive() {
-        for (const sale of this.sales) {
-            if (this.isActive(sale)) {
-                return sale;
-            }
-        }
-    },
-    isActive(sale) {
-        const now = new Date();
-        return now >= sale.startDate && now <= sale.endDate;
-    }
-};
+const saleStartDate = moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate();
+// const earlyBirdSales = {
+//     sales: [
+//         {
+//             startDate: saleStartDate,
+//             endDate: moment(saleStartDate)
+//                 .add(2, 'weeks')
+//                 .toDate(),
+//             bonusRaffleTickets: 2
+//         },
+//         {
+//             startDate: moment(saleStartDate)
+//                 .add(2, 'weeks')
+//                 .add(1, 'second')
+//                 .toDate(),
+//             endDate: moment(saleStartDate)
+//                 .add(4, 'weeks')
+//                 .toDate(),
+//             bonusRaffleTickets: 1
+//         }
+//     ],
+//     getActive() {
+//         for (const sale of this.sales) {
+//             if (this.isActive(sale)) {
+//                 return sale;
+//             }
+//         }
+//     },
+//     isActive(sale) {
+//         const now = new Date();
+//         return now >= sale.startDate && now <= sale.endDate;
+//     }
+// };
 
 const VALID_TICKET_AMOUNTS = ticketOptions.reduce((amounts, option) => {
     amounts.push(option.amount);
@@ -77,10 +77,36 @@ exports.handler = async event => {
     const successUrl = queryArgs.successUrl;
     const cancelUrl = queryArgs.cancelUrl;
 
+    let ccFeeOffset = 0;
+    if (queryArgs.ccFeeOffset) {
+        ccFeeOffset = parseFloat(queryArgs.ccFeeOffset);
+    }
+
     try {
-        validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf);
+        validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf, ccFeeOffset);
         const extras = getExtras(ticketAmountInDollars);
         const itemName = buildItemName(extras, attendeeType, inHonorOf);
+        let description = `Ticket $${ticketAmountInDollars} x${quantity}`;
+        const lineItems = [
+            {
+                name: itemName,
+                // description: 'Comfortable cotton t-shirt',
+                amount: Math.round(ticketAmountInDollars * 100),
+                currency: 'usd',
+                quantity: quantity
+            }
+        ]
+
+        if (ccFeeOffset > 0) {
+            const currencyFormatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+            description += ` (+ ${currencyFormatter.format(ccFeeOffset)} to offset CC fee)`;
+            lineItems.push({
+                name: 'Credit card fee offset',
+                amount: Math.round(ccFeeOffset * 100),
+                currency: 'usd',
+                quantity: 1
+            });
+        }
 
         const stripe = Stripe(getApiKey(queryArgs.environment), {
             apiVersion: '2019-12-03',
@@ -92,17 +118,9 @@ exports.handler = async event => {
             payment_method_types: ['card'],
             mode: 'payment',
             submit_type: 'pay',
-            line_items: [
-                {
-                    name: itemName,
-                    // description: 'Comfortable cotton t-shirt',
-                    amount: ticketAmountInDollars * 100,
-                    currency: 'usd',
-                    quantity: quantity
-                }
-            ],
+            line_items: lineItems,
             payment_intent_data: {
-                description: `Ticket $${ticketAmountInDollars} x${quantity}`,
+                description: description,
                 metadata: {
                     name: buyerName,
                     'attendee type': attendeeType,
@@ -112,8 +130,10 @@ exports.handler = async event => {
             }
         });
 
-        return createResponse(200, {sessionId: session.id, itemName});
+        console.log("Created checkout session " + session.id);
+        return createResponse(200, { sessionId: session.id, itemName });
     } catch (error) {
+        console.log("Failed to create checkout session", error);
         return createResponse(500, 'An error occurred. Please try again.\n' + error);
     }
 };
@@ -134,12 +154,13 @@ function createResponse(statusCode, body) {
     };
 }
 
-function validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf) {
+function validate(buyerName, ticketAmountInDollars, quantity, attendeeType, inHonorOf, ccFeeOffset) {
     validateText(buyerName, 1, 100, 'Invalid name');
     validateText(inHonorOf, 0, 100, 'Invalid in honor of');
     validateEnum(ticketAmountInDollars, VALID_TICKET_AMOUNTS, 'Invalid ticket amount');
     validateEnum(attendeeType, VALID_ATTENDEE_TYPES, 'Invalid attendee type');
     validateNumber(quantity, 1, 100, 'Invalid quantity');
+    validateNumber(ccFeeOffset, 0, 10000, 'Invalid credit card fee offset');
 }
 
 function validateText(value, minLength, maxLength, errorMessage) {
@@ -163,10 +184,10 @@ function validateNumber(value, min, max, errorMessage) {
 function getExtras(ticketAmountInDollars) {
     const ticketOption = ticketOptions.filter(option => option.amount === ticketAmountInDollars)[0];
     let raffleTicketQuantity = ticketOption.includedRaffleTickets;
-    const activeSale = earlyBirdSales.getActive();
-    if (activeSale) {
-        raffleTicketQuantity += activeSale.bonusRaffleTickets;
-    }
+    // const activeSale = earlyBirdSales.getActive();
+    // if (activeSale) {
+    //     raffleTicketQuantity += activeSale.bonusRaffleTickets;
+    // }
     if (raffleTicketQuantity > 0) {
         return `+ ${raffleTicketQuantity} raffle tickets`;
     }

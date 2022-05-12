@@ -1,7 +1,7 @@
 $(() => {
     donationForm.init({
-        checkoutHandler: ({ amount, donorName, ticketInHonorOf }) => {
-            stripeDonateSession({ amount, donorName, ticketInHonorOf }).checkout()
+        checkoutHandler: ({ amount, donorName, ticketInHonorOf, ccFeeOffset }) => {
+            return stripeDonateSession({ amount, donorName, ticketInHonorOf, ccFeeOffset }).checkout()
         }
     });
 });
@@ -14,6 +14,7 @@ const donationForm = {
                 amount: this.getAmount(),
                 donorName: this.getDonorName(),
                 ticketInHonorOf: this.getTicketInHonorOf(),
+                ccFeeOffset: this.getCcFeeOffset(),
             }));
         });
     },
@@ -111,6 +112,14 @@ const donationForm = {
 
     getTicketInHonorOf() {
         return $('#donation-in-honor-of').val();
+    },
+
+    getCcFeeOffset() {
+        if ($('#donate-cc-fee-offset').prop('checked')) {
+            const amount = parseFloat(this.getAmount());
+            return calculateCreditCardProcessingFee(amount);
+        }
+        return 0;
     },
 
     FormValidationError: class FormValidationError extends Error {

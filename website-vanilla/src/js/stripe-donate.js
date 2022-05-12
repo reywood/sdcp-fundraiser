@@ -2,7 +2,7 @@ $(() => {
     stripeDonateResponse.handleDonationSuccessOrCancel();
 });
 
-const stripeDonateSession = ({ amount, donorName, ticketInHonorOf }) => {
+const stripeDonateSession = ({ amount, donorName, ticketInHonorOf, ccFeeOffset = 0 }) => {
     return {
         checkout() {
             return this.requestSessionId().then(sessionId => {
@@ -46,6 +46,7 @@ const stripeDonateSession = ({ amount, donorName, ticketInHonorOf }) => {
                 donorName,
                 amount: amount,
                 inHonorOf: ticketInHonorOf,
+                ccFeeOffset: ccFeeOffset,
                 successUrl: `${baseReturnUrl}?donation-status=success&amount=${amount}`,
                 cancelUrl: `${baseReturnUrl}?donation-status=cancel`
             });

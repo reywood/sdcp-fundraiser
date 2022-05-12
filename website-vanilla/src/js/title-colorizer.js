@@ -1,5 +1,3 @@
-console.log('HI x');
-
 $(() => {
     const h1 = document.querySelector('.section1 h1');
     if (h1) {

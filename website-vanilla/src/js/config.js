@@ -13,4 +13,4 @@ const config = {
     eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
     eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, prodConfig);
+Object.assign(config, devConfig);
