@@ -41,7 +41,7 @@ const ticketForm = {
                 'MMMM Do'
             );
             document.querySelector('.purchase-check-back').style.display = 'block';
-        } else if (now > config.eventEndDate) {
+        } else if (now > config.saleEndDate) {
             document.querySelector('.purchase-after-event').style.display = 'block';
         } else {
             document.querySelector('#ticket-purchase-form').style.display = 'block';

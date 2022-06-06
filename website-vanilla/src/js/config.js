@@ -8,6 +8,7 @@ const prodConfig = {
 };
 const config = {
     saleStartDate: moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
+    saleEndDate: moment('2022-06-02T00:00:00-07:00', moment.ISO_8601).toDate(),
 
     // June 9, 2022 6:00pm -0700
     eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),

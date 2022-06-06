@@ -10,12 +10,13 @@ var prodConfig = {
 };
 var config = {
     saleStartDate: moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
+    saleEndDate: moment('2022-06-02T00:00:00-07:00', moment.ISO_8601).toDate(),
 
     // June 9, 2022 6:00pm -0700
     eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
     eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, devConfig);
+Object.assign(config, prodConfig);
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -496,7 +497,7 @@ var ticketForm = {
         if (now < config.saleStartDate) {
             document.querySelector('.ticket-sale-start-date').textContent = moment(config.saleStartDate).format('MMMM Do');
             document.querySelector('.purchase-check-back').style.display = 'block';
-        } else if (now > config.eventEndDate) {
+        } else if (now > config.saleEndDate) {
             document.querySelector('.purchase-after-event').style.display = 'block';
         } else {
             document.querySelector('#ticket-purchase-form').style.display = 'block';
