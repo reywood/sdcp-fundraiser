@@ -191,7 +191,8 @@ const ticketForm = {
     },
 
     getSelectedPrice() {
-        return this.getSelectedPriceRadio().val();
+        // return this.getSelectedPriceRadio().val();
+        return $('input[name="ticket-amount"]').val();
     },
 
     getSelectedPriceRadio() {

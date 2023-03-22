@@ -3,20 +3,20 @@ const Stripe = require('stripe');
 
 const ticketOptions = [
     {
-        amount: 50,
+        amount: 70,
         includedRaffleTickets: 0
     },
-    {
-        amount: 75,
-        includedRaffleTickets: 4
-    },
-    {
-        amount: 100,
-        includedRaffleTickets: 10
-    }
+    // {
+    //     amount: 75,
+    //     includedRaffleTickets: 4
+    // },
+    // {
+    //     amount: 100,
+    //     includedRaffleTickets: 10
+    // }
 ];
 
-const saleStartDate = moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate();
+const saleStartDate = moment('2023-03-20T00:00:00-07:00', moment.ISO_8601).toDate();
 // const earlyBirdSales = {
 //     sales: [
 //         {
@@ -182,14 +182,16 @@ function validateNumber(value, min, max, errorMessage) {
 }
 
 function getExtras(ticketAmountInDollars) {
-    const ticketOption = ticketOptions.filter(option => option.amount === ticketAmountInDollars)[0];
-    let raffleTicketQuantity = ticketOption.includedRaffleTickets;
-    // const activeSale = earlyBirdSales.getActive();
-    // if (activeSale) {
-    //     raffleTicketQuantity += activeSale.bonusRaffleTickets;
-    // }
-    if (raffleTicketQuantity > 0) {
-        return `+ ${raffleTicketQuantity} raffle tickets`;
+    const matchingTicketOptions = ticketOptions.filter(option => option.amount === ticketAmountInDollars);
+    if (matchingTicketOptions.length > 0) {
+        let raffleTicketQuantity = matchingTicketOptions[0].includedRaffleTickets || 0;
+        // const activeSale = earlyBirdSales.getActive();
+        // if (activeSale) {
+        //     raffleTicketQuantity += activeSale.bonusRaffleTickets;
+        // }
+        if (raffleTicketQuantity > 0) {
+            return `+ ${raffleTicketQuantity} raffle tickets`;
+        }
     }
 }
 

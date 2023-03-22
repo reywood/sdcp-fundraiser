@@ -9,14 +9,14 @@ var prodConfig = {
     stripeKey: 'pk_live_mnRjCTNhog7LSLemgyxoS5nm'
 };
 var config = {
-    saleStartDate: moment('2022-03-13T00:00:00-07:00', moment.ISO_8601).toDate(),
-    saleEndDate: moment('2022-06-02T00:00:00-07:00', moment.ISO_8601).toDate(),
+    saleStartDate: moment('2023-03-20T00:00:00-07:00', moment.ISO_8601).toDate(),
+    saleEndDate: moment('2023-05-19T00:00:00-07:00', moment.ISO_8601).toDate(),
 
-    // June 9, 2022 6:00pm -0700
-    eventStartDate: moment('2022-06-09T18:00:00-07:00', moment.ISO_8601).toDate(),
-    eventEndDate: moment('2022-06-09T21:00:00-07:00', moment.ISO_8601).toDate()
+    // May 19, 2023 7:00pm -0700
+    eventStartDate: moment('2023-05-19T19:00:00-07:00', moment.ISO_8601).toDate(),
+    eventEndDate: moment('2023-05-19T22:00:00-07:00', moment.ISO_8601).toDate()
 };
-Object.assign(config, prodConfig);
+Object.assign(config, devConfig);
 'use strict';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -170,19 +170,29 @@ var donationForm = {
         return FormValidationError;
     }(Error)
 };
-'use strict';
+"use strict";
 
 function getEarlyBirdSales() {
     var saleStartDate = config.saleStartDate;
-    return [{
-        startDate: saleStartDate,
-        endDate: moment(saleStartDate).add(2, 'weeks').toDate(),
-        bonusRaffleTickets: 2
-    }, {
-        startDate: moment(saleStartDate).add(2, 'weeks').add(1, 'second').toDate(),
-        endDate: moment(saleStartDate).add(4, 'weeks').toDate(),
-        bonusRaffleTickets: 1
-    }];
+    return [
+        // {
+        //     startDate: saleStartDate,
+        //     endDate: moment(saleStartDate)
+        //         .add(2, 'weeks')
+        //         .toDate(),
+        //     bonusRaffleTickets: 2
+        // },
+        // {
+        //     startDate: moment(saleStartDate)
+        //         .add(2, 'weeks')
+        //         .add(1, 'second')
+        //         .toDate(),
+        //     endDate: moment(saleStartDate)
+        //         .add(4, 'weeks')
+        //         .toDate(),
+        //     bonusRaffleTickets: 1
+        // }
+    ];
 }
 'use strict';
 
@@ -658,7 +668,8 @@ var ticketForm = {
         return $('#ticket-buyer-name').val();
     },
     getSelectedPrice: function getSelectedPrice() {
-        return this.getSelectedPriceRadio().val();
+        // return this.getSelectedPriceRadio().val();
+        return $('input[name="ticket-amount"]').val();
     },
     getSelectedPriceRadio: function getSelectedPriceRadio() {
         return $('input[name="ticket-amount"]:checked');
